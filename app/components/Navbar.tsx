@@ -38,7 +38,7 @@ const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
-//   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("EN");
 
   // Language options
@@ -229,9 +229,7 @@ const Navbar = () => {
                     }`}
                     style={{ fontWeight: 300 }}
                     onClick={() => { Router.push(`${item.path}`); } }
-                    onMouseEnter={() => setShowAboutDropdown(true)}
-                    onMouseLeave={() => setShowAboutDropdown(false)}
-                    
+                    onMouseEnter={() => setShowAboutDropdown(!showAboutDropdown)}
                   >
                     {item.name}
                   </li>
