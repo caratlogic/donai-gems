@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { HiOutlineMenu, HiOutlineX, HiChevronDown } from "react-icons/hi";
+import { HiOutlineMenu, HiOutlineX, } from "react-icons/hi";
 import { Mulish } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import allJewelry from "../assets/allJewelery.png";
@@ -14,9 +14,9 @@ import necklaceSet from "../assets/necklaceSet.png";
 import pendants from "../assets/pendants.png";
 import featureImg from "../assets/featureImg.jpg";
 import Link from "next/link";
-import logo from "../assets/Logo.png"; // Assuming you have a logo image
-import { SearchIcon } from "lucide-react";
-import { set } from "mongoose";
+// import logo from "../assets/Logo.png"; // Assuming you have a logo image
+// import { SearchIcon } from "lucide-react";
+// import { set } from "mongoose";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -38,7 +38,7 @@ const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
-  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+//   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("EN");
 
   // Language options
@@ -56,9 +56,9 @@ const Navbar = () => {
     // Add your language switching logic here
   };
 
-  const handleAboutClick = () => {
-      setShowAboutDropdown(true);
-  };
+//   const handleAboutClick = () => {
+//       setShowAboutDropdown(true);
+//   };
 
   // Categories data with proper images
   const categoryData = {
@@ -333,6 +333,7 @@ const Navbar = () => {
                         <div className="flex flex-col justify-center items-start gap-6">
                           {section.categories.map((category, categoryIndex) => (
                             <div
+                                key={categoryIndex}
                               className="flex justify-start items-center gap-3 cursor-pointer group"
                               onClick={() => handleCategoryClick(category.name)}
                             >
