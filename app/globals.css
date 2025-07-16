@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+    /* Define your custom animation variable */
+    --animate-shine: shine 1.5s linear infinite;
+
+    /* Define your keyframes */
+    @keyframes shine {
+        from {
+            left: -75%;
+        }
+        to {
+            left: 125%;
+        }
+    }
+}
+
+/* Your other global styles go here */
