@@ -8,7 +8,6 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { usePathname } from "next/navigation";
-import Donai from "../assets/Donai.png"; // Adjust the path as necessary
 import { Mulish, Playfair_Display, Inter } from "next/font/google";
 
 const mulish = Mulish({
