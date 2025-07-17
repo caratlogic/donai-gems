@@ -10,7 +10,7 @@ const openSans = Open_Sans({
 
 const InstagramSection = () => {
   return (
-    <div className="max-w-7xl mx-auto p-10 mt-10">
+    <div className="max-w-7xl mx-auto p-10 mt-40">
       <div className="flex flex-col md:flex-row justify-around max-w-4xl mx-auto items-center">
         <div className="md:w-100">
           <h1
