@@ -19,11 +19,7 @@ const BestGradeSection = () => {
       <div className="max-w-7xl mx-auto mt-10 ">
         <div className="flex lg:flex-row flex-col gap-1 items-center justify-center">
           {/* Left: Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -200 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+          <div
             className="lg:translate-x-20"
           >
             <h2
@@ -51,14 +47,10 @@ const BestGradeSection = () => {
               <span className="tracking-wide">EXPLORE OUR GEM COLLECTION</span>
               <Image src="Arrow.svg" alt="Arrow" width={20} height={20} />
             </button>
-          </motion.div>
+          </div>
 
           {/* Right: Door-shaped Images with border styling */}
-          <motion.div
-            initial={{ opacity: 0, x: 200 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+          <div
             className="lg:-translate-x-20"
           >
             {/* Small Arch Image Frame */}
@@ -94,7 +86,7 @@ const BestGradeSection = () => {
               className="object-cover mt-32"
               priority
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </motion.section>

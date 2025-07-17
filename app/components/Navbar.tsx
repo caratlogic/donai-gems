@@ -103,10 +103,10 @@ const Navbar = () => {
   return (
     <div className="bg-white sticky top-0 z-50">
       <div
-        className={`max-w-6xl mx-auto flex gap-60 lg:gap-10 p-4 justify-between items-center ${mulish.className}`}
+        className={`max-w-6xl mx-auto flex gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
       >
         {/* Search Bar and Language Dropdown */}
-        <div className="hidden lg:flex items-center gap-4 mt-3">
+        <div className="hidden lg:flex items-center gap-4">
           
 
           {/* Search Bar */}
@@ -116,7 +116,7 @@ const Navbar = () => {
             </span>
             <input
               type="text"
-              placeholder="     Search"
+              placeholder="       Search"
               className="relative border w-full border-[#C49A6C] rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#D6C5A0] transition duration-300"
             />
           </div>
@@ -187,14 +187,14 @@ const Navbar = () => {
             width={500}
             height={200}
             draggable={false}
-            className="w-30 mt-3 lg:w-40 h-auto cursor-pointer "
+            className="w-30 mt-3 lg:w-30 h-auto cursor-pointer "
             onClick={() => Router.push("/")}
           />
         </Link>
 
         {/* Right Section */}
         <div className={`hidden lg:flex gap-3  ${mulish.className}`}>
-          <button className="relative overflow-hidden px-3 py-1 item-center text-md  bg-white border border-[#2E2B28] font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white hover:border-[#C49A6CCC] transition-all duration-300">
+          <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md  bg-white border border-[#2E2B28] font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white hover:border-[#C49A6CCC] transition-all duration-300">
             Book an Appointment
             {/* Shine effect */}
             <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />

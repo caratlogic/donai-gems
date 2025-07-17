@@ -47,7 +47,7 @@ const BuildOnCraft = () => {
                 <button className="text-[#2E2B28] border border-[#2E2B28] px-5 py-1 mb-10 hover:bg-[#2E2B28] hover:text-white">
                     ENQUIRY
                 </button>
-                <button className="text-white bg-[#C49A6CCC] border border-[#C49A6CCC] px-5 py-1 mb-10 ml-5">
+                <button className="text-white cursor-pointer bg-[#C49A6CCC] border border-[#C49A6CCC] px-5 py-1 mb-10 ml-5">
                     BOOK AN APPOINTMENT
                 </button>
             </div>
