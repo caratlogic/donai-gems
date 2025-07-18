@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mulish } from "next/font/google";
@@ -35,7 +35,7 @@ const mulish = Mulish({
 // Add proper type definitions
 interface GemstoneShape {
     name: string;
-    image: string;
+    image: StaticImageData;
 }
 
 interface GemstoneFilter {
@@ -226,7 +226,7 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
 
         return (
             <div className="flex justify-around items-start gap-14 p-0">
-                {currentData?.map(
+                {(currentData as GemstoneSection[])?.map(
                     (section: GemstoneSection, sectionIndex: number) => (
                         <div
                             key={sectionIndex}
