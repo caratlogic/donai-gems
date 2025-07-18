@@ -20,7 +20,7 @@ const mulish = Mulish({
 const page = () => {
     return (
         <div>
-            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10">
+            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 mb-30">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-12">
                     {/* Left Side - Image */}
                     <div className="flex-1 relative">

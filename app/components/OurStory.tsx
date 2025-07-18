@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import gem3 from "../assets/ring-gem.jpg";
+import gem3 from "../../public/ourStory.jpg";
 // import StarIcon from "../assets/star.png";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 
@@ -24,14 +24,14 @@ const OurStory = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className=""
+            className="my-30"
         >
             <div className="max-w-7xl mx-auto">
-                <div className="w-full flex flex-col md:flex-row justify-between gap-10 bg-[#FAF8F2]">
+                <div className="w-full flex flex-col md:flex-row justify-between gap-5 bg-[#FAF8F2]">
                     {/* <Image src={StarIcon} alt="star" width={20} height={20} className="absolute top-238 left-5" />
         <Image src={StarIcon} alt="star" width={20} height={20} className="absolute top-330 left-150" /> */}
                     {/* Info Section */}
-                    <div className="flex flex-col px-15 py-15 mt-15 max-w-xl mx-auto items-center lg:items-start">
+                    <div className="flex flex-col pl-10 py-10 max-w-lg  items-center lg:items-start">
                         <h1
                             className={`${playFair.className} text-5xl text-center lg:text-left`}
                             style={{
@@ -42,26 +42,49 @@ const OurStory = () => {
                                 WebkitTextFillColor: "transparent",
                             }}
                         >
-                            Our Story
+                            The Gem Capital of the World
                         </h1>
-                        <div
-                            className={`mt-10 ${openSans.className} font-light text-md lg:text-xl`}
-                        >
+                        <div className={`mt-10  font-light text-md lg:text-xl`}>
                             <p>
-                                True luxury lies in the details — in the
-                                precision of every cut, the brilliance of every
-                                gemstone and the craftsmanship behind each
-                                creation. At DIANO, we invite you to discover a
-                                world where refinement meets rarity and where
-                                every detail tells a story of elegance and
-                                excellence.
+                                Our roots run deep in Antwerp, the historical
+                                heart of the global diamond and gemstone trade.
+                                Located in the prestigious Diamond Street, we
+                                operate inside a legacy market trusted for:
                             </p>
+                            <ul className="mt-4 space-y-5 list-none">
+                                <li className="flex items-start">
+                                    <span className="text-[#D6C5A0] mr-3 mt-1">
+                                        •
+                                    </span>
+                                    <span>Unmatched grading standards</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#D6C5A0] mr-3 mt-1">
+                                        •
+                                    </span>
+                                    <span>Ethical sourcing networks</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#D6C5A0] mr-3 mt-1">
+                                        •
+                                    </span>
+                                    <span>Global gemological authority</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#D6C5A0] mr-3 mt-1">
+                                        •
+                                    </span>
+                                    <span>
+                                        Centuries of craftsmanship excellence
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
 
                         <button
                             className={`mt-10 ${openSans.className} h-10 text-[#2E2B28] font-normal px-3 border-1 border-[#2E2B28] hover:bg-[#2E2B28] hover:text-[#FFFFFF] transition-all duration-300`}
                         >
-                            SCHEDULE AN APPOINTMENT
+                            EXPLORE OUR COLLECTION
                         </button>
                     </div>
 
@@ -70,8 +93,8 @@ const OurStory = () => {
                         <Image
                             src={gem3}
                             alt="Diano Apart"
-                            width={500}
-                            height={500}
+                            width={600}
+                            height={600}
                             className="h-full object-cover"
                         />
                     </div>
