@@ -49,7 +49,7 @@ const page = () => {
                                     className={`text-lg font-light leading-relaxed ${mulish.className}`}
                                 >
                                     Founded in 2018, DONAI stands as one of
-                                    Antwerp's premier gemstone suppliers,
+                                    Antwerp&apos;s premier gemstone suppliers,
                                     trusted by jewellers, collectors, and
                                     connoisseurs across the globe.
                                 </p>
@@ -57,8 +57,8 @@ const page = () => {
                                 <p
                                     className={`text-lg font-light leading-relaxed ${mulish.className}`}
                                 >
-                                    But our story didn't begin there. With over
-                                    two decades of experience in the gem
+                                    But our story didn&apos;t begin there. With
+                                    over two decades of experience in the gem
                                     industry since 2001, our foundation is built
                                     on generations of knowledge, discipline, and
                                     precision.
@@ -67,8 +67,8 @@ const page = () => {
                                 <p
                                     className={`text-lg font-light leading-relaxed ${mulish.className}`}
                                 >
-                                    Today, we're not just another gem dealer. We
-                                    are a global source of certified,
+                                    Today, we&apos;re not just another gem
+                                    dealer. We are a global source of certified,
                                     investment-grade gemstones — each handpicked
                                     for brilliance, rarity, and value.
                                 </p>

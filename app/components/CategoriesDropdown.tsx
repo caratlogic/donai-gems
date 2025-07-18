@@ -37,6 +37,20 @@ const mulish = Mulish({
     weight: ["300", "400", "500", "600", "700"],
 });
 
+// Add proper type definitions
+interface GemShape {
+    name: string;
+    icon: string;
+}
+
+interface Section {
+    section: number;
+    gemShapes?: GemShape[];
+    categories?: { name: string; image: string }[];
+    occasions?: { name: string; image: string }[];
+    genders?: { name: string; image: string }[];
+}
+
 interface CategoriesDropdownProps {
     showCategoriesDropdown: boolean;
     setShowCategoriesDropdown: (show: boolean) => void;
@@ -208,42 +222,47 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Gems Design") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map((section: any, sectionIndex: number) => (
-                        <div
-                            key={sectionIndex}
-                            className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                        >
-                            <div className="flex flex-col justify-center items-start gap-6">
-                                {section.gemShapes?.map(
-                                    (shape: any, shapeIndex: number) => (
-                                        <div
-                                            key={shapeIndex}
-                                            className="flex justify-start items-center gap-3 cursor-pointer group"
-                                            onClick={() =>
-                                                console.log(
-                                                    `Selected shape: ${shape.name}`
-                                                )
-                                            }
-                                        >
-                                            <div className="w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                                <Image
-                                                    src={shape.icon}
-                                                    alt={shape.name}
-                                                    width={40}
-                                                    height={40}
-                                                />
-                                            </div>
+                    {currentData?.map(
+                        (section: Section, sectionIndex: number) => (
+                            <div
+                                key={sectionIndex}
+                                className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
+                            >
+                                <div className="flex flex-col justify-center items-start gap-6">
+                                    {section.gemShapes?.map(
+                                        (
+                                            shape: GemShape,
+                                            shapeIndex: number
+                                        ) => (
                                             <div
-                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                key={shapeIndex}
+                                                className="flex justify-start items-center gap-3 cursor-pointer group"
+                                                onClick={() =>
+                                                    console.log(
+                                                        `Selected shape: ${shape.name}`
+                                                    )
+                                                }
                                             >
-                                                {shape.name}
+                                                <div className="w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                                                    <Image
+                                                        src={shape.icon}
+                                                        alt={shape.name}
+                                                        width={40}
+                                                        height={40}
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                >
+                                                    {shape.name}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                )}
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    )}
                 </div>
             );
         }

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Mulish } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 // Import gemstone images
-import emeraldAllImg from "../../public/emeraldAll.png"; // Add these images to public folder
+import emeraldAllImg from "../../public/emeraldAll.png";
 import emeraldCushionImg from "../../public/emeraldCushion.png";
 import emeraldRoundImg from "../../public/emeraldRound.png";
 import emeraldOvalImg from "../../public/emeraldOval.png";
@@ -31,6 +31,31 @@ const mulish = Mulish({
     subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700"],
 });
+
+// Add proper type definitions
+interface GemstoneShape {
+    name: string;
+    image: string;
+}
+
+interface GemstoneFilter {
+    label: string;
+    active: boolean;
+    disabled: boolean;
+}
+
+interface GemstoneSection {
+    section: number;
+    shapes: GemstoneShape[];
+}
+
+interface GemstoneData {
+    filters: GemstoneFilter[];
+    Emerald: GemstoneSection[];
+    Sapphire: GemstoneSection[];
+    Ruby: GemstoneSection[];
+    "Semi-precious": GemstoneSection[];
+}
 
 interface GemstoneDropdownProps {
     showGemstoneDropdown: boolean;
@@ -89,8 +114,8 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
         }
     };
 
-    // Gemstone data structure
-    const gemstoneData = {
+    // Gemstone data structure with proper typing
+    const gemstoneData: GemstoneData = {
         filters: [
             { label: "Emerald", active: false, disabled: false },
             { label: "Sapphire", active: false, disabled: false },
@@ -201,44 +226,49 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
 
         return (
             <div className="flex justify-around items-start gap-14 p-0">
-                {currentData?.map((section: any, sectionIndex: number) => (
-                    <div
-                        key={sectionIndex}
-                        className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                    >
-                        <div className="flex flex-col justify-center items-start gap-6">
-                            {section.shapes?.map(
-                                (shape: any, shapeIndex: number) => (
-                                    <div
-                                        key={shapeIndex}
-                                        className="flex justify-start items-center gap-3 cursor-pointer group"
-                                        onClick={() =>
-                                            handleGemstoneClick(
-                                                activeGemstone,
-                                                shape.name
-                                            )
-                                        }
-                                    >
-                                        <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                            <Image
-                                                src={shape.image}
-                                                alt={shape.name}
-                                                width={40}
-                                                height={40}
-                                                className="object-cover w-full h-full"
-                                            />
-                                        </div>
+                {currentData?.map(
+                    (section: GemstoneSection, sectionIndex: number) => (
+                        <div
+                            key={sectionIndex}
+                            className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
+                        >
+                            <div className="flex flex-col justify-center items-start gap-6">
+                                {section.shapes?.map(
+                                    (
+                                        shape: GemstoneShape,
+                                        shapeIndex: number
+                                    ) => (
                                         <div
-                                            className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                            key={shapeIndex}
+                                            className="flex justify-start items-center gap-3 cursor-pointer group"
+                                            onClick={() =>
+                                                handleGemstoneClick(
+                                                    activeGemstone,
+                                                    shape.name
+                                                )
+                                            }
                                         >
-                                            {shape.name}
+                                            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                                                <Image
+                                                    src={shape.image}
+                                                    alt={shape.name}
+                                                    width={40}
+                                                    height={40}
+                                                    className="object-cover w-full h-full"
+                                                />
+                                            </div>
+                                            <div
+                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                            >
+                                                {shape.name}
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            )}
+                                    )
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    )
+                )}
             </div>
         );
     };
@@ -259,35 +289,37 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
                         <div className="flex justify-between items-start gap-0 px-6">
                             {/* Left Filters Section */}
                             <div className="flex flex-col justify-start items-start gap-4">
-                                {gemstoneData.filters.map((filter, index) => (
-                                    <div
-                                        key={index}
-                                        className={`py-1 ${
-                                            filter.disabled
-                                                ? "opacity-50 cursor-not-allowed"
-                                                : activeGemstone ===
-                                                  filter.label
-                                                ? "border border-black rounded-sm px-3 shadow-md"
-                                                : "bg-white hover:bg-gray-50 cursor-pointer"
-                                        } transition-all duration-200`}
-                                        onClick={() =>
-                                            !filter.disabled &&
-                                            handleFilterClick(filter.label)
-                                        }
-                                    >
+                                {gemstoneData.filters.map(
+                                    (filter: GemstoneFilter, index: number) => (
                                         <div
-                                            className={`text-sm font-light ${
-                                                mulish.className
-                                            } ${
+                                            key={index}
+                                            className={`py-1 ${
                                                 filter.disabled
-                                                    ? "text-gray-400"
-                                                    : "text-[#2E2B28]"
-                                            }`}
+                                                    ? "opacity-50 cursor-not-allowed"
+                                                    : activeGemstone ===
+                                                      filter.label
+                                                    ? "border border-black rounded-sm px-3 shadow-md"
+                                                    : "bg-white hover:bg-gray-50 cursor-pointer"
+                                            } transition-all duration-200`}
+                                            onClick={() =>
+                                                !filter.disabled &&
+                                                handleFilterClick(filter.label)
+                                            }
                                         >
-                                            {filter.label}
+                                            <div
+                                                className={`text-sm font-light ${
+                                                    mulish.className
+                                                } ${
+                                                    filter.disabled
+                                                        ? "text-gray-400"
+                                                        : "text-[#2E2B28]"
+                                                }`}
+                                            >
+                                                {filter.label}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                )}
                             </div>
 
                             {/* Vertical Separator */}
