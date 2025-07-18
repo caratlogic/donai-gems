@@ -12,8 +12,8 @@ import necklace from "../assets/necklace.png";
 import necklaceSet from "../assets/necklaceSet.png";
 import pendants from "../assets/pendants.png";
 import categoryFeature from "../assets/featureImg.jpg";
-import gemsFeature from "../../public/gemsCollectionFeature.jpg"; // Add this image
-import occasionFeature from "../../public/occasionFeature.jpg"; // Add this image
+import gemsFeature from "../../public/gemsCollectionFeature.jpg";
+import occasionFeature from "../../public/occasionFeature.jpg";
 import genderFeature from "../../public/genderFeature.jpg";
 import round from "../../public/round.png";
 import bagutte from "../../public/baguette.png";
@@ -43,12 +43,52 @@ interface GemShape {
     icon: string;
 }
 
-interface Section {
+interface Category {
+    name: string;
+    image: string;
+}
+
+interface Occasion {
+    name: string;
+    image: string;
+}
+
+interface Gender {
+    name: string;
+    image: string;
+}
+
+interface CategorySection {
     section: number;
-    gemShapes?: GemShape[];
-    categories?: { name: string; image: string }[];
-    occasions?: { name: string; image: string }[];
-    genders?: { name: string; image: string }[];
+    categories: Category[];
+}
+
+interface GemsDesignSection {
+    section: number;
+    gemShapes: GemShape[];
+}
+
+interface OccasionSection {
+    section: number;
+    occasions: Occasion[];
+}
+
+interface GenderSection {
+    section: number;
+    genders: Gender[];
+}
+
+interface Filter {
+    label: string;
+    active: boolean;
+}
+
+interface CategoryData {
+    filters: Filter[];
+    Category: CategorySection[];
+    "Gems Design": GemsDesignSection[];
+    Occasion: OccasionSection[];
+    Gender: GenderSection[];
 }
 
 interface CategoriesDropdownProps {
@@ -108,8 +148,8 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         }
     };
 
-    // Categories data with proper images
-    const categoryData = {
+    // Categories data with proper typing
+    const categoryData: CategoryData = {
         filters: [
             { label: "Category", active: false },
             { label: "Gems Design", active: false },
@@ -223,7 +263,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
                     {currentData?.map(
-                        (section: Section, sectionIndex: number) => (
+                        (section: GemsDesignSection, sectionIndex: number) => (
                             <div
                                 key={sectionIndex}
                                 className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
@@ -270,43 +310,48 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Occasion") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map((section: any, sectionIndex: number) => (
-                        <div
-                            key={sectionIndex}
-                            className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                        >
-                            <div className="flex flex-col justify-center items-start gap-6">
-                                {section.occasions?.map(
-                                    (occasion: any, occasionIndex: number) => (
-                                        <div
-                                            key={occasionIndex}
-                                            className="flex justify-start items-center gap-3 cursor-pointer group"
-                                            onClick={() =>
-                                                console.log(
-                                                    `Selected occasion: ${occasion.name}`
-                                                )
-                                            }
-                                        >
-                                            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                                <Image
-                                                    src={occasion.image}
-                                                    alt={occasion.name}
-                                                    width={40}
-                                                    height={40}
-                                                    className="object-cover w-full h-full"
-                                                />
-                                            </div>
+                    {currentData?.map(
+                        (section: OccasionSection, sectionIndex: number) => (
+                            <div
+                                key={sectionIndex}
+                                className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
+                            >
+                                <div className="flex flex-col justify-center items-start gap-6">
+                                    {section.occasions?.map(
+                                        (
+                                            occasion: Occasion,
+                                            occasionIndex: number
+                                        ) => (
                                             <div
-                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                key={occasionIndex}
+                                                className="flex justify-start items-center gap-3 cursor-pointer group"
+                                                onClick={() =>
+                                                    console.log(
+                                                        `Selected occasion: ${occasion.name}`
+                                                    )
+                                                }
                                             >
-                                                {occasion.name}
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                                                    <Image
+                                                        src={occasion.image}
+                                                        alt={occasion.name}
+                                                        width={40}
+                                                        height={40}
+                                                        className="object-cover w-full h-full"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                >
+                                                    {occasion.name}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                )}
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    )}
                 </div>
             );
         }
@@ -314,43 +359,48 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Category") {
             return (
                 <div className="flex justify-center items-start gap-14">
-                    {currentData?.map((section: any, sectionIndex: number) => (
-                        <div
-                            key={sectionIndex}
-                            className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                        >
-                            <div className="flex flex-col justify-center items-start gap-6">
-                                {section.categories?.map(
-                                    (category: any, categoryIndex: number) => (
-                                        <div
-                                            key={categoryIndex}
-                                            className="flex justify-start items-center gap-3 cursor-pointer group"
-                                            onClick={() =>
-                                                handleCategoryClick(
-                                                    category.name
-                                                )
-                                            }
-                                        >
-                                            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                                <Image
-                                                    src={category.image}
-                                                    alt={category.name}
-                                                    width={40}
-                                                    height={40}
-                                                    className="object-cover w-full h-full"
-                                                />
-                                            </div>
+                    {currentData?.map(
+                        (section: CategorySection, sectionIndex: number) => (
+                            <div
+                                key={sectionIndex}
+                                className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
+                            >
+                                <div className="flex flex-col justify-center items-start gap-6">
+                                    {section.categories?.map(
+                                        (
+                                            category: Category,
+                                            categoryIndex: number
+                                        ) => (
                                             <div
-                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                key={categoryIndex}
+                                                className="flex justify-start items-center gap-3 cursor-pointer group"
+                                                onClick={() =>
+                                                    handleCategoryClick(
+                                                        category.name
+                                                    )
+                                                }
                                             >
-                                                {category.name}
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                                                    <Image
+                                                        src={category.image}
+                                                        alt={category.name}
+                                                        width={40}
+                                                        height={40}
+                                                        className="object-cover w-full h-full"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                >
+                                                    {category.name}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                )}
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    )}
                 </div>
             );
         }
@@ -358,43 +408,45 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Gender") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map((section: any, sectionIndex: number) => (
-                        <div
-                            key={sectionIndex}
-                            className="relative w-full h-30 last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                        >
-                            <div className="flex flex-col justify-center items-start gap-6">
-                                {section.genders?.map(
-                                    (item: any, itemIndex: number) => (
-                                        <div
-                                            key={itemIndex}
-                                            className="flex justify-start items-center gap-3 cursor-pointer group"
-                                            onClick={() =>
-                                                console.log(
-                                                    `Selected: ${item.name}`
-                                                )
-                                            }
-                                        >
-                                            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.name}
-                                                    width={40}
-                                                    height={40}
-                                                    className="object-cover w-full h-full"
-                                                />
-                                            </div>
+                    {currentData?.map(
+                        (section: GenderSection, sectionIndex: number) => (
+                            <div
+                                key={sectionIndex}
+                                className="relative w-full h-30 last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
+                            >
+                                <div className="flex flex-col justify-center items-start gap-6">
+                                    {section.genders?.map(
+                                        (item: Gender, itemIndex: number) => (
                                             <div
-                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                key={itemIndex}
+                                                className="flex justify-start items-center gap-3 cursor-pointer group"
+                                                onClick={() =>
+                                                    console.log(
+                                                        `Selected: ${item.name}`
+                                                    )
+                                                }
                                             >
-                                                {item.name}
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                                                    <Image
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        width={40}
+                                                        height={40}
+                                                        className="object-cover w-full h-full"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                                                >
+                                                    {item.name}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                )}
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    )}
                 </div>
             );
         }
@@ -418,31 +470,34 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
                         <div className="flex justify-between items-start gap-0 px-6">
                             {/* Left Filters Section */}
                             <div className="flex flex-col justify-start items-start gap-4">
-                                {categoryData.filters.map((filter, index) => (
-                                    <div
-                                        key={index}
-                                        className={`py-1 ${
-                                            activeFilter === filter.label
-                                                ? "border border-black rounded-sm px-3 shadow-md"
-                                                : "bg-white hover:bg-gray-50"
-                                        } cursor-pointer transition-all duration-200`}
-                                        onClick={() =>
-                                            handleFilterClick(filter.label)
-                                        }
-                                    >
+                                {categoryData.filters.map(
+                                    (filter: Filter, index: number) => (
                                         <div
-                                            className={`text-sm font-light ${
-                                                mulish.className
-                                            } ${
+                                            key={index}
+                                            className={`py-1 ${
                                                 activeFilter === filter.label
-                                                    ? "text-[#2E2B28]"
-                                                    : "text-[#2E2B28]"
-                                            }`}
+                                                    ? "border border-black rounded-sm px-3 shadow-md"
+                                                    : "bg-white hover:bg-gray-50"
+                                            } cursor-pointer transition-all duration-200`}
+                                            onClick={() =>
+                                                handleFilterClick(filter.label)
+                                            }
                                         >
-                                            {filter.label}
+                                            <div
+                                                className={`text-sm font-light ${
+                                                    mulish.className
+                                                } ${
+                                                    activeFilter ===
+                                                    filter.label
+                                                        ? "text-[#2E2B28]"
+                                                        : "text-[#2E2B28]"
+                                                }`}
+                                            >
+                                                {filter.label}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                )}
                             </div>
 
                             {/* Vertical Separator */}
@@ -464,7 +519,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
                                         alt={`Featured ${activeFilter}`}
                                         fill
                                         className="object-cover transition-all duration-500 group-hover:scale-105"
-                                        key={activeFilter} // Force re-render when filter changes
+                                        key={activeFilter}
                                     />
                                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                         <div className="text-white text-lg font-light">
