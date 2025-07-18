@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mulish } from "next/font/google";
@@ -40,22 +40,22 @@ const mulish = Mulish({
 // Add proper type definitions
 interface GemShape {
     name: string;
-    icon: string;
+    icon: StaticImageData;
 }
 
 interface Category {
     name: string;
-    image: string;
+    image: StaticImageData;
 }
 
 interface Occasion {
     name: string;
-    image: string;
+    image: StaticImageData;
 }
 
 interface Gender {
     name: string;
-    image: string;
+    image: StaticImageData;
 }
 
 interface CategorySection {
@@ -262,7 +262,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Gems Design") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map(
+                    {(currentData as GemsDesignSection[])?.map(
                         (section: GemsDesignSection, sectionIndex: number) => (
                             <div
                                 key={sectionIndex}
@@ -310,7 +310,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Occasion") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map(
+                    {(currentData as OccasionSection[])?.map(
                         (section: OccasionSection, sectionIndex: number) => (
                             <div
                                 key={sectionIndex}
@@ -359,7 +359,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Category") {
             return (
                 <div className="flex justify-center items-start gap-14">
-                    {currentData?.map(
+                    {(currentData as CategorySection[])?.map(
                         (section: CategorySection, sectionIndex: number) => (
                             <div
                                 key={sectionIndex}
@@ -408,7 +408,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
         if (activeFilter === "Gender") {
             return (
                 <div className="flex justify-around items-start gap-14 p-0">
-                    {currentData?.map(
+                    {(currentData as GenderSection[])?.map(
                         (section: GenderSection, sectionIndex: number) => (
                             <div
                                 key={sectionIndex}
