@@ -24,6 +24,7 @@ const Navbar = () => {
         { name: "GEMSTONE", path: "/Gemstone" }, // Fixed typo
         { name: "ABOUT US", path: "/About" },
         { name: "FINE JEWELLERY", path: "/FineJewellery" },
+        { name: "ACCESS INVENTORY" , path: "/Inventory"},
         { name: "CONTACT US", path: "/Contact" },
     ];
 
