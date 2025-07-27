@@ -2,7 +2,7 @@ import React from "react";
 import { Playfair_Display, Mulish } from "next/font/google";
 import Image from "next/image";
 // import StarIcon from "../assets/star.png";
-import gem8 from "../assets/blue.jpg";
+import gem8 from "@/app/assets/blue.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -36,12 +36,17 @@ const BuildOnCraft = () => {
                 <p
                     className={`${mulish.className} text-xl text-[#2E2B28CC] font-light mt-8 mb-8 text-center md:text-left`}
                 >
-                    At DONAI, we&apos;ve spent over two decades in the global gem trade, choosing not just beautiful stones, but the Precious, most valuable ones that pass through Antwerp&apos;s elite networks.
+                    At DONAI, we&apos;ve spent over two decades in the global
+                    gem trade, choosing not just beautiful stones, but the
+                    Precious, most valuable ones that pass through
+                    Antwerp&apos;s elite networks.
                 </p>
                 <p
                     className={`${mulish.className} text-xl text-[#2E2B28CC] font-light mt-8 mb-8 text-center md:text-left`}
                 >
-                    Every gem is ethically sourced, certified, and meticulously graded — built to serve legacy jewellers and high-end connoisseurs.
+                    Every gem is ethically sourced, certified, and meticulously
+                    graded — built to serve legacy jewellers and high-end
+                    connoisseurs.
                 </p>
 
                 <button className="text-[#2E2B28] border border-[#2E2B28] px-5 py-1 mb-10 hover:bg-[#2E2B28] hover:text-white">

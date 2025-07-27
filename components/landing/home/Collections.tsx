@@ -2,11 +2,11 @@ import React from "react";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import Image from "next/image";
 
-import gem11 from "../assets/gem11.jpg";
-import gem12 from "../assets/gem12.jpg";
-import gem13 from "../assets/gem13.jpg";
-import gem14 from "../assets/gem14.jpg";
-import gem15 from "../assets/gem15.jpg";
+import gem11 from "@/app/assets/gem11.jpg";
+import gem12 from "@/app/assets/gem12.jpg";
+import gem13 from "@/app/assets/gem13.jpg";
+import gem14 from "@/app/assets/gem14.jpg";
+import gem15 from "@/app/assets/gem15.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],

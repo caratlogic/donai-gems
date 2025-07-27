@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import InstagramImage from "../assets/instagram.png";
+import InstagramImage from "@/app/assets/instagram.png";
 import { Open_Sans } from "next/font/google";
 
 const openSans = Open_Sans({

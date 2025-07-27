@@ -6,26 +6,26 @@ import { useRouter } from "next/navigation";
 import { Mulish } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 // Import gemstone images
-import emeraldAllImg from "../../public/emeraldAll.png";
-import emeraldCushionImg from "../../public/emeraldCushion.png";
-import emeraldRoundImg from "../../public/emeraldRound.png";
-import emeraldOvalImg from "../../public/emeraldOval.png";
-import emeraldRectangleImg from "../../public/emeraldRectangle.png";
-import sapphireAllImg from "../../public/sapphireAll.png";
-import sapphireCushionImg from "../../public/sapphireCushion.png";
-import sapphireRoundImg from "../../public/sapphireRound.png";
-import sapphireOvalImg from "../../public/sapphireOval.png";
-import sapphireRectangleImg from "../../public/sapphireRectangle.png";
-import rubyAllImg from "../../public/rubyAll.png";
-import rubyCushionImg from "../../public/rubyCushion.png";
-import rubyRoundImg from "../../public/rubyRound.png";
-import rubyOvalImg from "../../public/rubyOval.png";
-import rubyRectangleImg from "../../public/rubyRectangle.png";
+import emeraldAllImg from "@/public/emeraldAll.png";
+import emeraldCushionImg from "@/public/emeraldCushion.png";
+import emeraldRoundImg from "@/public/emeraldRound.png";
+import emeraldOvalImg from "@/public/emeraldOval.png";
+import emeraldRectangleImg from "@/public/emeraldRectangle.png";
+import sapphireAllImg from "@/public/sapphireAll.png";
+import sapphireCushionImg from "@/public/sapphireCushion.png";
+import sapphireRoundImg from "@/public/sapphireRound.png";
+import sapphireOvalImg from "@/public/sapphireOval.png";
+import sapphireRectangleImg from "@/public/sapphireRectangle.png";
+import rubyAllImg from "@/public/rubyAll.png";
+import rubyCushionImg from "@/public/rubyCushion.png";
+import rubyRoundImg from "@/public/rubyRound.png";
+import rubyOvalImg from "@/public/rubyOval.png";
+import rubyRectangleImg from "@/public/rubyRectangle.png";
 // Featured images for each gemstone type
-import emeraldFeature from "../../public/emeraldFeature.jpg";
-import sapphireFeature from "../../public/sapphireAll.png";
-import rubyFeature from "../../public/rubyAll.png";
-import semiPreciousFeature from "../../public/semiPreciousFeature.jpg";
+import emeraldFeature from "@/public/emeraldFeature.jpg";
+import sapphireFeature from "@/public/sapphireAll.png";
+import rubyFeature from "@/public/rubyAll.png";
+import semiPreciousFeature from "@/public/semiPreciousFeature.jpg";
 
 const mulish = Mulish({
     subsets: ["latin"],

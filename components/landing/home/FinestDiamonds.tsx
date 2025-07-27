@@ -1,10 +1,10 @@
 import React from "react";
 import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
-import gem1 from "../assets/gem1.jpg";
-import gem2 from "../assets/gem2.jpg";
-import gem3 from "../assets/gem3.jpg";
-import gem4 from "../assets/gem4.jpg";
+import gem1 from "@/app/assets/gem1.jpg";
+import gem2 from "@/app/assets/gem2.jpg";
+import gem3 from "@/app/assets/gem3.jpg";
+import gem4 from "@/app/assets/gem4.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -48,10 +48,14 @@ const Collections = () => {
                 Finest Gems Across The City
             </h1>
 
-                
-
             <div className="flex flex-col md:flex-row items-center">
-            <Image src="Arrow1.svg" alt="Arrow" width={30} height={30} className="ml-2 mb-8 cursor-pointer" />
+                <Image
+                    src="Arrow1.svg"
+                    alt="Arrow"
+                    width={30}
+                    height={30}
+                    className="ml-2 mb-8 cursor-pointer"
+                />
                 {Gems.map((gem, index) => (
                     <div key={index} className="w-1/2 mb-10 px-5">
                         <div className="relative overflow-hidden rounded-lg group cursor-pointer">
@@ -65,12 +69,18 @@ const Collections = () => {
                         </div>
                     </div>
                 ))}
-                <Image src="Arrow2.svg" alt="Arrow" width={30} height={30} className="mr-2 mb-8 cursor-pointer" />
+                <Image
+                    src="Arrow2.svg"
+                    alt="Arrow"
+                    width={30}
+                    height={30}
+                    className="mr-2 mb-8 cursor-pointer"
+                />
             </div>
 
             <div className="flex justify-center mt-5">
                 <button className="border border-[#C49A6C] text-[#C49A6C] font-light hover:bg-[#C49A6C] hover:text-[#FFFFFF] duration-300 px-6 py-1 mb-10">
-                BROWSE MASTERPIECES
+                    BROWSE MASTERPIECES
                 </button>
             </div>
         </div>

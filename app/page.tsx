@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, Variants, easeInOut } from "framer-motion";
-import BuildOnCraft from "./components/BuildOnCraft";
-import Categories from "./components/Categories";
-import Connect from "./components/Connect";
-import FinestDiamonds from "./components/FinestDiamonds";
-import Testimonial from "./components/Testimonial";
-import Collections from "./components/Collections";
-import ShowGems from "./components/ShowGems";
-import BestGradeSection from "./components/BestGradeSection";
-import DiamondCards from "./components/DiamondCards";
-import Popup from "./components/popup";
-import InstagramSection from "./components/InstagramSection";
+import BuildOnCraft from "../components/landing/home/BuildOnCraft";
+import Categories from "../components/landing/home/Categories";
+import Connect from "../components/landing/home/Connect";
+import FinestDiamonds from "../components/landing/home/FinestDiamonds";
+import Testimonial from "../components/landing/home/Testimonial";
+import Collections from "../components/landing/home/Collections";
+import ShowGems from "../components/landing/home/ShowGems";
+import BestGradeSection from "../components/landing/home/BestGradeSection";
+import DiamondCards from "../components/landing/home/DiamondCards";
+import Popup from "../components/landing/home/popup";
+import InstagramSection from "../components/landing/home/InstagramSection";
 
 // Define your variants with the correct typing
 const variants: Variants = {

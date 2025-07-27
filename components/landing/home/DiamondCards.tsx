@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import cert1 from "../assets/giaCert.jpg";
-import cert2 from "../assets/grsCert.jpg";
-import cert3 from "../assets/gublinCert.jpeg";
-import cert4 from "../assets/ssefCert.jpg";
+import cert1 from "@/app/assets/giaCert.jpg";
+import cert2 from "@/app/assets/grsCert.jpg";
+import cert3 from "@/app/assets/gublinCert.jpeg";
+import cert4 from "@/app/assets/ssefCert.jpg";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 
 const playfair = Playfair_Display({

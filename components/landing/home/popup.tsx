@@ -3,8 +3,8 @@
 
 import React from "react";
 import Image from "next/image";
-import popupBg from "../assets/popup-bg.png";
-import popupMain from "../assets/popup-main.svg";
+import popupBg from "@/app/assets/popup-bg.png";
+import popupMain from "@/app/assets/popup-main.svg";
 import { HiX } from "react-icons/hi";
 
 interface PopupProps {
