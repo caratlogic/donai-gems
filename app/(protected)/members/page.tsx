@@ -240,8 +240,8 @@ export default function MembersPage() {
                             user.status === "APPROVED"
                                 ? "default"
                                 : user.status === "PENDING"
-                                ? "secondary"
-                                : "destructive"
+                                ? "outline"
+                                : "outline"
                         }
                         className="text-xs"
                     >
