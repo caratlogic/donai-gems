@@ -21,16 +21,29 @@ const mulish = Mulish({
 const Navbar = () => {
     const Router = useRouter();
     const pathname = usePathname();
-    const { isAuthenticated, user, logout, loading } = useAuth();
+    const { isAuthenticated, user, logout, loading, isAdmin } = useAuth();
 
-    const NavBarItems = [
+    // Base navigation items available to all users
+    const baseNavBarItems = [
         { name: "HOME", path: "/" },
-        { name: "GEMSTONE", path: "/Gemstone" }, // Fixed typo
+        { name: "GEMSTONE", path: "/Gemstone" },
         { name: "ABOUT US", path: "/About" },
         { name: "FINE JEWELLERY", path: "/FineJewellery" },
         { name: "CONTACT US", path: "/Contact" },
-        { name: "COLLECTION", path: "/inventory" },
+        { name: "INVENTORY", path: "/inventory" },
     ];
+
+    // Admin-only navigation items
+    const adminNavBarItems = [
+        { name: "ADMIN PANEL", path: "/admin" },
+        { name: "MEMBERS", path: "/members" },
+        // Add more admin-only items here if needed
+    ];
+
+    // Dynamic NavBarItems based on user role
+    const NavBarItems = isAdmin
+        ? [...baseNavBarItems, ...adminNavBarItems]
+        : baseNavBarItems;
 
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
@@ -159,11 +172,13 @@ const Navbar = () => {
                 <div
                     className={`hidden lg:flex items-center gap-3 ${mulish.className}`}
                 >
-                    <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md bg-white border border-primary font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white text-primary hover:border-[#C49A6CCC] transition-all duration-300">
-                        Book an Appointment
-                        {/* Shine effect */}
-                        <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
-                    </button>
+                    {user?.role === "USER" && (
+                        <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md bg-white border border-primary font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white text-primary hover:border-[#C49A6CCC] transition-all duration-300">
+                            Book an Appointment
+                            {/* Shine effect */}
+                            <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
+                        </button>
+                    )}
 
                     {loading ? (
                         <div className="w-40 h-10 bg-gray-200 rounded-md animate-pulse"></div>
