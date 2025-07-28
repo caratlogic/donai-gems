@@ -6,7 +6,10 @@ import { gemsColumns } from "@/components/data-table/gems-columns";
 import { useGems } from "@/hooks/useGems";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
+import { DownloadIcon, FileTextIcon, PlusIcon, RefreshCw } from "lucide-react";
+import Container from "@/components/ui/container";
+import { Input } from "@/components/ui/input";
+import CustomButton from "@/components/ui/CustomButton";
 
 export default function AdminPage() {
     const {
@@ -20,7 +23,6 @@ export default function AdminPage() {
         paginationMeta,
     } = useGems();
 
-    // FIXED: Use useCallback to prevent recreation on every render
     const handleStateChange = useCallback(
         (state: {
             pagination: { pageIndex: number; pageSize: number };
@@ -39,62 +41,121 @@ export default function AdminPage() {
     }, [refetch]);
 
     return (
-        <div className="container max-w-7xl mx-auto py-10">
-            <div className="mb-8">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold tracking-tight">
-                            Gems Management
-                        </h1>
-                        <p className="text-muted-foreground">
-                            Manage your gem inventory and track availability.
-                        </p>
-                        {totalCount > 0 && (
-                            <p className="text-sm text-muted-foreground mt-1">
-                                Total gems: {totalCount.toLocaleString()}
-                            </p>
-                        )}
-                    </div>
-                    <Button
-                        onClick={handleRefresh}
-                        disabled={loading}
-                        variant="outline"
-                        size="sm"
+        <Container>
+            <div className="flex items-center justify-start gap-2 my-5">
+                {/* <Input
+                    className="bg-black/5 text-neutral-500 px-3 py-3 text-base rounded-full"
+                    placeholder="Search by StockId."
+                /> */}
+                {/* <CustomButton
+                        variant="secondary"
+                        icon={<FunnelPlus size={15} />}
                     >
-                        <RefreshCw
-                            className={`mr-2 h-4 w-4 ${
-                                loading ? "animate-spin" : ""
-                            }`}
-                        />
-                        Refresh
-                    </Button>
-                </div>
+                        Filter
+                    </CustomButton> */}
+                <CustomButton
+                    variant="secondary"
+                    className="rounded-md text-neutral-500 border shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
+                    icon={<DownloadIcon size={15} />}
+                    // onClick={handleExport}
+                >
+                    Export
+                </CustomButton>
+                <CustomButton
+                    variant="secondary"
+                    className="rounded-md border text-neutral-500 shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
+                    icon={<FileTextIcon size={15} />}
+                >
+                    <span>Import&nbsp;Excel</span>
+                </CustomButton>
+                <CustomButton
+                    onClick={handleRefresh}
+                    disabled={loading}
+                    variant="secondary"
+                    className="rounded-md border text-neutral-500 shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
+                >
+                    <RefreshCw
+                        className={`mr-2 h-4 w-4 ${
+                            loading ? "animate-spin" : ""
+                        }`}
+                    />
+                    Refresh
+                </CustomButton>
+                <CustomButton
+                    className="bg-primary rounded-md  shadow-none"
+                    icon={<PlusIcon size={15} />}
+                    // onClick={() => setIsAddModalOpen(true)}
+                >
+                    <span>Add&nbsp;Gems</span>
+                </CustomButton>
             </div>
 
-            {error && (
-                <Alert variant="destructive" className="mb-6">
-                    <AlertDescription>
-                        Error loading gems: {error}
-                        <Button
-                            onClick={handleRefresh}
-                            variant="outline"
-                            size="sm"
-                            className="ml-4"
-                        >
-                            Retry
-                        </Button>
-                    </AlertDescription>
-                </Alert>
-            )}
+            <div className="flex items-center justify-start gap-5 my-10">
+                <div className="w-80 h-28 border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
+                    <h1 className="text-neutral-500 text-base">
+                        Total Diamonds (All Inventory)
+                    </h1>
+                    <h1 className="text-2xl font-semibold text-primary">
+                        {loading ? "..." : totalCount.toLocaleString()}
+                    </h1>
+                </div>
+                <div className="w-80 h-28  border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
+                    <h1 className="text-neutral-500 text-base">Available</h1>
+                    <h1 className="text-2xl font-semibold text-primary">
+                        {loading
+                            ? "..."
+                            : gems.filter((g) => g.availability).length}
+                    </h1>
+                </div>
+                {/* <div className="w-80 h-28  rounded-xl flex flex-col justify-center items-start gap-2 px-7">
+                    <h1 className="text-neutral-500 text-base">Total Value</h1>
+                    <h1 className="text-2xl font-semibold text-primary">
+                        $
+                        {loading
+                            ? "..."
+                            : gems
+                                  .reduce((sum, g) => sum + (g.price || 0), 0)
+                                  .toFixed(2)}{" "}
+                    </h1>
+                </div> */}
+                <div className="w-80 h-28 border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
+                    <h1 className="text-neutral-500 text-base">Total Size</h1>
+                    <h1 className="text-2xl font-semibold text-primary">
+                        {loading
+                            ? "..."
+                            : gems
+                                  .reduce((sum, g) => sum + (g.carat || 0), 0)
+                                  .toFixed(2)}{" "}
+                        ct
+                    </h1>
+                </div>
+            </div>
+            <div className=" py-10">
+                {error && (
+                    <Alert variant="destructive" className="mb-6">
+                        <AlertDescription>
+                            Error loading gems: {error}
+                            <Button
+                                onClick={handleRefresh}
+                                variant="outline"
+                                size="sm"
+                                className="ml-4"
+                            >
+                                Retry
+                            </Button>
+                        </AlertDescription>
+                    </Alert>
+                )}
 
-            <DataTable
-                columns={gemsColumns}
-                data={gems}
-                loading={loading}
-                onStateChange={handleStateChange}
-                paginationMeta={paginationMeta}
-                pageCount={pageCount}
-            />
-        </div>
+                <DataTable
+                    columns={gemsColumns}
+                    data={gems}
+                    loading={loading}
+                    onStateChange={handleStateChange}
+                    paginationMeta={paginationMeta}
+                    pageCount={pageCount}
+                />
+            </div>
+        </Container>
     );
 }

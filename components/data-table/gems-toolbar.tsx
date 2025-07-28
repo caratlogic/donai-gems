@@ -53,15 +53,15 @@ export function GemsTableToolbar<TData>({
                     placeholder="Search gems by Stock ID..."
                     value={searchValue}
                     onChange={handleSearchChange}
-                    className="h-8 w-[150px] lg:w-[250px]"
+                    className="h-8 w-[150px] lg:w-[250px] border-primary focus:outline-none focus:ring-0"
                 />
-                {table.getColumn("productType") && (
+                {/* {table.getColumn("productType") && (
                     <DataTableFacetedFilter
                         column={table.getColumn("productType")}
                         title="Product Type"
                         options={productTypes}
                     />
-                )}
+                )} */}
                 {table.getColumn("category") && (
                     <DataTableFacetedFilter
                         column={table.getColumn("category")}
