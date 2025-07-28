@@ -27,13 +27,19 @@ export function InventoryGuard({ children }: InventoryGuardProps) {
 
         // Check access permissions:
         // 1. ADMIN can access regardless of status
-        // 2. USER must have ACTIVE status
+        // 2. USER must have ACTIVE or APPROVED status
         const hasAccess =
-            isAdmin || (user?.role === "USER" && hasStatus("ACTIVE"));
+            isAdmin ||
+            (user?.role === "USER" &&
+                (hasStatus("ACTIVE") || hasStatus("APPROVED")));
 
         if (!hasAccess) {
-            // If USER but not ACTIVE, redirect to account suspended page
-            if (user?.role === "USER" && !hasStatus("ACTIVE")) {
+            // If USER but not ACTIVE or APPROVED, redirect to account status page
+            if (
+                user?.role === "USER" &&
+                !hasStatus("ACTIVE") &&
+                !hasStatus("APPROVED")
+            ) {
                 router.push("/account-suspended");
                 return;
             }
@@ -104,7 +110,10 @@ export function InventoryGuard({ children }: InventoryGuardProps) {
     }
 
     // Check access permissions after authentication
-    const hasAccess = isAdmin || (user?.role === "USER" && hasStatus("ACTIVE"));
+    const hasAccess =
+        isAdmin ||
+        (user?.role === "USER" &&
+            (hasStatus("ACTIVE") || hasStatus("APPROVED")));
 
     if (!hasAccess) {
         // This case should be handled by the useEffect redirect, but as a fallback

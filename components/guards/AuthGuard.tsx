@@ -11,7 +11,12 @@ interface AuthGuardProps {
     children: React.ReactNode;
     requireAuth?: boolean;
     requireRole?: "USER" | "ADMIN";
-    requireStatus?: "PENDING" | "ACTIVE" | "SUSPENDED";
+    requireStatus?:
+        | "PENDING"
+        | "ACTIVE"
+        | "SUSPENDED"
+        | "REJECTED"
+        | "APPROVED";
     redirectTo?: string;
 }
 

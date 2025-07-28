@@ -18,7 +18,9 @@ interface AuthState {
     isAuthenticated: boolean;
     isAdmin: boolean;
     isApprovedUser: boolean;
-    hasStatus: (status: "PENDING" | "ACTIVE" | "SUSPENDED") => boolean;
+    hasStatus: (
+        status: "PENDING" | "ACTIVE" | "SUSPENDED" | "REJECTED" | "APPROVED"
+    ) => boolean;
     hasRole: (role: "USER" | "ADMIN") => boolean;
     logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
@@ -97,8 +99,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         const isApprovedUser =
             user?.status === "ACTIVE" || user?.status === "APPROVED";
 
-        const hasStatus = (status: "PENDING" | "ACTIVE" | "SUSPENDED") =>
-            user?.status === status;
+        const hasStatus = (
+            status: "PENDING" | "ACTIVE" | "SUSPENDED" | "REJECTED" | "APPROVED"
+        ) => user?.status === status;
         const hasRole = (role: "USER" | "ADMIN") => user?.role === role;
 
         return {
