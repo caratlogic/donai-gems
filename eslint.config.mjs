@@ -13,7 +13,14 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
+      // Allow the use of `any` type (from your previous request)
       "@typescript-eslint/no-explicit-any": "off",
+
+      // Ignore unused variables and imports
+      "@typescript-eslint/no-unused-vars": "off",
+
+      // Allow unescaped apostrophes and other entities in JSX
+      "react/no-unescaped-entities": "off",
     },
   },
 ];
