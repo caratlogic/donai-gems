@@ -1,5 +1,5 @@
 import apiClient from "./axios";
-import { User } from "@/lib/validations/user-schema"; // Assuming you have a user schema validation
+import { User } from "@/lib/validations/user-schema";
 
 export interface LoginData {
     email: string;
@@ -11,6 +11,12 @@ export interface RegisterData {
     email: string;
     password: string;
     phone?: string;
+}
+
+export interface VerifyOTPData {
+    email: string;
+    userId: string;
+    otp: string;
 }
 
 interface AuthResponse {
@@ -41,6 +47,16 @@ export const authAPI = {
     },
 
     /**
+     * Verify OTP for user registration
+     */
+    verifyOTP: async (
+        data: VerifyOTPData
+    ): Promise<{ success: boolean; message: string; user?: User }> => {
+        const response = await apiClient.post("/users/verify-otp", data);
+        return response.data;
+    },
+
+    /**
      * Logout the current user
      */
     logout: async (): Promise<{ success: boolean; message: string }> => {
@@ -57,6 +73,60 @@ export const authAPI = {
     getProfile: async (): Promise<AuthResponse> => {
         // Assuming an endpoint like /users/me exists to get the current user
         const response = await apiClient.get("/users/me");
+        return response.data;
+    },
+};
+
+export interface UsersResponse {
+    success: boolean;
+    message: string;
+    data: User[];
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalRecords: number;
+        recordsPerPage: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
+    };
+}
+
+export interface UserResponse {
+    success: boolean;
+    message: string;
+    data: User;
+}
+
+export const userAPI = {
+    /**
+     * Get all users with optional filters
+     */
+    getUsers: async (params?: {
+        page?: number;
+        limit?: number;
+        status?: "PENDING" | "ACTIVE" | "SUSPENDED";
+        role?: "USER" | "ADMIN";
+    }): Promise<UsersResponse> => {
+        const response = await apiClient.get("/users", { params });
+        return response.data;
+    },
+
+    /**
+     * Get user by ID
+     */
+    getUserById: async (userId: string): Promise<UserResponse> => {
+        const response = await apiClient.get(`/users/${userId}`);
+        return response.data;
+    },
+
+    /**
+     * Update user status (if endpoint exists)
+     */
+    updateUserStatus: async (
+        userId: string,
+        status: "PENDING" | "ACTIVE" | "SUSPENDED"
+    ): Promise<UserResponse> => {
+        const response = await apiClient.put(`/users/${userId}`, { status });
         return response.data;
     },
 };
