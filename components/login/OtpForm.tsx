@@ -3,6 +3,7 @@ import React from "react";
 interface OTPData {
     email: string;
     otp: string;
+    userId: string;
 }
 
 interface StepTwoProps {

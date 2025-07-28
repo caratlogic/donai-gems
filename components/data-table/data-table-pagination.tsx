@@ -44,40 +44,82 @@ export function DataTablePagination<TData>({
         paginationMeta?.hasPrevPage ?? table.getCanPreviousPage();
     const recordsPerPage = paginationMeta?.recordsPerPage ?? pageSize;
 
+    // FIXED: Server-side pagination handlers
     const handleFirstPage = () => {
-        console.log("🏠 Going to first page");
-        table.setPageIndex(0);
+        console.log("🏠 Going to first page (server-side)");
+        table.setPageIndex(0); // This will trigger useGems to fetch page 1
     };
 
     const handlePreviousPage = () => {
-        console.log("⬅️ Going to previous page");
-        if (hasPrevPage) {
-            table.previousPage();
+        console.log("⬅️ Going to previous page (server-side)", {
+            currentPageIndex: pageIndex,
+            hasPrevPage,
+        });
+        if (hasPrevPage && pageIndex > 0) {
+            table.setPageIndex(pageIndex - 1); // This will trigger useGems to fetch previous page
         }
     };
 
     const handleNextPage = () => {
-        console.log("➡️ Going to next page");
-        if (hasNextPage) {
-            table.nextPage();
+        console.log("➡️ Going to next page (server-side)", {
+            currentPageIndex: pageIndex,
+            hasNextPage,
+            totalPages,
+        });
+        if (hasNextPage && pageIndex < totalPages - 1) {
+            table.setPageIndex(pageIndex + 1); // This will trigger useGems to fetch next page
         }
     };
 
     const handleLastPage = () => {
-        console.log("🏁 Going to last page");
-        table.setPageIndex(totalPages - 1);
+        console.log("🏁 Going to last page (server-side)", {
+            totalPages,
+            currentPageIndex: pageIndex,
+        });
+        if (totalPages > 0) {
+            table.setPageIndex(totalPages - 1); // This will trigger useGems to fetch last page
+        }
     };
 
     const handlePageSizeChange = (value: string) => {
-        console.log("📏 Changing page size to:", value);
-        table.setPageSize(Number(value));
-        // Reset to first page when changing page size
-        table.setPageIndex(0);
+        const newPageSize = Number(value);
+        console.log("📏 Changing page size (server-side)", {
+            from: pageSize,
+            to: newPageSize,
+            currentPage: pageIndex + 1,
+        });
+
+        // Update page size and reset to first page
+        table.setPageSize(newPageSize);
+        table.setPageIndex(0); // Reset to first page when changing page size
+
+        console.log("📏 Page size changed, will fetch page 1 with new size");
     };
 
     // Calculate the range of items currently being displayed
-    const startItem = (currentPage - 1) * recordsPerPage + 1;
+    const startItem =
+        totalRecords > 0 ? (currentPage - 1) * recordsPerPage + 1 : 0;
     const endItem = Math.min(currentPage * recordsPerPage, totalRecords);
+
+    // Enhanced debugging info
+    console.log("📊 Pagination State:", {
+        serverSide: {
+            currentPage,
+            totalPages,
+            totalRecords,
+            recordsPerPage,
+            hasNextPage,
+            hasPrevPage,
+        },
+        tableState: {
+            pageIndex,
+            pageSize,
+        },
+        calculated: {
+            startItem,
+            endItem,
+        },
+    });
 
     return (
         <div className="flex items-center justify-between px-2 py-4">
@@ -110,8 +152,8 @@ export function DataTablePagination<TData>({
                 {/* Results info */}
                 <div className="flex items-center space-x-4">
                     <div className="text-sm text-muted-foreground">
-                        Showing {totalRecords > 0 ? startItem : 0} to {endItem}{" "}
-                        of {totalRecords.toLocaleString()} gems
+                        Showing {startItem} to {endItem} of{" "}
+                        {totalRecords.toLocaleString()} gems
                     </div>
                     <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                         Page {currentPage} of {totalPages.toLocaleString()}
@@ -124,7 +166,7 @@ export function DataTablePagination<TData>({
                         variant="outline"
                         className="hidden h-8 w-8 p-0 lg:flex"
                         onClick={handleFirstPage}
-                        disabled={!hasPrevPage}
+                        disabled={!hasPrevPage || pageIndex === 0}
                         title="Go to first page"
                     >
                         <span className="sr-only">Go to first page</span>
@@ -134,7 +176,7 @@ export function DataTablePagination<TData>({
                         variant="outline"
                         className="h-8 w-8 p-0"
                         onClick={handlePreviousPage}
-                        disabled={!hasPrevPage}
+                        disabled={!hasPrevPage || pageIndex === 0}
                         title="Go to previous page"
                     >
                         <span className="sr-only">Go to previous page</span>
@@ -144,7 +186,7 @@ export function DataTablePagination<TData>({
                         variant="outline"
                         className="h-8 w-8 p-0"
                         onClick={handleNextPage}
-                        disabled={!hasNextPage}
+                        disabled={!hasNextPage || pageIndex >= totalPages - 1}
                         title="Go to next page"
                     >
                         <span className="sr-only">Go to next page</span>
@@ -154,7 +196,7 @@ export function DataTablePagination<TData>({
                         variant="outline"
                         className="hidden h-8 w-8 p-0 lg:flex"
                         onClick={handleLastPage}
-                        disabled={!hasNextPage}
+                        disabled={!hasNextPage || pageIndex >= totalPages - 1}
                         title="Go to last page"
                     >
                         <span className="sr-only">Go to last page</span>

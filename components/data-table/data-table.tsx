@@ -10,9 +10,6 @@ import {
     getCoreRowModel,
     getFacetedRowModel,
     getFacetedUniqueValues,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
 
@@ -39,7 +36,6 @@ interface DataTableProps<TData, TValue> {
         sorting: Array<{ id: string; desc: boolean }>;
         columnFilters: Array<{ id: string; value: any }>;
     }) => void;
-    // Add pagination metadata
     paginationMeta?: {
         currentPage: number;
         totalPages: number;
@@ -70,8 +66,8 @@ export function DataTable<TData, TValue>({
         pageSize: 10,
     });
 
-    // Notify parent component of state changes
-    React.useEffect(() => {
+    // FIXED: Use useCallback to stabilize the state change handler
+    const handleStateChange = React.useCallback(() => {
         if (onStateChange) {
             onStateChange({
                 pagination,
@@ -80,6 +76,15 @@ export function DataTable<TData, TValue>({
             });
         }
     }, [pagination, sorting, columnFilters, onStateChange]);
+
+    // FIXED: Use useEffect with proper debouncing for state changes
+    React.useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            handleStateChange();
+        }, 150); // Debounce state changes
+
+        return () => clearTimeout(timeoutId);
+    }, [handleStateChange]);
 
     const table = useReactTable({
         data,
@@ -99,17 +104,15 @@ export function DataTable<TData, TValue>({
         onColumnVisibilityChange: setColumnVisibility,
         onPaginationChange: setPagination,
         getCoreRowModel: getCoreRowModel(),
-        // For server-side operations
-        manualPagination: pageCount !== -1,
-        manualSorting: onStateChange !== undefined,
-        manualFiltering: onStateChange !== undefined,
-        // Keep these for UI features
+
+        // SERVER-SIDE OPERATIONS - All filtering, sorting, pagination handled by server
+        manualPagination: true,
+        manualSorting: true,
+        manualFiltering: true,
+
+        // Keep these for UI features (faceted filters, etc.)
         getFacetedRowModel: getFacetedRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
-        // Add client-side operations for local data
-        getFilteredRowModel: getFilteredRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
     });
 
     return (
@@ -174,7 +177,7 @@ export function DataTable<TData, TValue>({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    No results found.
                                 </TableCell>
                             </TableRow>
                         )}

@@ -7,6 +7,7 @@ import StepOne from "@/components/login/RegisterForm";
 import StepTwo from "@/components/login/OtpForm";
 import StepThree from "@/components/login/CustomerForm";
 import StepFour from "@/components/login/SuccessfullRegistration";
+import { authAPI } from "@/services/auth-api";
 
 interface RegisterData {
     username: string;
@@ -18,6 +19,7 @@ interface RegisterData {
 interface OTPData {
     email: string;
     otp: string;
+    userId: string;
 }
 
 interface CustomerData {
@@ -58,6 +60,7 @@ const Page = () => {
     const [otpData, setOtpData] = useState<OTPData>({
         email: "",
         otp: "",
+        userId: "",
     });
 
     const [customerData, setCustomerData] = useState<CustomerData>({
@@ -123,30 +126,45 @@ const Page = () => {
         return null;
     };
 
-    // API functions (placeholder - replace with axios later)
+    // API functions
     const handleRegisterUser = async (): Promise<boolean> => {
         setIsLoading(true);
         setError("");
 
         try {
-            console.log("Registering user:", registerData);
-
-            // TODO: Replace with axios call
-            // const response = await axios.post('/api/register', registerData);
-
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Set email for OTP verification
-            setOtpData((prev) => ({
-                ...prev,
+            const response = await authAPI.register({
+                username: registerData.username,
                 email: registerData.email,
-            }));
+                password: registerData.password,
+                phone: customerData.phoneNumber, // We'll collect this in step 3, but API expects it here
+            });
 
-            return true;
-        } catch (err) {
+            if (response.success) {
+                // Set userId for OTP verification and email
+                setOtpData((prev) => ({
+                    ...prev,
+                    email: registerData.email,
+                    userId: response.userId,
+                }));
+                return true;
+            } else {
+                setError(response.message || "Registration failed");
+                return false;
+            }
+        } catch (err: any) {
             console.error("Registration error:", err);
-            setError("Registration failed. Please try again.");
+
+            if (err.response?.data?.message) {
+                setError(err.response.data.message);
+            } else if (err.response?.status === 409) {
+                setError("User already exists with this email or username");
+            } else if (err.response?.status === 400) {
+                setError(
+                    err.response.data.error || "Invalid registration data"
+                );
+            } else {
+                setError("Registration failed. Please try again.");
+            }
             return false;
         } finally {
             setIsLoading(false);
@@ -158,18 +176,30 @@ const Page = () => {
         setError("");
 
         try {
-            console.log("Verifying OTP:", otpData);
+            const response = await authAPI.verifyOTP({
+                email: otpData.email,
+                otp: otpData.otp,
+                userId: otpData.userId,
+            });
 
-            // TODO: Replace with axios call
-            // const response = await axios.post('/api/verify-otp', otpData);
-
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            return true;
-        } catch (err) {
+            if (response.success) {
+                return true;
+            } else {
+                setError(response.message || "OTP verification failed");
+                return false;
+            }
+        } catch (err: any) {
             console.error("OTP verification error:", err);
-            setError("OTP verification failed. Please try again.");
+
+            if (err.response?.data?.message) {
+                setError(err.response.data.message);
+            } else if (err.response?.status === 400) {
+                setError("Invalid or expired OTP");
+            } else if (err.response?.status === 404) {
+                setError("User not found");
+            } else {
+                setError("OTP verification failed. Please try again.");
+            }
             return false;
         } finally {
             setIsLoading(false);
@@ -181,13 +211,8 @@ const Page = () => {
         setError("");
 
         try {
-            console.log("Submitting customer data:", customerData);
-
-            // TODO: Replace with axios call
-            // const response = await axios.post('/api/customer-data', customerData);
-
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            // For now, we'll just simulate this as the API doesn't have a separate customer data endpoint
+            // You might need to create a separate endpoint or modify the registration flow
 
             // Store user data for the success message
             setSubmittedUserData({
@@ -198,8 +223,11 @@ const Page = () => {
                 companyName: customerData.businessInfo.companyName,
             });
 
+            // Simulate API call
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
             return true;
-        } catch (err) {
+        } catch (err: any) {
             console.error("Customer data submission error:", err);
             setError("Customer data submission failed. Please try again.");
             return false;
@@ -358,7 +386,7 @@ const Page = () => {
                             >
                                 {isLoading
                                     ? currentStep === 1
-                                        ? "Sending OTP..."
+                                        ? "Creating Account..."
                                         : currentStep === 2
                                         ? "Verifying..."
                                         : "Submitting..."

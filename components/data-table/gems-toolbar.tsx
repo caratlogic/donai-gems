@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
 import { X } from "lucide-react";
+import { useState, useEffect } from "react";
 import {
     productTypes,
     categories,
@@ -24,22 +25,34 @@ export function GemsTableToolbar<TData>({
     table,
 }: GemsTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0;
+    const [searchValue, setSearchValue] = useState("");
+
+    // Sync search input with table filter
+    useEffect(() => {
+        const stockIdFilter = table
+            .getColumn("stockId")
+            ?.getFilterValue() as string;
+        setSearchValue(stockIdFilter || "");
+    }, [table]);
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setSearchValue(value);
+        table.getColumn("stockId")?.setFilterValue(value || undefined);
+    };
+
+    const handleResetFilters = () => {
+        table.resetColumnFilters();
+        setSearchValue("");
+    };
 
     return (
         <div className="flex items-center justify-between">
             <div className="flex flex-1 items-center space-x-2">
                 <Input
                     placeholder="Search gems by Stock ID..."
-                    value={
-                        (table
-                            .getColumn("stockId")
-                            ?.getFilterValue() as string) ?? ""
-                    }
-                    onChange={(event) =>
-                        table
-                            .getColumn("stockId")
-                            ?.setFilterValue(event.target.value)
-                    }
+                    value={searchValue}
+                    onChange={handleSearchChange}
                     className="h-8 w-[150px] lg:w-[250px]"
                 />
                 {table.getColumn("productType") && (
@@ -94,7 +107,7 @@ export function GemsTableToolbar<TData>({
                 {isFiltered && (
                     <Button
                         variant="ghost"
-                        onClick={() => table.resetColumnFilters()}
+                        onClick={handleResetFilters}
                         className="h-8 px-2 lg:px-3"
                     >
                         Reset
