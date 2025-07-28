@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Copy, Eye, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { gemSchema, Gem } from "@/lib/validations/gems-Schema";
-// import { EditDiamondModal } from "@/components/modals/edit-diamond";
-// import { DeleteDiamondDialog } from "@/components/modals/delete-diamond-dialog";
+import { EditGemModal } from "@/components/modals/EditGemModal";
+import { DeleteGemDialog } from "@/components/modals/DeleteGemDialog";
 
 interface GemRowActionsProps<TData> {
     row: Row<TData>;
@@ -99,14 +99,6 @@ export function DataTableRowActions<TData>({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[200px]">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    {/* <DropdownMenuItem
-                        onClick={() =>
-                            navigator.clipboard.writeText(diamond._id)
-                        }
-                    >
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copy Diamond ID
-                    </DropdownMenuItem> */}
                     <DropdownMenuItem
                         onClick={() => {
                             const gem = row.original as Gem;
@@ -137,20 +129,20 @@ export function DataTableRowActions<TData>({
             </DropdownMenu>
 
             {/* Edit Modal */}
-            {/* <EditDiamondModal
+            <EditGemModal
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
                 onSuccess={handleEditSuccess}
-                diamond={diamond}
-            /> */}
+                gem={gem}
+            />
 
             {/* Delete Dialog */}
-            {/* <DeleteDiamondDialog
+            <DeleteGemDialog
                 isOpen={isDeleteDialogOpen}
                 onClose={() => setIsDeleteDialogOpen(false)}
                 onSuccess={handleDeleteSuccess}
-                diamond={diamond}
-            /> */}
+                gem={gem}
+            />
         </>
     );
 }

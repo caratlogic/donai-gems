@@ -97,13 +97,31 @@ export function ClientGemsTable({
                     </div>
 
                     {/* Overlay buttons */}
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute -bottom-20 left-2 group-hover:bottom-2  group-hover:left-2  opacity-0 group-hover:opacity-100 transition-all duration-500">
                         {/* <Button size="sm" className="mr-1">
                             <Heart className="h-4 w-4" />
                         </Button> */}
-                        <Button size="sm">
+                        {/* <Button size="sm">
                             <Eye className="h-4 w-4" />
-                        </Button>
+                        </Button> */}
+                        <div className="flex-col items-center justify-between">
+                            <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
+                                <span>Shape : </span>
+                                {gem.shape}
+                            </h3>
+                            <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
+                                <span>Color : </span>
+                                {gem.color}
+                            </h3>
+                            <div className="flex items-center justify-start ">
+                                <Badge
+                                    variant="outline"
+                                    className="text-lg border-none text-primary font-semibold"
+                                >
+                                    {gem.productType}
+                                </Badge>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Availability badge */}
@@ -120,7 +138,7 @@ export function ClientGemsTable({
                 </div>
 
                 {/* Gem Details */}
-                <div className="p-4 space-y-2">
+                {/* <div className="p-4 space-y-2">
                     <div className="flex-col items-center justify-between">
                         <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
                             <span>Stock-ID : </span>
@@ -136,7 +154,7 @@ export function ClientGemsTable({
                         </div>
                     </div>
 
-                    {/* <div className="space-y-1 text-xs text-gray-600">
+                    <div className="space-y-1 text-xs text-gray-600">
                         <div className="flex justify-between">
                             <span>Stone:</span>
                             <span className="font-medium">{gem.stoneType}</span>
@@ -167,14 +185,14 @@ export function ClientGemsTable({
                                 </span>
                             </div>
                         )}
-                    </div> */}
+                    </div>
 
-                    {/* <div className="pt-2 border-t">
+                    <div className="pt-2 border-t">
                         <div className="text-xs text-gray-500">
                             {gem.measurement}
                         </div>
-                    </div> */}
-                </div>
+                    </div>
+                </div> */}
             </CardContent>
         </Card>
     );

@@ -134,10 +134,7 @@ export const gemsApi = {
         message: string;
         data: Gem;
     }> => {
-        const response = await axios.put(
-            `${API_BASE_URL}/api/gems/${id}`,
-            gemData
-        );
+        const response = await axios.put(`${API_BASE_URL}/gems/${id}`, gemData);
         return response.data;
     },
 
@@ -148,7 +145,7 @@ export const gemsApi = {
         success: boolean;
         message: string;
     }> => {
-        const response = await axios.delete(`${API_BASE_URL}/api/gems/${id}`);
+        const response = await axios.delete(`${API_BASE_URL}/gems/${id}`);
         return response.data;
     },
 };

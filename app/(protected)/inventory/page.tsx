@@ -48,6 +48,14 @@ function InventoryPageContent() {
 
                 {/* Main Content */}
                 <div className="flex flex-col gap-8">
+                    {/* <div className="">
+                        <div className="">
+                            <GemsFilter
+                                onFiltersChange={updateFilters}
+                                loading={loading}
+                            />
+                        </div>
+                    </div> */}
                     {/* Gems Table */}
                     <div className="lg:col-span-3">
                         <ClientGemsTable

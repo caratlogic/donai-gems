@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { DataTable } from "@/components/data-table/data-table";
 import { gemsColumns } from "@/components/data-table/gems-columns";
 import { useGems } from "@/hooks/useGems";
@@ -11,6 +11,7 @@ import Container from "@/components/ui/container";
 import { Input } from "@/components/ui/input";
 import CustomButton from "@/components/ui/CustomButton";
 import { AdminGuard } from "@/components/guards/AdminGuard";
+import { AddGemModal } from "@/components/modals/AddGemModal";
 
 function AdminPageContent() {
     const {
@@ -23,6 +24,8 @@ function AdminPageContent() {
         updateTable,
         paginationMeta,
     } = useGems();
+
+    const [isAddGemModalOpen, setIsAddGemModalOpen] = useState(false);
 
     const handleStateChange = useCallback(
         (state: {
@@ -38,6 +41,11 @@ function AdminPageContent() {
 
     const handleRefresh = useCallback(() => {
         console.log("🔄 Manual refresh triggered");
+        refetch();
+    }, [refetch]);
+
+    const handleAddGemSuccess = useCallback(() => {
+        console.log("✅ Gem added successfully, refreshing data");
         refetch();
     }, [refetch]);
 
@@ -72,6 +80,7 @@ function AdminPageContent() {
                     Refresh
                 </CustomButton>
                 <CustomButton
+                    onClick={() => setIsAddGemModalOpen(true)}
                     className="bg-primary rounded-md shadow-none"
                     icon={<PlusIcon size={15} />}
                 >
@@ -79,6 +88,7 @@ function AdminPageContent() {
                 </CustomButton>
             </div>
 
+            {/* ...existing code... */}
             <div className="flex items-center justify-start gap-5 my-10">
                 <div className="w-80 h-28 border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
                     <h1 className="text-neutral-500 text-base">
@@ -134,6 +144,13 @@ function AdminPageContent() {
                     pageCount={pageCount}
                 />
             </div>
+
+            {/* Add Gem Modal */}
+            <AddGemModal
+                isOpen={isAddGemModalOpen}
+                onClose={() => setIsAddGemModalOpen(false)}
+                onSuccess={handleAddGemSuccess}
+            />
         </Container>
     );
 }
