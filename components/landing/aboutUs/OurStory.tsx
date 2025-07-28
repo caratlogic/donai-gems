@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import gem3 from "../../public/ourStory.jpg";
+import gem3 from "@/public/ourStory.jpg";
 // import StarIcon from "../assets/star.png";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 
