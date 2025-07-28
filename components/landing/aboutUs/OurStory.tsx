@@ -92,7 +92,7 @@ const OurStory = () => {
                     <div className="flex items-center justify-center">
                         <Image
                             src={gem3}
-                            alt="Diano Apart"
+                            alt="DONAI Apart"
                             width={600}
                             height={600}
                             className="h-full object-cover"

@@ -9,6 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import CategoriesDropdown from "./CategoriesDropdown";
 import GemstoneDropdown from "./GemstoneDropdown";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { User, LogOut } from "lucide-react";
 
 const mulish = Mulish({
     subsets: ["latin"],
@@ -18,6 +21,7 @@ const mulish = Mulish({
 const Navbar = () => {
     const Router = useRouter();
     const pathname = usePathname();
+    const { isAuthenticated, user, logout, loading } = useAuth();
 
     const NavBarItems = [
         { name: "HOME", path: "/" },
@@ -25,6 +29,7 @@ const Navbar = () => {
         { name: "ABOUT US", path: "/About" },
         { name: "FINE JEWELLERY", path: "/FineJewellery" },
         { name: "CONTACT US", path: "/Contact" },
+        { name: "COLLECTION", path: "/inventory" },
     ];
 
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -151,12 +156,56 @@ const Navbar = () => {
                 </Link>
 
                 {/* Right Section */}
-                <div className={`hidden lg:flex gap-3 ${mulish.className}`}>
-                    <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md bg-white border border-[#2E2B28] font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white hover:border-[#C49A6CCC] transition-all duration-300">
+                <div
+                    className={`hidden lg:flex items-center gap-3 ${mulish.className}`}
+                >
+                    <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md bg-white border border-primary font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white text-primary hover:border-[#C49A6CCC] transition-all duration-300">
                         Book an Appointment
                         {/* Shine effect */}
                         <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
                     </button>
+
+                    {loading ? (
+                        <div className="w-40 h-10 bg-gray-200 rounded-md animate-pulse"></div>
+                    ) : isAuthenticated ? (
+                        <>
+                            <Button
+                                variant="outline"
+                                onClick={() =>
+                                    Router.push(
+                                        user?.role === "ADMIN"
+                                            ? "/admin"
+                                            : "/inventory"
+                                    )
+                                }
+                                className="text-md border-primary text-primary hover:bg-primary hover:text-white cursor-pointer flex items-center gap-2"
+                            >
+                                <User className="h-4 w-4" />
+                                {user?.username}
+                            </Button>
+                            <Button
+                                onClick={logout}
+                                className="text-md flex items-center gap-2"
+                            >
+                                <LogOut className="h-4 w-4" />
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <Button className="text-md">Login</Button>
+                            </Link>
+                            <Link href="/register">
+                                <Button
+                                    variant={"outline"}
+                                    className="text-md border-primary text-primary hover:bg-primary hover:text-white cursor-pointer"
+                                >
+                                    Register
+                                </Button>
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Hamburger Logo */}

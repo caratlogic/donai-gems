@@ -36,7 +36,7 @@ const features = [
         title: "CUSTOM MADE",
         description1: "Crafted Just for You",
         description2:
-            "Every piece is tailored to your vision — from selecting the perfect stone to bringing your bespoke design to life. DIANO turns your desires into enduring heirlooms.",
+            "Every piece is tailored to your vision — from selecting the perfect stone to bringing your bespoke design to life. DOANI turns your desires into enduring heirlooms.",
     },
 ];
 

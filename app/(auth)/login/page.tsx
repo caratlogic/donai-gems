@@ -43,9 +43,11 @@ const Page = () => {
 
                 // Redirect based on user role
                 if (response.data.user.role === "ADMIN") {
-                    router.push("/admin");
+                    window.location.href = "/admin"; // Redirect to admin dashboard
+                    // router.push("/admin");
                 } else {
-                    router.push("/dashboard"); // or wherever you want to redirect normal users
+                    window.location.href = "/admin";
+                    // router.push("/inventory"); // or wherever you want to redirect normal users
                 }
             }
         } catch (err: any) {

@@ -10,8 +10,9 @@ import { DownloadIcon, FileTextIcon, PlusIcon, RefreshCw } from "lucide-react";
 import Container from "@/components/ui/container";
 import { Input } from "@/components/ui/input";
 import CustomButton from "@/components/ui/CustomButton";
+import { AdminGuard } from "@/components/guards/AdminGuard";
 
-export default function AdminPage() {
+function AdminPageContent() {
     const {
         gems,
         loading,
@@ -43,21 +44,10 @@ export default function AdminPage() {
     return (
         <Container>
             <div className="flex items-center justify-start gap-2 my-5">
-                {/* <Input
-                    className="bg-black/5 text-neutral-500 px-3 py-3 text-base rounded-full"
-                    placeholder="Search by StockId."
-                /> */}
-                {/* <CustomButton
-                        variant="secondary"
-                        icon={<FunnelPlus size={15} />}
-                    >
-                        Filter
-                    </CustomButton> */}
                 <CustomButton
                     variant="secondary"
                     className="rounded-md text-neutral-500 border shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
                     icon={<DownloadIcon size={15} />}
-                    // onClick={handleExport}
                 >
                     Export
                 </CustomButton>
@@ -82,9 +72,8 @@ export default function AdminPage() {
                     Refresh
                 </CustomButton>
                 <CustomButton
-                    className="bg-primary rounded-md  shadow-none"
+                    className="bg-primary rounded-md shadow-none"
                     icon={<PlusIcon size={15} />}
-                    // onClick={() => setIsAddModalOpen(true)}
                 >
                     <span>Add&nbsp;Gems</span>
                 </CustomButton>
@@ -99,7 +88,7 @@ export default function AdminPage() {
                         {loading ? "..." : totalCount.toLocaleString()}
                     </h1>
                 </div>
-                <div className="w-80 h-28  border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
+                <div className="w-80 h-28 border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
                     <h1 className="text-neutral-500 text-base">Available</h1>
                     <h1 className="text-2xl font-semibold text-primary">
                         {loading
@@ -107,17 +96,6 @@ export default function AdminPage() {
                             : gems.filter((g) => g.availability).length}
                     </h1>
                 </div>
-                {/* <div className="w-80 h-28  rounded-xl flex flex-col justify-center items-start gap-2 px-7">
-                    <h1 className="text-neutral-500 text-base">Total Value</h1>
-                    <h1 className="text-2xl font-semibold text-primary">
-                        $
-                        {loading
-                            ? "..."
-                            : gems
-                                  .reduce((sum, g) => sum + (g.price || 0), 0)
-                                  .toFixed(2)}{" "}
-                    </h1>
-                </div> */}
                 <div className="w-80 h-28 border border-primary rounded-xl flex flex-col justify-center items-start gap-2 px-7">
                     <h1 className="text-neutral-500 text-base">Total Size</h1>
                     <h1 className="text-2xl font-semibold text-primary">
@@ -130,7 +108,7 @@ export default function AdminPage() {
                     </h1>
                 </div>
             </div>
-            <div className=" py-10">
+            <div className="py-10">
                 {error && (
                     <Alert variant="destructive" className="mb-6">
                         <AlertDescription>
@@ -157,5 +135,13 @@ export default function AdminPage() {
                 />
             </div>
         </Container>
+    );
+}
+
+export default function AdminPage() {
+    return (
+        <AdminGuard>
+            <AdminPageContent />
+        </AdminGuard>
     );
 }

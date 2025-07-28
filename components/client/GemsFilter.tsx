@@ -14,16 +14,16 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
 // You should replace these with your actual shape icon SVGs or PNGs
-import roundImg from "@/public/Arrow.svg";
-import princessImg from "@/public/Arrow.svg";
-import cushionImg from "@/public/Arrow.svg";
-import emeraldImg from "@/public/Arrow.svg";
-import ovalImg from "@/public/Arrow.svg";
-import radiantImg from "@/public/Arrow.svg";
-import asscherImg from "@/public/Arrow.svg";
-import marquiseImg from "@/public/Arrow.svg";
-import heartImg from "@/public/Arrow.svg";
-import pearImg from "@/public/Arrow.svg";
+import roundImg from "@/public/roundImg.svg";
+import princessImg from "@/public/princessImg.svg";
+import cushionImg from "@/public/cushionImg.svg";
+import emeraldImg from "@/public/emeraldImg.svg";
+import ovalImg from "@/public/ovalImg.svg";
+import radiantImg from "@/public/radiantImg.svg";
+import asscherImg from "@/public/asscherImg.svg";
+import marquiseImg from "@/public/marquiseImg.svg";
+import heartImg from "@/public/heartImg.svg";
+import pearImg from "@/public/pearImg.svg";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 
@@ -145,7 +145,7 @@ export function GemsFilter({
     };
 
     return (
-        <div className="bg-[#F5F1ED] p-6 rounded-lg shadow-sm">
+        <div className=" p-6 rounded-lg shadow-sm">
             <div className="grid grid-cols-12 grid-rows-2 gap-4">
                 {/* Shape Filter */}
                 <div className="col-span-12 row-span-2 md:col-span-5 ">
@@ -169,7 +169,7 @@ export function GemsFilter({
                                         )
                                     }
                                 >
-                                    <div className="w-8 h-8 mx-auto mb-1 relative">
+                                    <div className="w-12 h-12 mx-auto mb-1 relative">
                                         <Image
                                             src={shape.image}
                                             alt={shape.label}
@@ -191,7 +191,7 @@ export function GemsFilter({
                     <div className="grid grid-cols-2 gap-4">
                         {/* Color Filter */}
                         <div>
-                            <div className="bg-[#F5EFE7] text-[#8B4513] px-4 py-2 rounded-t-md text-sm font-medium">
+                            <div className="bg-primary text-white px-4 py-2 rounded-t-md text-sm font-medium">
                                 Color
                             </div>
                             <div className="bg-white p-4 rounded-b-md border border-t-0 border-gray-200 h-[124px] flex items-center">
@@ -296,7 +296,7 @@ export function GemsFilter({
                         </div>
 
                         <div>
-                            <div className="bg-[#F5EFE7] text-[#8B4513] px-4 py-2 rounded-t-md text-sm font-medium">
+                            <div className="bg-primary text-white px-4 py-2 rounded-t-md text-sm font-medium">
                                 Origin
                             </div>
                             <div className="bg-white p-4 rounded-b-md border border-t-0 border-gray-200">
@@ -442,7 +442,7 @@ export function GemsFilter({
                 </Button>
                 <Button
                     onClick={searchWithFilters}
-                    className="bg-[#8B4513] hover:bg-[#8B4513]/90 text-white px-8"
+                    className="bg-primary hover:bg-primary text-white px-8"
                     disabled={loading}
                 >
                     SEARCH

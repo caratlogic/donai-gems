@@ -39,7 +39,7 @@ const DianoBanner = () => {
                                 WebkitTextFillColor: "transparent",
                             }}
                         >
-                            Experience the DIANO
+                            Experience the DONAI
                             <br className="hidden md:block" /> Difference
                         </h2>
                         <p

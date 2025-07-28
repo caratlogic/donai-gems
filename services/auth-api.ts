@@ -1,4 +1,10 @@
 import apiClient from "./axios";
+import { User } from "@/lib/validations/user-schema"; // Assuming you have a user schema validation
+
+export interface LoginData {
+    email: string;
+    password: string;
+}
 
 export interface RegisterData {
     username: string;
@@ -7,50 +13,50 @@ export interface RegisterData {
     phone?: string;
 }
 
-export interface LoginData {
-    email: string;
-    password: string;
-}
-
-export interface OTPData {
-    email: string;
-    userId: string;
-    otp: string;
-}
-
-export interface VIPLoginData {
-    username: string;
-    passkey: string;
+interface AuthResponse {
+    data?: any;
+    success: boolean;
+    message: string;
+    user: User;
+    token?: string; // Or handle session via cookies
 }
 
 export const authAPI = {
-    // Register new user
-    register: async (data: RegisterData) => {
-        const response = await apiClient.post("/users/register", data);
-        return response.data;
-    },
-
-    // Verify OTP
-    verifyOTP: async (data: OTPData) => {
-        const response = await apiClient.post("/users/verify-otp", data);
-        return response.data;
-    },
-
-    // Normal user login
-    login: async (data: LoginData) => {
+    /**
+     * Login a user
+     */
+    login: async (data: LoginData): Promise<AuthResponse> => {
         const response = await apiClient.post("/users/login", data);
         return response.data;
     },
 
-    // VIP user login
-    vipLogin: async (data: VIPLoginData) => {
-        const response = await apiClient.post("/users/login/vip", data);
+    /**
+     * Register a new user
+     */
+    register: async (
+        data: RegisterData
+    ): Promise<{ success: boolean; message: string; userId: string }> => {
+        const response = await apiClient.post("/users/register", data);
         return response.data;
     },
 
-    // Logout (if you have this endpoint)
-    logout: async () => {
+    /**
+     * Logout the current user
+     */
+    logout: async (): Promise<{ success: boolean; message: string }> => {
         const response = await apiClient.post("/users/logout");
+        return response.data;
+    },
+
+    /**
+     * Fetches the current user's profile.
+     * NOTE: Your apis.md does not specify a /me or /profile endpoint.
+     * This is a common pattern. If it doesn't exist, this function will fail.
+     * An alternative is to rely solely on data from localStorage after login.
+     */
+    getProfile: async (): Promise<AuthResponse> => {
+        // Assuming an endpoint like /users/me exists to get the current user
+        const response = await apiClient.get("/users/me");
         return response.data;
     },
 };

@@ -122,7 +122,10 @@ export function DataTable<TData, TValue>({
                 <Table className="overflow-x-auto">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
+                            <TableRow
+                                className="bg-primary/40 hover:bg-primary/40"
+                                key={headerGroup.id}
+                            >
                                 {headerGroup.headers.map((header) => {
                                     return (
                                         <TableHead key={header.id}>

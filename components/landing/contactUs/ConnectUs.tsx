@@ -53,7 +53,7 @@ const ContactForm = () => {
                         WebkitTextFillColor: "transparent",
                     }}
                 >
-                    Connect with DIANO
+                    Connect with DONAI
                 </h2>
             </div>
 
@@ -157,7 +157,7 @@ const ContactForm = () => {
                                         >
                                             Terms & Conditions
                                         </a>{" "}
-                                        of DIANO
+                                        of DONAI
                                     </label>
                                 </div>
 

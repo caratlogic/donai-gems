@@ -24,7 +24,7 @@ const DianoApart = () => {
             <div className="flex items-center justify-center">
                 <Image
                     src={gemApart}
-                    alt="Diano Apart"
+                    alt="DONAI Apart"
                     width={500}
                     height={500}
                     className="h-full object-cover"
@@ -37,7 +37,7 @@ const DianoApart = () => {
                     className={`${playFair.className} text-5xl text-[#2E2B28] text-center lg:text-left lg:whitespace-nowrap`}
                     style={{ fontWeight: 400 }}
                 >
-                    What Sets DIANO Apart
+                    What Sets DOANI Apart
                 </h1>
                 <div
                     className={`mt-10 ${openSans.className} font-light text-md text-[#2E2B28CC] text-center lg:text-left lg:text-xl`}

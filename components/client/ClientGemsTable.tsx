@@ -48,7 +48,7 @@ export function ClientGemsTable({
     const [searchTerm, setSearchTerm] = useState("");
     const [sortBy, setSortBy] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
-    const [view, setView] = useState<"list" | "visual">("list");
+    const [view, setView] = useState<"list" | "visual">("visual");
 
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -107,7 +107,7 @@ export function ClientGemsTable({
                     </div>
 
                     {/* Availability badge */}
-                    <Badge
+                    {/* <Badge
                         variant={gem.availability ? "default" : "secondary"}
                         className={`absolute top-2 left-2 ${
                             gem.availability
@@ -116,7 +116,7 @@ export function ClientGemsTable({
                         }`}
                     >
                         {gem.availability ? "Available" : "Sold"}
-                    </Badge>
+                    </Badge> */}
                 </div>
 
                 {/* Gem Details */}
@@ -183,45 +183,45 @@ export function ClientGemsTable({
         <div className="bg-white rounded-lg overflow-hidden shadow">
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-primary/30 text-white">
                         <tr>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Image
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Stock ID
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Product Type
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Category
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Stone Type
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Color
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Carat
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Origin
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Treatment
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {/* <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Availability
-                            </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            </th> */}
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Certificate
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 Measurement
                             </th>
-                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                 View
                             </th>
                         </tr>
@@ -251,7 +251,7 @@ export function ClientGemsTable({
                                     className={
                                         index % 2 === 0
                                             ? "bg-gray-50"
-                                            : "bg-white"
+                                            : "bg-primary/30"
                                     }
                                 >
                                     <td className="px-4 py-4">
@@ -288,7 +288,7 @@ export function ClientGemsTable({
                                     <td className="px-4 py-4 text-sm text-gray-900">
                                         {gem.treatment}
                                     </td>
-                                    <td className="px-4 py-4">
+                                    {/* <td className="px-4 py-4">
                                         <Badge
                                             variant={
                                                 gem.availability
@@ -297,13 +297,13 @@ export function ClientGemsTable({
                                             }
                                             className={
                                                 gem.availability
-                                                    ? "bg-green-500 hover:bg-green-600"
+                                                    ? "bg-green-500/20 hover:bg-green-600"
                                                     : "bg-red-500 hover:bg-red-600"
                                             }
                                         >
                                             {gem.availability ? "Yes" : "No"}
                                         </Badge>
-                                    </td>
+                                    </td> */}
                                     <td className="px-4 py-4 text-sm text-gray-900">
                                         {gem.certificate}
                                     </td>
@@ -387,7 +387,7 @@ export function ClientGemsTable({
                     </Select>
 
                     {/* View Toggle */}
-                    <div className="flex border rounded-lg overflow-hidden">
+                    {/* <div className="flex border rounded-lg overflow-hidden">
                         <Button
                             variant={view === "visual" ? "default" : "ghost"}
                             size="sm"
@@ -404,7 +404,7 @@ export function ClientGemsTable({
                         >
                             List
                         </Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -434,7 +434,7 @@ export function ClientGemsTable({
 
             {/* Content */}
             {view === "visual" ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
                     {loading
                         ? renderLoadingSkeletons()
                         : gems.map(renderGemCard)}

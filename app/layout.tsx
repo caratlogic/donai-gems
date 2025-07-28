@@ -6,6 +6,7 @@ import {
     Open_Sans,
 } from "next/font/google";
 import {} from "next/font/google";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import "./globals.css";
 import Footer from "../components/landing/footer/Footer";
@@ -38,9 +39,11 @@ export default function RootLayout({
             <body
                 className={` ${openSans.variable} ${playfair.variable} antialiased`}
             >
-                <Navbar />
-                {children}
-                <Footer />
+                <AuthProvider>
+                    <Navbar />
+                    {children}
+                    <Footer />
+                </AuthProvider>
             </body>
         </html>
     );
