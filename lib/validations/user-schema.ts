@@ -20,7 +20,7 @@ export const userSchema = z.object({
     email: z.string().email("Invalid email address"),
     phone: z.string().optional().nullable(),
     role: z.enum(["USER", "ADMIN"]),
-    status: z.enum(["PENDING", "APPROVED", "SUSPENDED", "REJECTED"]), // Note: API uses APPROVED not ACTIVE
+    status: z.enum(["PENDING", "APPROVED", "SUSPENDED", "REJECTED", "ACTIVE"]), // Note: API uses APPROVED not ACTIVE
     isVip: z.boolean().default(false),
     isVerified: z.boolean().default(false),
     quotations: z.array(quotationSchema).optional(),

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import OurStory from "../../components/landing/aboutUs/OurStory";
 import WhatSetUsApart from "../../components/landing/aboutUs/WhatSetUsApart";
@@ -7,6 +8,7 @@ import Image from "next/image";
 import ringImage from "../assets/ring-gem.jpg";
 import ringHand2 from "../../public/ringHand2.png";
 import { Mulish, Playfair_Display } from "next/font/google";
+import { motion, Variants } from "framer-motion";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -18,12 +20,45 @@ const mulish = Mulish({
 });
 
 const page = () => {
+    const fadeInLeft: Variants = {
+        hidden: { opacity: 0, x: -50 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.8, ease: "easeInOut" },
+        },
+    };
+
+    const fadeInRight: Variants = {
+        hidden: { opacity: 0, x: 50 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.8, ease: "easeInOut" },
+        },
+    };
+
+    const fadeInBottom: Variants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: "easeInOut" },
+        },
+    };
+
     return (
         <div>
-            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 mb-30">
+            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 mb-30 overflow-hidden">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-12">
                     {/* Left Side - Image */}
-                    <div className="flex-1 relative">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={fadeInLeft}
+                        className="flex-1 relative"
+                    >
                         <div className="relative w-full h-[560px] rounded-lg overflow-hidden translate-x-10 ">
                             <Image
                                 src={ringImage} // Add this image to your public folder
@@ -33,10 +68,16 @@ const page = () => {
                                 priority
                             />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Side - Content */}
-                    <div className="flex-1 flex flex-col justify-center items-start gap-8 pl-8 bg-white -translate-x-15 translate-y-15 shadow-2xl py-10">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={fadeInRight}
+                        className="flex-1 flex flex-col justify-center items-start gap-8 pl-8 bg-white -translate-x-15 translate-y-15 shadow-2xl py-10"
+                    >
                         <div className="space-y-6">
                             <h1
                                 className={`text-4xl lg:text-5xl font-light text-[#C49A6C] leading-tight ${playFair.className}`}
@@ -80,14 +121,27 @@ const page = () => {
                                 SCHEDULE AN APPOINTMENT
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-            <OurStory />
-            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10">
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInBottom}
+            >
+                <OurStory />
+            </motion.div>
+            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 overflow-hidden">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-12">
                     {/* Left Side - Image */}
-                    <div className="flex-1 relative">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={fadeInLeft}
+                        className="flex-1 relative"
+                    >
                         <div className="relative w-full h-[560px] rounded-lg overflow-hidden translate-x-10 ">
                             <Image
                                 src={ringHand2} // Add this image to your public folder
@@ -97,10 +151,16 @@ const page = () => {
                                 priority
                             />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Side - Content */}
-                    <div className="flex-1 flex flex-col justify-center items-start gap-8 pl-8 bg-white -translate-x-15 translate-y-15 shadow-2xl py-10">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={fadeInRight}
+                        className="flex-1 flex flex-col justify-center items-start gap-8 pl-8 bg-white -translate-x-15 translate-y-15 shadow-2xl py-10"
+                    >
                         <div className="space-y-6">
                             <h1
                                 className={`text-4xl lg:text-5xl font-light text-[#C49A6C] leading-tight ${playFair.className}`}
@@ -141,12 +201,33 @@ const page = () => {
                                 SCHEDULE AN APPOINTMENT
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-            <WhatSetUsApart />
-            <FAQSection />
-            <DianoBanner />
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInBottom}
+            >
+                <WhatSetUsApart />
+            </motion.div>
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInBottom}
+            >
+                <FAQSection />
+            </motion.div>
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInBottom}
+            >
+                <DianoBanner />
+            </motion.div>
         </div>
     );
 };

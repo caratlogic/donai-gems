@@ -94,7 +94,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const authState = useMemo(() => {
         const isAuthenticated = !!user;
         const isAdmin = user?.role === "ADMIN";
-        const isApprovedUser = user?.status === "ACTIVE";
+        const isApprovedUser =
+            user?.status === "ACTIVE" || user?.status === "APPROVED";
 
         const hasStatus = (status: "PENDING" | "ACTIVE" | "SUSPENDED") =>
             user?.status === status;
