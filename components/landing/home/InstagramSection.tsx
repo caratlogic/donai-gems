@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import InstagramImage from "@/app/assets/instagram.png";
 import { Open_Sans } from "next/font/google";
+import { Link } from "lucide-react";
 
 const openSans = Open_Sans({
     subsets: ["latin"],
@@ -36,7 +37,7 @@ const InstagramSection = () => {
                     >
                         Follow our story on Instagram
                     </p>
-                    <a
+                    <Link
                         href="https://www.instagram.com/donaicollection/"
                         className="my-5 inline-flex justify-center items-center rounded-md relative overflow-hidden"
                         style={{
@@ -58,7 +59,7 @@ const InstagramSection = () => {
                                 VIEW OUR INSTAGRAM
                             </span>
                         </div>
-                    </a>
+                    </Link>
                 </div>
                 <div>
                     <Image

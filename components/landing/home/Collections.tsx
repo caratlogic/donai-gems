@@ -7,6 +7,7 @@ import gem12 from "@/app/assets/gem12.jpg";
 import gem13 from "@/app/assets/gem13.jpg";
 import gem14 from "@/app/assets/gem14.jpg";
 import gem15 from "@/app/assets/gem15.jpg";
+import { Link } from "lucide-react";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -74,12 +75,12 @@ const Collections = () => {
                     >
                         Explore Full Inventory
                     </p>
-                    <a
+                    <Link
                         href="#"
                         className="text-sm text-[#2E2B28CC] underline font-light"
                     >
                         View All
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import RingImage from "@/app/assets/red-hand-ring.jpg";
 import StarIcon from "@/app/assets/star.png";
 import { Playfair_Display, Inter } from "next/font/google";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -151,12 +152,12 @@ const ContactForm = () => {
                                     />
                                     <label className="text-sm text-[#000000]">
                                         I hereby agree to{" "}
-                                        <a
+                                        <Link
                                             href="#"
                                             className="underline text-[#000000]"
                                         >
                                             Terms & Conditions
-                                        </a>{" "}
+                                        </Link>{" "}
                                         of DONAI
                                     </label>
                                 </div>

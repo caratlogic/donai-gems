@@ -7,6 +7,7 @@ import ContactImage from "@/app/assets/Frame 1075.jpg";
 import { FaInstagram } from "react-icons/fa";
 import { LuFacebook, LuLinkedin, LuTwitter } from "react-icons/lu";
 import { Playfair_Display } from "next/font/google";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -83,13 +84,13 @@ const ContactInfo = () => {
                                 LuLinkedin,
                                 LuTwitter,
                             ].map((Icon, idx) => (
-                                <a
+                                <Link
                                     key={idx}
                                     href="#"
                                     className="w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center text-[#2E2B28] hover:bg-[#2E2B28] hover:text-white hover:shadow transition"
                                 >
                                     <Icon size={22} />
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import popupBg from "@/app/assets/popup-bg.png";
 import popupMain from "@/app/assets/popup-main.svg";
 import { HiX } from "react-icons/hi";
+import { Link } from "lucide-react";
 
 interface PopupProps {
     onClose: () => void; // Add an onClose prop
@@ -57,14 +58,14 @@ const Popup: React.FC<PopupProps> = ({ onClose }) => {
                             IN STORE PURCHASE
                         </div>
 
-                        <a
+                        <Link
                             className="px-14 cursor-pointer m-3 py-5 rounded-md shadow-[0px_2px_12px_0px_rgba(0,0,0,0.12)] outline-[1.20px] outline-offset-[-1.20px] outline-black inline-flex justify-center items-center gap-2.5"
                             href="/categories/all-jewelry"
                         >
                             <div className="justify-start text-black text-2xl font-normal font-['Open_Sans']">
                                 SHOP SALE
                             </div>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
