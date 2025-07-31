@@ -67,14 +67,9 @@ export function ClientGemsTable({
 
     const renderLoadingSkeletons = () => {
         return Array.from({ length: recordsPerPage }).map((_, index) => (
-            <Card key={index} className="overflow-hidden">
+            <Card key={index} className="overflow-hidden p-0 rounded-none">
                 <CardContent className="p-0">
-                    <div className="aspect-square bg-gray-200 animate-pulse" />
-                    <div className="p-4 space-y-2">
-                        <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                        <div className="h-3 bg-gray-200 rounded w-3/4 animate-pulse" />
-                        <div className="h-3 bg-gray-200 rounded w-1/2 animate-pulse" />
-                    </div>
+                    <div className="aspect-square  bg-gray-200 animate-pulse" />
                 </CardContent>
             </Card>
         ));
@@ -83,44 +78,42 @@ export function ClientGemsTable({
     const renderGemCard = (gem: Gem) => (
         <Card
             key={gem._id}
-            className="group overflow-hidden hover:shadow-lg transition-all bg-[#FDFAF6] duration-300 p-0"
+            className="group overflow-hidden  rounded-none hover:shadow-lg transition-all bg-[#FDFAF6] duration-500 p-0 border-primary/50"
         >
-            <CardContent className="p-5 ">
+            <CardContent className="p-0 rounded-sm ">
                 {/* Gem Image Placeholder */}
                 <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                    {/* <Image
+                        src={"/semiPreciousFeature.jpg"}
+                        alt={`${gem.stoneType} Gem`}
+                        width={300}
+                        height={300}
+                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                    /> */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
+                        {/* <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
                             <span className="text-2xl font-bold text-[#C49A6C]">
                                 {gem.stoneType?.charAt(0) || "G"}
                             </span>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Overlay buttons */}
-                    <div className="absolute -bottom-20 left-2 group-hover:bottom-2  group-hover:left-2  opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 -bottom-20 left-0 group-hover:bottom-0  group-hover:left-0  opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-start justify-end gap-2">
                         {/* <Button size="sm" className="mr-1">
                             <Heart className="h-4 w-4" />
                         </Button> */}
                         {/* <Button size="sm">
                             <Eye className="h-4 w-4" />
                         </Button> */}
-                        <div className="flex-col items-center justify-between">
-                            <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
-                                <span>Shape : </span>
+                        <div className="flex-col w-full items-start justify-between ">
+                            <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto ">
+                                <span className="uppercase">
+                                    {" "}
+                                    {gem.category} {gem.stoneType} {gem.color}
+                                </span>{" "}
                                 {gem.shape}
                             </h3>
-                            <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
-                                <span>Color : </span>
-                                {gem.color}
-                            </h3>
-                            <div className="flex items-center justify-start ">
-                                <Badge
-                                    variant="outline"
-                                    className="text-lg border-none text-primary font-semibold"
-                                >
-                                    {gem.productType}
-                                </Badge>
-                            </div>
                         </div>
                     </div>
 
@@ -351,12 +344,25 @@ export function ClientGemsTable({
         </div>
     );
 
+    const renderEmptyState = () => (
+        <div className="col-span-full flex flex-col items-center justify-center py-16 px-4">
+            <div className="text-center">
+                <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Search className="h-12 w-12 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No gems found
+                </h3>
+            </div>
+        </div>
+    );
+
     return (
         <div className="space-y-6">
             {/* Header Controls */}
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 {/* Search */}
-                <form
+                {/* <form
                     onSubmit={handleSearchSubmit}
                     className="flex gap-2 flex-1 max-w-md"
                 >
@@ -369,12 +375,12 @@ export function ClientGemsTable({
                     <Button type="submit" size="sm" disabled={loading}>
                         <Search className="h-4 w-4" />
                     </Button>
-                </form>
+                </form> */}
 
                 {/* Controls */}
                 <div className="flex items-center gap-4">
                     {/* Sort */}
-                    <Select
+                    {/* <Select
                         value={`${sortBy}-${sortOrder}`}
                         onValueChange={handleSortChange}
                         disabled={loading}
@@ -402,7 +408,7 @@ export function ClientGemsTable({
                                 Stock ID: Z to A
                             </SelectItem>
                         </SelectContent>
-                    </Select>
+                    </Select> */}
 
                     {/* View Toggle */}
                     {/* <div className="flex border rounded-lg overflow-hidden">
@@ -428,12 +434,12 @@ export function ClientGemsTable({
 
             {/* Results Info */}
             <div className="flex items-center justify-between text-sm text-gray-600">
-                <span>
+                {/* <span>
                     Showing {(currentPage - 1) * recordsPerPage + 1} to{" "}
                     {Math.min(currentPage * recordsPerPage, totalRecords)} of{" "}
                     {totalRecords.toLocaleString()} gems
-                </span>
-                <Select
+                </span> */}
+                {/* <Select
                     value={recordsPerPage.toString()}
                     onValueChange={(value) => onPageSizeChange(Number(value))}
                     disabled={loading}
@@ -447,15 +453,17 @@ export function ClientGemsTable({
                         <SelectItem value="30">30 per page</SelectItem>
                         <SelectItem value="50">50 per page</SelectItem>
                     </SelectContent>
-                </Select>
+                </Select> */}
             </div>
 
             {/* Content */}
             {view === "visual" ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
                     {loading
                         ? renderLoadingSkeletons()
-                        : gems.map(renderGemCard)}
+                        : gems.length > 0
+                        ? gems.map(renderGemCard)
+                        : renderEmptyState()}
                 </div>
             ) : (
                 renderListView()

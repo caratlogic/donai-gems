@@ -33,9 +33,11 @@ interface FilterState {
     carat: [number, number];
     type: string[];
     origin: string[];
+    productType?: string[]; // Add this
 }
 
 interface GemsFilterProps {
+    filters?: FilterState; // Make filters prop optional and accept initial filters
     onFiltersChange: (filters: FilterState) => void;
     loading?: boolean;
 }
@@ -71,19 +73,35 @@ const originOptions = [
 ];
 
 export function GemsFilter({
+    filters: initialFilters,
     onFiltersChange,
     loading = false,
 }: GemsFilterProps) {
     const [filters, setFilters] = useState<FilterState>({
-        shape: [],
-        color: [],
-        carat: [0.5, 7.5],
-        type: [],
-        origin: [],
+        shape: initialFilters?.shape || [],
+        color: initialFilters?.color || [],
+        carat: initialFilters?.carat || [0.5, 7.5],
+        type: initialFilters?.type || [],
+        origin: initialFilters?.origin || [],
+        productType: initialFilters?.productType || [],
     });
 
+    // Update filters when initialFilters change
+    useEffect(() => {
+        if (initialFilters) {
+            setFilters({
+                shape: initialFilters.shape || [],
+                color: initialFilters.color || [],
+                carat: initialFilters.carat || [0.5, 7.5],
+                type: initialFilters.type || [],
+                origin: initialFilters.origin || [],
+                productType: initialFilters.productType || [],
+            });
+        }
+    }, [initialFilters]);
+
     const handleMultiSelectChange = (
-        category: "shape" | "color" | "type" | "origin",
+        category: "shape" | "color" | "type" | "origin" | "productType",
         value: string
     ) => {
         setFilters((prev) => {
@@ -135,6 +153,7 @@ export function GemsFilter({
             carat: [0.5, 7.5] as [number, number],
             type: [],
             origin: [],
+            productType: initialFilters?.productType || [], // Keep initial productType
         };
         setFilters(clearedFilters);
         onFiltersChange(clearedFilters);

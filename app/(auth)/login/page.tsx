@@ -46,7 +46,7 @@ const Page = () => {
                     window.location.href = "/admin"; // Redirect to admin dashboard
                     // router.push("/admin");
                 } else {
-                    window.location.href = "/inventory";
+                    window.location.href = "/gemstones";
                     // router.push("/inventory"); // or wherever you want to redirect normal users
                 }
             }

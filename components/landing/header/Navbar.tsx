@@ -26,9 +26,9 @@ const Navbar = () => {
     // Base navigation items available to all users
     const baseNavBarItems = [
         { name: "HOME", path: "/" },
-        { name: "GEMSTONE", path: "/Gemstone" },
+        { name: "GEMSTONE", path: "/gemstones" },
         { name: "ABOUT US", path: "/About" },
-        { name: "FINE JEWELLERY", path: "/FineJewellery" },
+        { name: "FINE JEWELLERY", path: "/jewelery" },
         { name: "CONTACT US", path: "/Contact" },
         { name: "INVENTORY", path: "/inventory" },
     ];
@@ -172,7 +172,7 @@ const Navbar = () => {
                 <div
                     className={`hidden lg:flex items-center gap-3 ${mulish.className}`}
                 >
-                    {user?.role === "USER" && (
+                    {!isAuthenticated && (
                         <button className="relative rounded-md overflow-hidden px-3 py-1 item-center text-md bg-white border border-primary font-light cursor-pointer hover:bg-[#C49A6CCC] hover:text-white text-primary hover:border-[#C49A6CCC] transition-all duration-300">
                             Book an Appointment
                             {/* Shine effect */}
@@ -297,12 +297,7 @@ const Navbar = () => {
                                         }
                                     }}
                                     onClick={() => {
-                                        if (
-                                            item.name !== "GEMSTONE" &&
-                                            item.name !== "FINE JEWELLERY"
-                                        ) {
-                                            Router.push(`${item.path}`);
-                                        }
+                                        Router.push(`${item.path}`);
                                     }}
                                 >
                                     {item.name}
@@ -312,10 +307,10 @@ const Navbar = () => {
                     </ul>
 
                     {/* Categories Dropdown */}
-                    <CategoriesDropdown
+                    {/* <CategoriesDropdown
                         showCategoriesDropdown={showCategoriesDropdown}
                         setShowCategoriesDropdown={setShowCategoriesDropdown}
-                    />
+                    /> */}
 
                     {/* Gemstone Dropdown */}
                     <GemstoneDropdown

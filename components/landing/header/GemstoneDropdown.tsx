@@ -193,11 +193,10 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
     const handleGemstoneClick = (gemstoneName: string, shapeName: string) => {
         if (activeGemstone === "Semi-precious") return; // Disabled functionality
 
-        Router.push(
-            `/gemstones/${gemstoneName.toLowerCase()}/${shapeName
-                .toLowerCase()
-                .replace(/\s+/g, "-")}`
-        );
+        // Convert shape name for URL (handle spaces and special cases)
+        const urlShape = shapeName.toLowerCase().replace(/\s+/g, "-");
+
+        Router.push(`/gemstones/${gemstoneName.toLowerCase()}/${urlShape}`);
         setShowGemstoneDropdown(false);
     };
 

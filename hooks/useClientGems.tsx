@@ -8,6 +8,7 @@ interface FilterState {
     carat: [number, number];
     type: string[];
     origin: string[];
+    productType?: string[]; // Add this new field
 }
 
 interface ClientGemsState {
@@ -32,6 +33,7 @@ interface UseClientGemsReturn {
     updateSort: (sortBy: string, sortOrder: "asc" | "desc") => void;
     updatePage: (page: number) => void;
     updatePageSize: (limit: number) => void;
+    initializeFromParams: (urlFilters: Partial<FilterState>) => void; // Add this
     paginationMeta: {
         currentPage: number;
         totalPages: number;
@@ -59,7 +61,7 @@ export function useClientGems(): UseClientGemsReturn {
 
     const [clientState, setClientState] = useState<ClientGemsState>({
         page: 1,
-        limit: 10,
+        limit: 6,
         sortBy: "createdAt",
         sortOrder: "desc",
         filters: {
@@ -113,10 +115,17 @@ export function useClientGems(): UseClientGemsReturn {
             params.append("caratMax", filters.carat[1].toString());
         }
 
-        // Type filter (mapped to category)
+        // Type filter (mapped to stoneType for API)
         if (filters.type.length > 0) {
             filters.type.forEach((type) => {
-                params.append("category", type);
+                params.append("stoneType", type);
+            });
+        }
+
+        // Product Type filter
+        if (filters.productType && filters.productType.length > 0) {
+            filters.productType.forEach((productType) => {
+                params.append("productType", productType);
             });
         }
 
@@ -132,6 +141,27 @@ export function useClientGems(): UseClientGemsReturn {
 
         return params;
     }, []);
+
+    // Add new function to initialize from URL params
+    const initializeFromParams = useCallback(
+        (urlFilters: Partial<FilterState>) => {
+            console.log("🔗 Initializing from URL params:", urlFilters);
+
+            setClientState((prev) => ({
+                ...prev,
+                filters: {
+                    shape: urlFilters.shape || [],
+                    color: urlFilters.color || [],
+                    carat: urlFilters.carat || [0, 10],
+                    type: urlFilters.type || [],
+                    origin: urlFilters.origin || [],
+                    productType: urlFilters.productType || [], // Add this
+                },
+                page: 1, // Reset to first page
+            }));
+        },
+        []
+    );
 
     const fetchGems = useCallback(
         async (state: ClientGemsState) => {
@@ -149,7 +179,9 @@ export function useClientGems(): UseClientGemsReturn {
                     state.filters.carat[0] !== 0 ||
                     state.filters.carat[1] !== 10 ||
                     state.filters.type.length > 0 ||
-                    state.filters.origin.length > 0;
+                    state.filters.origin.length > 0 ||
+                    (state.filters.productType &&
+                        state.filters.productType.length > 0); // Add this check
 
                 const endpoint = hasFilters ? "/api/gems/search" : "/api/gems";
 
@@ -299,6 +331,7 @@ export function useClientGems(): UseClientGemsReturn {
         updateSort,
         updatePage,
         updatePageSize,
+        initializeFromParams, // Add this
         paginationMeta,
     };
 }
