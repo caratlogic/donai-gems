@@ -15,6 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 interface ClientGemsTableProps {
     gems: Gem[];
@@ -76,7 +77,7 @@ export function ClientGemsTable({
     };
 
     const renderGemCard = (gem: Gem) => (
-        <a href={`/product/${gem.stockId}`} key={gem._id}>
+        <Link href={`/product/${gem.stockId}`} key={gem._id}>
             <Card
                 key={gem._id}
                 className="group overflow-hidden  rounded-none hover:shadow-lg transition-all bg-[#FDFAF6] duration-500 p-0 border-primary/50"
@@ -189,7 +190,7 @@ export function ClientGemsTable({
                 </div> */}
                 </CardContent>
             </Card>
-        </a>
+        </Link>
     );
 
     const renderListView = () => (
