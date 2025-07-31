@@ -30,7 +30,6 @@ const Navbar = () => {
         { name: "ABOUT US", path: "/About" },
         { name: "FINE JEWELLERY", path: "/jewelery" },
         { name: "CONTACT US", path: "/Contact" },
-        { name: "INVENTORY", path: "/inventory" },
     ];
 
     // Admin-only navigation items

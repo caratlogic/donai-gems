@@ -68,7 +68,7 @@ export default function Home() {
     return (
         <div>
             {/* Conditionally render the Popup component */}
-            {showPopup && <Popup onClose={handleClosePopup} />}
+            {false && <Popup onClose={handleClosePopup} />}
 
             {/* Each section with its own independent animation */}
 
