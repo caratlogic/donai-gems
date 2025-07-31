@@ -76,49 +76,50 @@ export function ClientGemsTable({
     };
 
     const renderGemCard = (gem: Gem) => (
-        <Card
-            key={gem._id}
-            className="group overflow-hidden  rounded-none hover:shadow-lg transition-all bg-[#FDFAF6] duration-500 p-0 border-primary/50"
-        >
-            <CardContent className="p-0 rounded-sm ">
-                {/* Gem Image Placeholder */}
-                <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                    {/* <Image
+        <a href={`/product/${gem.stockId}`} key={gem._id}>
+            <Card
+                key={gem._id}
+                className="group overflow-hidden  rounded-none hover:shadow-lg transition-all bg-[#FDFAF6] duration-500 p-0 border-primary/50"
+            >
+                <CardContent className="p-0 rounded-sm ">
+                    {/* Gem Image Placeholder */}
+                    <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                        {/* <Image
                         src={"/semiPreciousFeature.jpg"}
                         alt={`${gem.stoneType} Gem`}
                         width={300}
                         height={300}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                     /> */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        {/* <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            {/* <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
                             <span className="text-2xl font-bold text-[#C49A6C]">
                                 {gem.stoneType?.charAt(0) || "G"}
                             </span>
                         </div> */}
-                    </div>
+                        </div>
 
-                    {/* Overlay buttons */}
-                    <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 -bottom-20 left-0 group-hover:bottom-0  group-hover:left-0  opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-start justify-end gap-2">
-                        {/* <Button size="sm" className="mr-1">
+                        {/* Overlay buttons */}
+                        <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 -bottom-20 left-0 group-hover:bottom-0  group-hover:left-0  opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-start justify-end gap-2">
+                            {/* <Button size="sm" className="mr-1">
                             <Heart className="h-4 w-4" />
                         </Button> */}
-                        {/* <Button size="sm">
+                            {/* <Button size="sm">
                             <Eye className="h-4 w-4" />
                         </Button> */}
-                        <div className="flex-col w-full items-start justify-between ">
-                            <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto ">
-                                <span className="uppercase">
-                                    {" "}
-                                    {gem.category} {gem.stoneType} {gem.color}
-                                </span>{" "}
-                                {gem.shape}
-                            </h3>
+                            <div className="flex-col w-full items-start justify-between ">
+                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto ">
+                                    <span className="uppercase">
+                                        {" "}
+                                        {gem.category} {gem.stoneType}{" "}
+                                        {gem.color}
+                                    </span>{" "}
+                                </h3>
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Availability badge */}
-                    {/* <Badge
+                        {/* Availability badge */}
+                        {/* <Badge
                         variant={gem.availability ? "default" : "secondary"}
                         className={`absolute top-2 left-2 ${
                             gem.availability
@@ -128,10 +129,10 @@ export function ClientGemsTable({
                     >
                         {gem.availability ? "Available" : "Sold"}
                     </Badge> */}
-                </div>
+                    </div>
 
-                {/* Gem Details */}
-                {/* <div className="p-4 space-y-2">
+                    {/* Gem Details */}
+                    {/* <div className="p-4 space-y-2">
                     <div className="flex-col items-center justify-between">
                         <h3 className="pl-2  text-primary font-semibold text-lg truncate mx-auto ">
                             <span>Stock-ID : </span>
@@ -186,8 +187,9 @@ export function ClientGemsTable({
                         </div>
                     </div>
                 </div> */}
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </a>
     );
 
     const renderListView = () => (

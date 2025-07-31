@@ -52,7 +52,7 @@ function InventoryPageContent() {
                 return ["GEM"]; // Filter for gemstone products
             } else if (
                 normalizedType === "jewellery" ||
-                normalizedType === "jewelry"
+                normalizedType === "jewelery"
             ) {
                 return ["Jewelry"]; // Filter for jewelry products
             }
@@ -88,7 +88,7 @@ function InventoryPageContent() {
             return "Gemstones Collection";
         } else if (
             normalizedType === "jewellery" ||
-            normalizedType === "jewelry"
+            normalizedType === "jewelery"
         ) {
             return "Jewelry Collection";
         }
@@ -98,12 +98,13 @@ function InventoryPageContent() {
 
     const getPageDescription = () => {
         const normalizedType = productType.toLowerCase();
+        console.log("Normalized product type:", normalizedType);
 
         if (normalizedType === "gemstone" || normalizedType === "gemstones") {
             return "Explore our exquisite collection of natural gemstones";
         } else if (
             normalizedType === "jewellery" ||
-            normalizedType === "jewelry"
+            normalizedType === "jewelery"
         ) {
             return "Discover our stunning collection of fine jewelry pieces";
         }
