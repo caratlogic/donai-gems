@@ -6,6 +6,7 @@ import fig1 from "@/app/assets/fig1.jpg";
 import fig2 from "@/app/assets/fig2.jpg";
 import fig3 from "@/app/assets/fig3.jpg";
 import fig4 from "@/app/assets/fig4.jpg";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -97,9 +98,11 @@ const Categories = () => {
                 />
             </div>
             <div className="flex flex-row justify-center">
-                <button className="border px-4 py-1 border-[#2E2B28] font-light hover:bg-[#2E2B28] hover:text-white transition-all duration-300 cursor-pointer">
-                    VIEW ALL STYLES
-                </button>
+                <Link href={"/gemstones"}>
+                    <button className="border px-4 py-1 border-[#2E2B28] font-light hover:bg-[#2E2B28] hover:text-white transition-all duration-300 cursor-pointer">
+                        VIEW ALL STYLES
+                    </button>
+                </Link>
             </div>
         </div>
     );

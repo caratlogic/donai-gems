@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 // import SmallRingImage from "../assets/Ring.jpg";
 // import BigRingImage from "../assets/bangles1.jpg";
 import heroImage from "@/app/assets/hero.png";
+import Link from "next/link";
+import { ArrowRightIcon, ArrowUpRightFromSquare } from "lucide-react";
 
 const BestGradeSection = () => {
     return (
@@ -43,19 +45,19 @@ const BestGradeSection = () => {
                             in precision-selected gems, while a select few are
                             transformed into exclusive jewellery creations.
                         </p>
-                        <button className="relative group overflow-hidden flex items-center border border-black hover:bg-black px-4 py-2 mt-5 text-sm gap-2">
-                            <span className="tracking-wide group-hover:text-white">
-                                EXPLORE OUR GEM COLLECTION
-                            </span>
-                            <Image
-                                src="Arrow.svg"
-                                alt="Arrow"
-                                width={20}
-                                height={20}
-                            />
-                            {/* Shine effect */}
-                            <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
-                        </button>
+                        <Link href={"/gemstones"}>
+                            <button className=" cursor-pointer relative group overflow-hidden flex items-center border border-black hover:bg-black px-4 py-2 mt-5 text-sm gap-2">
+                                <span className="tracking-wide group-hover:text-white">
+                                    EXPLORE OUR GEM COLLECTION
+                                </span>
+                                <ArrowRightIcon
+                                    size={20}
+                                    className="text-black group-hover:text-white"
+                                />
+                                {/* Shine effect */}
+                                <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
+                            </button>
+                        </Link>
                     </div>
 
                     {/* Right: Door-shaped Images with border styling */}

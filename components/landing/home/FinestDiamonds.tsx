@@ -5,6 +5,7 @@ import gem1 from "@/app/assets/gem1.jpg";
 import gem2 from "@/app/assets/gem2.jpg";
 import gem3 from "@/app/assets/gem3.jpg";
 import gem4 from "@/app/assets/gem4.jpg";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -79,9 +80,11 @@ const Collections = () => {
             </div>
 
             <div className="flex justify-center mt-5">
-                <button className="border border-[#C49A6C] text-[#C49A6C] font-light hover:bg-[#C49A6C] hover:text-[#FFFFFF] duration-300 px-6 py-1 mb-10">
-                    BROWSE MASTERPIECES
-                </button>
+                <Link href={"/gemstones"}>
+                    <button className="border cursor-pointer border-[#C49A6C] text-[#C49A6C] font-light hover:bg-[#C49A6C] hover:text-[#FFFFFF] duration-300 px-6 py-1 mb-10">
+                        BROWSE MASTERPIECES
+                    </button>
+                </Link>
             </div>
         </div>
     );

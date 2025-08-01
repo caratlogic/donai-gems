@@ -211,25 +211,36 @@ const Page = () => {
         setError("");
 
         try {
-            // For now, we'll just simulate this as the API doesn't have a separate customer data endpoint
-            // You might need to create a separate endpoint or modify the registration flow
+            // Call the actual registerCustomer API endpoint
+            const response = await authAPI.registerCustomer(customerData);
 
-            // Store user data for the success message
-            setSubmittedUserData({
-                username: registerData.username,
-                email: registerData.email,
-                firstName: customerData.firstName,
-                lastName: customerData.lastName,
-                companyName: customerData.businessInfo.companyName,
-            });
+            if (response.success) {
+                // Store user data for the success message
+                setSubmittedUserData({
+                    username: registerData.username,
+                    email: registerData.email,
+                    firstName: customerData.firstName,
+                    lastName: customerData.lastName,
+                    companyName: customerData.businessInfo.companyName,
+                });
 
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            return true;
+                return true;
+            } else {
+                setError(response.message || "Customer data submission failed");
+                return false;
+            }
         } catch (err: any) {
             console.error("Customer data submission error:", err);
-            setError("Customer data submission failed. Please try again.");
+
+            if (err.response?.data?.message) {
+                setError(err.response.data.message);
+            } else if (err.response?.status === 400) {
+                setError("Invalid customer data provided");
+            } else if (err.response?.status === 409) {
+                setError("Customer data already exists");
+            } else {
+                setError("Customer data submission failed. Please try again.");
+            }
             return false;
         } finally {
             setIsLoading(false);
@@ -334,7 +345,7 @@ const Page = () => {
                 <div className="flex flex-col items-center space-y-6 p-8">
                     {/* Logo and Header */}
                     <div className="text-center space-y-4">
-                        <div className="flex justify-center mb-6">
+                        {/* <div className="flex justify-center mb-6">
                             <Image
                                 src="Donai.svg"
                                 alt="Donai Gems"
@@ -342,7 +353,7 @@ const Page = () => {
                                 height={60}
                                 className="object-contain"
                             />
-                        </div>
+                        </div> */}
                         <h2
                             className={`text-5xl text-primary py-3 font-normal font-playfair`}
                         >

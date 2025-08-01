@@ -1,3 +1,4 @@
+import { register } from "module";
 import apiClient from "./axios";
 import { User } from "@/lib/validations/user-schema";
 
@@ -58,6 +59,18 @@ export const authAPI = {
         data: VerifyOTPData
     ): Promise<{ success: boolean; message: string; user?: User }> => {
         const response = await apiClient.post("/users/verify-otp", data);
+        return response.data;
+    },
+
+    /**
+     *
+     * Register customer data
+     */
+
+    registerCustomer: async (
+        data: CustomerData
+    ): Promise<{ success: boolean; message: string; userId: string }> => {
+        const response = await apiClient.post("/users/customer-data", data);
         return response.data;
     },
 

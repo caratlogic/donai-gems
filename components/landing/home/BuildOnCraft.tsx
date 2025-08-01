@@ -3,6 +3,7 @@ import { Playfair_Display, Mulish } from "next/font/google";
 import Image from "next/image";
 // import StarIcon from "../assets/star.png";
 import gem8 from "@/app/assets/blue.jpg";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -49,12 +50,16 @@ const BuildOnCraft = () => {
                     connoisseurs.
                 </p>
 
-                <button className="text-[#2E2B28] border border-[#2E2B28] px-5 py-1 mb-10 hover:bg-[#2E2B28] hover:text-white">
-                    ENQUIRY
-                </button>
-                <button className="text-white cursor-pointer bg-[#C49A6CCC] border border-[#C49A6CCC] px-5 py-1 mb-10 ml-5">
-                    BOOK AN APPOINTMENT
-                </button>
+                <Link href={"/contact"}>
+                    <button className="text-[#2E2B28] border cursor-pointer border-[#2E2B28] px-5 py-1 mb-10 hover:bg-[#2E2B28] hover:text-white">
+                        ENQUIRY
+                    </button>
+                </Link>
+                <Link href={"/contact"}>
+                    <button className="text-white cursor-pointer bg-[#C49A6CCC] border border-[#C49A6CCC] px-5 py-1 mb-10 ml-5">
+                        BOOK AN APPOINTMENT
+                    </button>
+                </Link>
             </div>
 
             {/* Image Section */}
