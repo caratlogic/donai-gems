@@ -37,7 +37,7 @@ const InstagramSection = () => {
                     >
                         Follow our story on Instagram
                     </p>
-                    <Link
+                    <a
                         href="https://www.instagram.com/donaicollection/"
                         className="my-5 inline-flex justify-center items-center rounded-md relative overflow-hidden"
                         style={{
@@ -59,7 +59,7 @@ const InstagramSection = () => {
                                 VIEW OUR INSTAGRAM
                             </span>
                         </div>
-                    </Link>
+                    </a>
                 </div>
                 <div>
                     <Image

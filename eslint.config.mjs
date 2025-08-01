@@ -21,6 +21,9 @@ const eslintConfig = [
 
       // Allow unescaped apostrophes and other entities in JSX
       "react/no-unescaped-entities": "off",
+
+      // Allow using standard <a> tags for internal navigation
+      "@next/next/no-html-link-for-pages": "off",
     },
   },
 ];

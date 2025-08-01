@@ -19,6 +19,11 @@ export interface VerifyOTPData {
     otp: string;
 }
 
+export interface VipLoginData {
+    email: string;
+    passkey: string;
+}
+
 interface AuthResponse {
     data?: any;
     success: boolean;
@@ -73,6 +78,14 @@ export const authAPI = {
     getProfile: async (): Promise<AuthResponse> => {
         // Assuming an endpoint like /users/me exists to get the current user
         const response = await apiClient.get("/users/me");
+        return response.data;
+    },
+
+    /**
+     * VIP login with passkey
+     */
+    vipLogin: async (data: VipLoginData): Promise<AuthResponse> => {
+        const response = await apiClient.post("/users/login/vip", data);
         return response.data;
     },
 };

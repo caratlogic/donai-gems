@@ -67,12 +67,12 @@ const Navbar = () => {
     return (
         <div className="bg-white sticky top-0 z-50">
             <div
-                className={`max-w-6xl mx-auto flex gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
+                className={`max-w-7xl mx-auto flex gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
             >
                 {/* Search Bar and Language Dropdown */}
-                <div className="hidden lg:flex items-center gap-4">
+                <div className="hidden  lg:flex items-center gap-4">
                     {/* Search Bar */}
-                    <div className="relative">
+                    <div className="relative  md:w-[300px]">
                         <span className="absolute top-2.5 right-4">
                             <Image
                                 src="search.svg"

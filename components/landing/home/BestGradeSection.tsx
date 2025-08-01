@@ -43,8 +43,8 @@ const BestGradeSection = () => {
                             in precision-selected gems, while a select few are
                             transformed into exclusive jewellery creations.
                         </p>
-                        <button className="flex items-center border border-black px-4 py-2 mt-5 text-sm gap-2">
-                            <span className="tracking-wide">
+                        <button className="relative group overflow-hidden flex items-center border border-black hover:bg-black px-4 py-2 mt-5 text-sm gap-2">
+                            <span className="tracking-wide group-hover:text-white">
                                 EXPLORE OUR GEM COLLECTION
                             </span>
                             <Image
@@ -53,6 +53,8 @@ const BestGradeSection = () => {
                                 width={20}
                                 height={20}
                             />
+                            {/* Shine effect */}
+                            <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
                         </button>
                     </div>
 
