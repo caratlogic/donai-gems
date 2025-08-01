@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import CustomButton from "@/components/ui/CustomButton";
 import { AdminGuard } from "@/components/guards/AdminGuard";
 import { AddGemModal } from "@/components/modals/AddGemModal";
+import { exportGemsToCSV } from "@/lib/utils/csvExport";
 
 function AdminPageContent() {
     const {
@@ -49,15 +50,34 @@ function AdminPageContent() {
         refetch();
     }, [refetch]);
 
+    const handleExport = useCallback(() => {
+        if (gems.length === 0) {
+            alert("No data to export. Please wait for data to load.");
+            return;
+        }
+
+        // Generate filename with current timestamp
+        const timestamp = new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace(/:/g, "-");
+        const filename = `gems-export-${timestamp}.csv`;
+
+        console.log(`📊 Exporting ${gems.length} gems to CSV`);
+        exportGemsToCSV(gems, filename);
+    }, [gems]);
+
     return (
         <Container>
             <div className="flex items-center justify-start gap-2 my-5">
                 <CustomButton
+                    onClick={handleExport}
+                    disabled={loading || gems.length === 0}
                     variant="secondary"
-                    className="rounded-md text-neutral-500 border shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
+                    className="rounded-md text-neutral-500 border shadow-none hover:bg-primary/80 hover:border-none hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     icon={<DownloadIcon size={15} />}
                 >
-                    Export
+                    Export ({gems.length} records)
                 </CustomButton>
                 <CustomButton
                     variant="secondary"
