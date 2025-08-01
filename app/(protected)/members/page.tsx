@@ -69,6 +69,7 @@ export default function MembersPage() {
             });
 
             if (response.data.success) {
+                console.log("Fetched users response:", response.data);
                 // Filter out ADMIN users - only show USER role users
                 const userRoleOnly = response.data.data.filter(
                     (user) => user.role === "USER"
@@ -215,10 +216,10 @@ export default function MembersPage() {
                     </div>
                 </TableCell>
                 <TableCell className="text-center">
-                    {user.phone ? (
+                    {user.customerData?.phoneNumber ? (
                         <div className="flex items-center justify-center space-x-1">
                             <Phone className="h-3 w-3 text-gray-400" />
-                            <span>{user.phone}</span>
+                            <span>{user.customerData.phoneNumber}</span>
                         </div>
                     ) : (
                         <span className="text-gray-400">Not provided</span>
