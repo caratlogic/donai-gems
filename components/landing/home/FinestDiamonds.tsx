@@ -67,7 +67,7 @@ const Gems = [
 
 const Collections = () => {
     return (
-        <div className="max-w-7xl mx-auto mt-25 w-full bg-[#FAF8F2] py-10">
+        <div className="max-w-[1500px] mx-auto mt-25 w-full bg-[#FAF8F2] py-10">
             <h1
                 className={`py-10 ${playFair.className} text-center text-4xl md:text-5xl`}
                 style={{
