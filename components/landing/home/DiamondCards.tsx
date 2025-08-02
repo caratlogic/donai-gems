@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import cert1 from "@/app/assets/giaCert.jpg";
+import cert1 from "@/public/certificates/giaCert.jpg";
 import cert2 from "@/app/assets/grsCert.jpg";
 import cert3 from "@/app/assets/gublinCert.jpeg";
 import cert4 from "@/app/assets/ssefCert.jpg";
@@ -67,86 +67,89 @@ const DiamondCards = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between bg-[#FAF8F2] mt-20 lg:mt-30 p-8 rounded-md">
-            {/* Left Content */}
-            <div className="w-full md:w-1/2">
-                <h1
-                    className={`${playfair.className} text-4xl md:text-5xl`}
-                    style={{
-                        background:
-                            "linear-gradient(to right, #D6BFA6, #8B6C4A)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                    }}
-                >
-                    Certified by the World&apos;s Finest Gem Labs
-                </h1>
-                <p
-                    className={`${openSans.className} mt-6 text-[#2E2B28CC] text-base leading-7`}
-                >
-                    Every gemstone is accompanied by certifications from
-                    globally recognised laboratories, including GIA, SSEF, GRS,
-                    HRD, and Gübelin, ensuring authenticity and quality.
-                </p>
-                <p
-                    className={`${openSans.className} mt-4 text-[#2E2B28CC] text-base leading-7`}
-                >
-                    Evaluated under rigorous industry standards in Antwerp, the
-                    heart of the gem trade, our gems meet the highest benchmarks
-                    of excellence.
-                </p>
-            </div>
-
-            {/* Right Carousel */}
-            <div className="w-full md:w-1/2 relative flex items-center justify-center">
-                <div className="w-full bg-white rounded-xl p-6 text-center shadow-md transition-all duration-500 ease-in-out">
-                    <Image
-                        src={certificateData[current].image}
-                        alt={certificateData[current].alt}
-                        width={300}
-                        height={200}
-                        className="mx-auto object-fit mb-4"
-                    />
-                    <h2
-                        className={`${playfair.className} text-lg text-[#8B6C4A] mb-2`}
+        <div className="bg-[#FAF8F2] mt-20 lg:mt-30 p-8 rounded-md">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between ">
+                {/* Left Content */}
+                <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-6">
+                    <h1
+                        className={`${playfair.className} text-4xl md:text-5xl`}
+                        style={{
+                            background:
+                                "linear-gradient(to right, #D6BFA6, #8B6C4A)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                        }}
                     >
-                        {certificateData[current].title}
-                    </h2>
+                        Certified by the World&apos;s Finest Gem Labs
+                    </h1>
                     <p
-                        className={`${openSans.className} text-sm text-[#2E2B28CC] mb-4`}
+                        className={`${openSans.className} mt-6 text-[#2E2B28CC] text-base leading-7`}
                     >
-                        {certificateData[current].description}
+                        Every gemstone is accompanied by certifications from
+                        globally recognised laboratories, including GIA, SSEF,
+                        GRS, HRD, and Gübelin, ensuring authenticity and
+                        quality.
                     </p>
-                    <button className="border border-[#2E2B28] text-sm px-4 py-1 hover:bg-[#2E2B28] hover:text-white transition duration-300">
-                        UNDERSTAND GEM QUALITY
-                    </button>
+                    <p
+                        className={`${openSans.className} mt-4 text-[#2E2B28CC] text-base leading-7`}
+                    >
+                        Evaluated under rigorous industry standards in Antwerp,
+                        the heart of the gem trade, our gems meet the highest
+                        benchmarks of excellence.
+                    </p>
                 </div>
 
-                {/* Left Arrow */}
-                <button
-                    onClick={prevSlide}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
-                >
-                    <Image
-                        src="Arrow1.svg"
-                        alt="Left Arrow"
-                        width={20}
-                        height={20}
-                    />
-                </button>
+                {/* Right Carousel */}
+                <div className="w-full md:w-1/2 relative flex items-center justify-center">
+                    <div className="w-full bg-white rounded-xl p-6 text-center shadow-md transition-all duration-500 ease-in-out">
+                        <Image
+                            src={certificateData[current].image}
+                            alt={certificateData[current].alt}
+                            width={300}
+                            height={200}
+                            className="mx-auto object-fit mb-4"
+                        />
+                        <h2
+                            className={`${playfair.className} text-lg text-[#8B6C4A] mb-2`}
+                        >
+                            {certificateData[current].title}
+                        </h2>
+                        <p
+                            className={`${openSans.className} text-sm text-[#2E2B28CC] mb-4`}
+                        >
+                            {certificateData[current].description}
+                        </p>
+                        <button className="border border-[#2E2B28] text-sm px-4 py-1 hover:bg-[#2E2B28] hover:text-white transition duration-300">
+                            UNDERSTAND GEM QUALITY
+                        </button>
+                    </div>
 
-                {/* Right Arrow */}
-                <button
-                    onClick={nextSlide}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
-                >
-                    <Image
-                        src="Arrow2.svg"
-                        alt="Left Arrow"
-                        width={20}
-                        height={20}
-                    />
-                </button>
+                    {/* Left Arrow */}
+                    <button
+                        onClick={prevSlide}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+                    >
+                        <Image
+                            src="Arrow1.svg"
+                            alt="Left Arrow"
+                            width={20}
+                            height={20}
+                        />
+                    </button>
+
+                    {/* Right Arrow */}
+                    <button
+                        onClick={nextSlide}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+                    >
+                        <Image
+                            src="Arrow2.svg"
+                            alt="Left Arrow"
+                            width={20}
+                            height={20}
+                        />
+                    </button>
+                </div>
             </div>
         </div>
     );

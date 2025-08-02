@@ -60,7 +60,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                                 className="mx-2 h-4"
                             />
                             <Badge
-                                variant="secondary"
+                                variant="outline"
                                 className="rounded-sm px-1 font-normal lg:hidden"
                             >
                                 {selectedValues.size}
@@ -68,7 +68,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                             <div className="hidden space-x-1 lg:flex">
                                 {selectedValues.size > 2 ? (
                                     <Badge
-                                        variant="secondary"
+                                        variant="outline"
                                         className="rounded-sm px-1 font-normal"
                                     >
                                         {selectedValues.size} selected
@@ -80,7 +80,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                                         )
                                         .map((option) => (
                                             <Badge
-                                                variant="secondary"
+                                                variant="outline"
                                                 key={String(option.value)} // Convert to string for key
                                                 className="rounded-sm px-1 font-normal"
                                             >

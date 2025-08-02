@@ -67,89 +67,92 @@ const Gems = [
 
 const Collections = () => {
     return (
-        <div className="max-w-[1500px] mx-auto mt-25 w-full bg-[#FAF8F2] py-10">
-            <h1
-                className={`py-10 ${playFair.className} text-center text-4xl md:text-5xl`}
-                style={{
-                    background: "linear-gradient(to right, #FFDCBB, #54330C)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                }}
-            >
-                Finest Gems Across The City
-            </h1>
-
-            <div className="px-4 md:px-12">
-                <Carousel
-                    opts={{
-                        align: "start",
-                        loop: true,
+        <div className=" mt-25 w-full bg-[#FAF8F2] py-10">
+            <div className="max-w-[1500px] mx-auto">
+                <h1
+                    className={`py-10 ${playFair.className} text-center text-4xl md:text-5xl`}
+                    style={{
+                        background:
+                            "linear-gradient(to right, #FFDCBB, #54330C)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
                     }}
-                    className="w-full"
                 >
-                    <CarouselContent className="-ml-2 md:-ml-4">
-                        {Gems.map((gem, index) => (
-                            <CarouselItem
-                                key={index}
-                                className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
-                            >
-                                <div className="p-1">
-                                    <div className="relative overflow-hidden rounded-lg group cursor-pointer bg-white shadow-lg hover:shadow-xl transition-all duration-300">
-                                        {/* Image Container */}
-                                        <div className="aspect-square relative overflow-hidden">
-                                            <Image
-                                                src={gem.src1}
-                                                alt={gem.alt}
-                                                fill
-                                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                                            />
+                    Finest Gems Across The City
+                </h1>
 
-                                            {/* Overlay with gradient */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="px-4 md:px-12">
+                    <Carousel
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        className="w-full"
+                    >
+                        <CarouselContent className="-ml-2 md:-ml-4">
+                            {Gems.map((gem, index) => (
+                                <CarouselItem
+                                    key={index}
+                                    className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                                >
+                                    <div className="p-1">
+                                        <div className="relative overflow-hidden rounded-lg group cursor-pointer bg-white shadow-lg hover:shadow-xl transition-all duration-300">
+                                            {/* Image Container */}
+                                            <div className="aspect-square relative overflow-hidden">
+                                                <Image
+                                                    src={gem.src1}
+                                                    alt={gem.alt}
+                                                    fill
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                                />
 
-                                            {/* Content overlay */}
-                                            <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                                <h3
-                                                    className={`text-lg font-medium mb-1 ${playFair.className}`}
-                                                >
-                                                    {gem.title}
-                                                </h3>
-                                                <p className="text-sm opacity-90">
-                                                    {gem.description}
-                                                </p>
+                                                {/* Overlay with gradient */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                                {/* Content overlay */}
+                                                <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                                    <h3
+                                                        className={`text-lg font-medium mb-1 ${playFair.className}`}
+                                                    >
+                                                        {gem.title}
+                                                    </h3>
+                                                    <p className="text-sm opacity-90">
+                                                        {gem.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* Card Content */}
-                                        {/* <div className="p-4">
+                                            {/* Card Content */}
+                                            {/* <div className="p-4">
                                             <h3
                                                 className={`text-lg font-medium text-center text-gray-800 ${playFair.className}`}
                                             >
                                                 {gem.title}
                                             </h3>
                                         </div> */}
+                                        </div>
                                     </div>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
 
-                    {/* Custom styled navigation buttons */}
-                    <CarouselPrevious className="absolute -left-10 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-gray-300 hover:border-[#C49A6C] text-gray-600 hover:text-[#C49A6C] shadow-lg" />
-                    <CarouselNext className="absolute -right-10 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-gray-300 hover:border-[#C49A6C] text-gray-600 hover:text-[#C49A6C] shadow-lg" />
-                </Carousel>
-            </div>
+                        {/* Custom styled navigation buttons */}
+                        <CarouselPrevious className="absolute -left-10 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-gray-300 hover:border-[#C49A6C] text-gray-600 hover:text-[#C49A6C] shadow-lg" />
+                        <CarouselNext className="absolute -right-10 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-gray-300 hover:border-[#C49A6C] text-gray-600 hover:text-[#C49A6C] shadow-lg" />
+                    </Carousel>
+                </div>
 
-            {/* Browse Button */}
-            <div className="flex justify-center mt-8">
-                <Link href={"/gemstones"}>
-                    <button className="relative overflow-hidden border cursor-pointer border-[#C49A6C] text-[#C49A6C] font-light hover:bg-[#C49A6C] hover:text-[#FFFFFF] duration-300 px-8 py-2 rounded-md transition-all">
-                        BROWSE MASTERPIECES
-                        {/* Shine effect */}
-                        <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
-                    </button>
-                </Link>
+                {/* Browse Button */}
+                <div className="flex justify-center mt-8">
+                    <Link href={"/gemstones"}>
+                        <button className="relative overflow-hidden border cursor-pointer border-[#C49A6C] text-[#C49A6C] font-light hover:bg-[#C49A6C] hover:text-[#FFFFFF] duration-300 px-8 py-2 rounded-md transition-all">
+                            BROWSE MASTERPIECES
+                            {/* Shine effect */}
+                            <span className="pointer-events-none absolute top-0 left-[-75%] h-full w-full opacity-60 bg-gradient-to-r from-transparent via-white to-transparent animate-shine" />
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

@@ -24,10 +24,10 @@ const OurStory = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="my-30"
+            className="my-20"
         >
-            <div className="max-w-7xl mx-auto">
-                <div className="w-full flex flex-col md:flex-row justify-between gap-5 bg-[#FAF8F2]">
+            <div className="bg-[#FAF8F2] py-10">
+                <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between gap-5 ">
                     {/* <Image src={StarIcon} alt="star" width={20} height={20} className="absolute top-238 left-5" />
         <Image src={StarIcon} alt="star" width={20} height={20} className="absolute top-330 left-150" /> */}
                     {/* Info Section */}

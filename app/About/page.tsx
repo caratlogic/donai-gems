@@ -9,6 +9,7 @@ import ringImage from "../assets/ring-gem.jpg";
 import ringHand2 from "../../public/ringHand2.png";
 import { Mulish, Playfair_Display } from "next/font/google";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -49,7 +50,7 @@ const page = () => {
 
     return (
         <div>
-            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 mb-30 overflow-hidden">
+            <div className="w-full min-h-[600px] flex items-center justify-center my-10 mb-30 ">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-12">
                     {/* Left Side - Image */}
                     <motion.div
@@ -115,11 +116,13 @@ const page = () => {
                                 </p>
                             </div>
 
-                            <button
-                                className={`mt-8 px-8 py-3 border border-gray-400 text-gray-700 font-light bg-transparent hover:bg-gray-100 transition-all duration-300 ${mulish.className}`}
-                            >
-                                SCHEDULE AN APPOINTMENT
-                            </button>
+                            <Link href={"/Contact"}>
+                                <button
+                                    className={`mt-8 px-8 py-3 border cursor-pointer border-gray-400 text-gray-700 font-light bg-transparent hover:bg-gray-100 transition-all duration-300 ${mulish.className}`}
+                                >
+                                    SCHEDULE AN APPOINTMENT
+                                </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
@@ -132,7 +135,7 @@ const page = () => {
             >
                 <OurStory />
             </motion.div>
-            <div className="w-full min-h-[600px] bg-gray-50 flex items-center justify-center my-10 overflow-hidden">
+            <div className="w-full min-h-[600px] flex items-center justify-center my-10 ">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-12">
                     {/* Left Side - Image */}
                     <motion.div
@@ -195,11 +198,13 @@ const page = () => {
                                 </p>
                             </div>
 
-                            <button
-                                className={`mt-8 px-8 py-3 border border-gray-400 text-gray-700 font-light bg-transparent hover:bg-gray-100 transition-all duration-300 ${mulish.className}`}
-                            >
-                                SCHEDULE AN APPOINTMENT
-                            </button>
+                            <Link href={"/Contact"}>
+                                <button
+                                    className={`mt-8 px-8 py-3 border cursor-pointer border-gray-400 text-gray-700 font-light bg-transparent hover:bg-gray-100 transition-all duration-300 ${mulish.className}`}
+                                >
+                                    SCHEDULE AN APPOINTMENT
+                                </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

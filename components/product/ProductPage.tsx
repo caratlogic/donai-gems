@@ -268,7 +268,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                         {product.certificate}
                                     </span>
                                 </div>
-                                <div className="flex justify-between sm:col-span-2">
+                                <div className="flex justify-start gap-5 sm:col-span-2">
                                     <span className="text-gray-600">
                                         Measurement:
                                     </span>
