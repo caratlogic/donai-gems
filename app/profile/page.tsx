@@ -433,14 +433,14 @@ export default function ProfilePage() {
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex space-x-4">
+                {/* <div className="flex space-x-4">
                     <Button variant="outline" size="lg">
                         Edit Profile
                     </Button>
                     <Button variant="outline" size="lg">
                         Change Password
                     </Button>
-                </div>
+                </div> */}
             </div>
         </Container>
     );

@@ -78,11 +78,7 @@ export interface SignedUrlResponse {
     status: number;
     message: string;
     data: {
-        signedUrl?: string;
-        signedUrls?: Array<{
-            key: string;
-            signedUrl: string;
-        }>;
+        imagesUrls?: string[];
     };
 }
 

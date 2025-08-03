@@ -16,6 +16,9 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
+import { gemsApi } from "@/services/gems";
+import { file } from "zod";
+import GemImage from "./GemImage";
 
 interface ClientGemsTableProps {
     gems: Gem[];
@@ -85,13 +88,7 @@ export function ClientGemsTable({
                 <CardContent className="p-0 rounded-sm ">
                     {/* Gem Image Placeholder */}
                     <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                        {/* <Image
-                        src={"/semiPreciousFeature.jpg"}
-                        alt={`${gem.stoneType} Gem`}
-                        width={300}
-                        height={300}
-                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    /> */}
+                        <GemImage gem={gem} />
                         <div className="absolute inset-0 flex items-center justify-center">
                             {/* <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
                             <span className="text-2xl font-bold text-[#C49A6C]">
@@ -112,8 +109,9 @@ export function ClientGemsTable({
                                 <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto ">
                                     <span className="uppercase">
                                         {" "}
-                                        {gem.category} {gem.stoneType}{" "}
-                                        {gem.color}
+                                        {/* {gem.category} {gem.stoneType}{" "}
+                                        {gem.color} */}
+                                        {gem._id}
                                     </span>{" "}
                                 </h3>
                             </div>
