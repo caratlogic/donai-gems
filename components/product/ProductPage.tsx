@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
+import GemImage from "../client/GemImage";
 
 export interface ProductPageProps {
     productId: string;
@@ -133,9 +134,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                     <div className="aspect-square relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden">
                         {/* Main product image placeholder */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-32 h-32 rounded-full bg-white/80 flex items-center justify-center">
-                                <Gem className="w-16 h-16 text-[#C49A6C]" />
-                            </div>
+                            <GemImage gem={product} />
                         </div>
 
                         {/* Action buttons */}

@@ -10,7 +10,9 @@ interface GemImageProps {
 }
 
 const GemImage = ({ gem }: GemImageProps) => {
-    const [imageUrl, setImageUrl] = useState<string | "">("");
+    const [imageUrl, setImageUrl] = useState<string | "">(
+        "/semiPreciousFeature.jpg"
+    );
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
