@@ -17,6 +17,7 @@ import {
     treatments,
     certificates,
 } from "@/components/filter/gemsFilter";
+import { toast } from "sonner";
 
 export const gemsColumns: ColumnDef<Gem>[] = [
     {
@@ -288,7 +289,7 @@ export const gemsColumns: ColumnDef<Gem>[] = [
             <DataTableRowActions
                 row={row}
                 onRefresh={() => {
-                    window.location.reload();
+                    alert("Gem updated successfully!");
                 }}
             />
         ),

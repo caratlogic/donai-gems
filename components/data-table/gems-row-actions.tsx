@@ -12,10 +12,18 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Copy, Eye, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import {
+    Copy,
+    Eye,
+    MoreHorizontal,
+    Pencil,
+    Trash2,
+    Upload,
+} from "lucide-react";
 import { gemSchema, Gem } from "@/lib/validations/gems-Schema";
 import { EditGemModal } from "@/components/modals/EditGemModal";
 import { DeleteGemDialog } from "@/components/modals/DeleteGemDialog";
+import { UploadFilesModal } from "@/components/modals/UploadFilesModal";
 
 interface GemRowActionsProps<TData> {
     row: Row<TData>;
@@ -28,6 +36,7 @@ export function DataTableRowActions<TData>({
 }: GemRowActionsProps<TData>) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
     // Safe parsing with error handling
     const parseResult = gemSchema.safeParse(row.original);
@@ -125,6 +134,13 @@ export function DataTableRowActions<TData>({
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete Gem
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                        onClick={() => setIsUploadModalOpen(true)}
+                    >
+                        <Upload className="mr-2 h-4 w-4" />
+                        Upload Files
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 
@@ -141,6 +157,14 @@ export function DataTableRowActions<TData>({
                 isOpen={isDeleteDialogOpen}
                 onClose={() => setIsDeleteDialogOpen(false)}
                 onSuccess={handleDeleteSuccess}
+                gem={gem}
+            />
+
+            {/* Upload Files Modal */}
+            <UploadFilesModal
+                isOpen={isUploadModalOpen}
+                onClose={() => setIsUploadModalOpen(false)}
+                onSuccess={onRefresh}
                 gem={gem}
             />
         </>

@@ -183,7 +183,7 @@ export const gemsApi = {
         fileDetails: fileUploadRequestBody[]
     ): Promise<UploadResponse> => {
         const response = await axios.post(
-            `https://diamond-inventory.onrender.com/api/diamonds/S3Bucket/insert/${fileType}/${stockId}`,
+            `${API_BASE_URL}/gems/S3Bucket/insert/${fileType}/${stockId}`,
             { fileDetails } // Ensure the body matches the expected format
         );
         return response.data;
