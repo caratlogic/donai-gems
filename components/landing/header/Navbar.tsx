@@ -36,12 +36,14 @@ const Navbar = () => {
     const adminNavBarItems = [
         { name: "ADMIN PANEL", path: "/admin" },
         { name: "MEMBERS", path: "/members" },
-        // Add more admin-only items here if needed
+        { name: "QUOTATIONS", path: "/quotations" },
     ];
 
     // Dynamic NavBarItems based on user role
-    const NavBarItems = isAdmin
-        ? [...baseNavBarItems, ...adminNavBarItems]
+    const NavBarItems = isAuthenticated
+        ? isAdmin
+            ? [...baseNavBarItems, ...adminNavBarItems]
+            : [...baseNavBarItems]
         : baseNavBarItems;
 
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -185,13 +187,7 @@ const Navbar = () => {
                         <>
                             <Button
                                 variant="outline"
-                                onClick={() =>
-                                    Router.push(
-                                        user?.role === "ADMIN"
-                                            ? "/admin"
-                                            : "/inventory"
-                                    )
-                                }
+                                onClick={() => Router.push("/profile")}
                                 className="text-md border-primary text-primary hover:bg-primary hover:text-white cursor-pointer flex items-center gap-2"
                             >
                                 <User className="h-4 w-4" />

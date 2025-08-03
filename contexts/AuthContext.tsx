@@ -10,6 +10,7 @@ import { User } from "@/lib/validations/user-schema";
 import { authAPI } from "@/services/auth-api";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+
 interface AuthState {
     user: User | null;
     loading: boolean;
@@ -23,6 +24,8 @@ interface AuthState {
     hasRole: (role: "USER" | "ADMIN") => boolean;
     logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
+    isRefreshing: boolean;
+    login: (userData: User) => void;
 }
 
 export const AuthContext = createContext<AuthState | undefined>(undefined);
@@ -32,8 +35,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+
+    const login = (userData: User) => {
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
+    };
 
     const loadUserFromStorage = useCallback(() => {
         setLoading(true);
@@ -51,28 +60,61 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }, []);
 
-    const fetchUserProfile = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await authAPI.getProfile();
-            if (response.success && response.user) {
-                setUser(response.user);
-                localStorage.setItem("user", JSON.stringify(response.user));
+    const fetchUserProfile = useCallback(
+        async (isManualRefresh = false) => {
+            if (isManualRefresh) {
+                setIsRefreshing(true);
             } else {
-                throw new Error(
-                    response.message || "Failed to fetch user profile"
-                );
+                setLoading(true);
             }
-        } catch (err: any) {
-            console.error("Profile fetch error:", err);
-            setUser(null);
-            localStorage.removeItem("user");
-            setError(err.message || "Could not refresh user session.");
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+
+            setError(null);
+
+            // Keeping track of current user for fallback
+            const currentUser = user;
+
+            try {
+                const response = await authAPI.getProfile();
+                console.log("Fetched user profile:", response);
+                if (response.success && response.data.user) {
+                    setUser(response.data.user);
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(response.data.user)
+                    );
+                } else {
+                    throw new Error(
+                        response.message || "Failed to fetch user profile"
+                    );
+                }
+            } catch (err: any) {
+                console.error("Profile fetch error:", err);
+
+                // Only clear user if this is NOT a manual refresh
+                // For manual refresh, keep the existing user data
+                if (!isManualRefresh) {
+                    setUser(null);
+                    localStorage.removeItem("user");
+                } else {
+                    // For manual refresh, restore the previous user and just show error
+                    setUser(currentUser);
+                }
+
+                setError(err.message || "Could not refresh user session.");
+            } finally {
+                if (isManualRefresh) {
+                    setIsRefreshing(false);
+                } else {
+                    setLoading(false);
+                }
+            }
+        },
+        [user]
+    );
+
+    const refreshUser = useCallback(async () => {
+        await fetchUserProfile(true);
+    }, [fetchUserProfile]);
 
     useEffect(() => {
         loadUserFromStorage();
@@ -115,9 +157,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             hasStatus,
             hasRole,
             logout,
-            refreshUser: fetchUserProfile,
+            refreshUser,
+            isRefreshing,
+            login,
         };
-    }, [user, loading, error, fetchUserProfile]);
+    }, [user, loading, error, refreshUser, isRefreshing]);
 
     return (
         <AuthContext.Provider value={authState}>

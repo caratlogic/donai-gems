@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { RequestQuoteModal } from "@/components/modals/RequestQuoteModal";
 import { Heart, Share2, Star, FileCheck2, Gem } from "lucide-react";
 import { Gem as GemType } from "@/lib/validations/gems-Schema";
 import { Separator } from "@/components/ui/separator";
@@ -12,18 +13,20 @@ import axios from "axios";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface ProductPageProps {
+export interface ProductPageProps {
     productId: string;
 }
 
 export function ProductPage({ productId }: ProductPageProps) {
-    const [product, setProduct] = useState<GemType | null>(null);
+    const [product, setProduct] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
     useEffect(() => {
-        fetchProduct();
+        if (productId) {
+            fetchProduct();
+        }
     }, [productId]);
 
     const fetchProduct = async () => {
@@ -58,7 +61,6 @@ export function ProductPage({ productId }: ProductPageProps) {
     };
 
     const handleFavoriteToggle = () => {
-        setIsFavorite(!isFavorite);
         // TODO: Implement favorite functionality with backend
     };
 
@@ -140,20 +142,6 @@ export function ProductPage({ productId }: ProductPageProps) {
                         <div className="absolute top-4 right-4 flex gap-2">
                             <Button
                                 size="sm"
-                                variant={isFavorite ? "default" : "secondary"}
-                                onClick={handleFavoriteToggle}
-                                className="bg-white/80 hover:bg-white"
-                            >
-                                <Heart
-                                    className={`h-4 w-4 ${
-                                        isFavorite
-                                            ? "fill-red-500 text-red-500"
-                                            : ""
-                                    }`}
-                                />
-                            </Button>
-                            <Button
-                                size="sm"
                                 variant="secondary"
                                 onClick={handleShare}
                                 className="bg-white/80 hover:bg-white"
@@ -217,11 +205,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                     {/* Specifications */}
                     <Card>
                         <CardContent className="p-6">
-                            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                                <FileCheck2 className="h-5 w-5 text-[#C49A6C]" />
-                                Specifications
-                            </h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-4 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Cut:</span>
                                     <span className="font-medium">
@@ -286,6 +270,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                             <Button
                                 className="flex-1 bg-[#C49A6C] hover:bg-[#B8956A] text-white"
                                 size="lg"
+                                onClick={() => setIsQuoteModalOpen(true)}
                             >
                                 Request Quote
                             </Button>
@@ -327,6 +312,11 @@ export function ProductPage({ productId }: ProductPageProps) {
                     </div>
                 </div>
             </div>
+            <RequestQuoteModal
+                isOpen={isQuoteModalOpen}
+                onClose={() => setIsQuoteModalOpen(false)}
+                productId={productId}
+            />
         </div>
     );
 }

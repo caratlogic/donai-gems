@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import StepOne from "@/components/login/RegisterForm";
@@ -83,6 +83,33 @@ const Page = () => {
         },
     });
 
+    // Check if user should skip to customer data step
+    useEffect(() => {
+        const skipToCustomerData = sessionStorage.getItem("skipToCustomerData");
+        const userData = sessionStorage.getItem("userData");
+
+        if (skipToCustomerData === "true" && userData) {
+            const parsedUserData = JSON.parse(userData);
+
+            setRegisterData((prev) => ({
+                ...prev,
+                username: parsedUserData.username,
+                email: parsedUserData.email,
+            }));
+
+            setOtpData((prev) => ({
+                ...prev,
+                email: parsedUserData.email,
+                userId: parsedUserData.userId,
+            }));
+
+            setCurrentStep(3);
+
+            sessionStorage.removeItem("skipToCustomerData");
+            sessionStorage.removeItem("userData");
+        }
+    }, []);
+
     // Validation functions
     const validateRegisterStep = () => {
         if (!registerData.username.trim()) return "Username is required";
@@ -136,7 +163,6 @@ const Page = () => {
                 username: registerData.username,
                 email: registerData.email,
                 password: registerData.password,
-                phone: customerData.phoneNumber, // We'll collect this in step 3, but API expects it here
             });
 
             if (response.success) {

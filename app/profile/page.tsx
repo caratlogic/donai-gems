@@ -16,12 +16,22 @@ import {
     RefreshCw,
     Shield,
     Calendar,
+    AlertCircle,
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-    const { user, loading, error, refreshUser, isAdmin, isApprovedUser } =
-        useAuth();
+    const {
+        user,
+        loading,
+        error,
+        refreshUser,
+        isAdmin,
+        isApprovedUser,
+        isRefreshing,
+    } = useAuth();
+    const router = useRouter();
 
     if (loading) {
         return (
@@ -38,7 +48,7 @@ export default function ProfilePage() {
         );
     }
 
-    if (error) {
+    if (error && !user) {
         return (
             <Container className="min-h-screen">
                 <div className="max-w-2xl mx-auto py-8">
@@ -46,14 +56,13 @@ export default function ProfilePage() {
                         <AlertDescription>
                             {error}
                             <Button
-                                onClick={() => {
-                                    refreshUser();
-                                }}
+                                onClick={refreshUser}
                                 variant="outline"
                                 size="sm"
                                 className="ml-4"
+                                disabled={isRefreshing}
                             >
-                                Try Again
+                                {isRefreshing ? "Refreshing..." : "Try Again"}
                             </Button>
                         </AlertDescription>
                     </Alert>
@@ -80,6 +89,20 @@ export default function ProfilePage() {
         });
     };
 
+    const handleCompleteProfile = () => {
+        // Store current user data in sessionStorage to skip the initial registration steps
+        sessionStorage.setItem("skipToCustomerData", "true");
+        sessionStorage.setItem(
+            "userData",
+            JSON.stringify({
+                username: user.username,
+                email: user.email,
+                userId: user._id,
+            })
+        );
+        router.push("/register");
+    };
+
     return (
         <Container className="min-h-screen">
             <div className="max-w-4xl mx-auto py-8 space-y-6">
@@ -97,11 +120,45 @@ export default function ProfilePage() {
                         onClick={refreshUser}
                         variant="outline"
                         className="flex items-center space-x-2"
+                        disabled={isRefreshing}
                     >
-                        <RefreshCw className="h-4 w-4" />
-                        <span>Refresh</span>
+                        <RefreshCw
+                            className={`h-4 w-4 ${
+                                isRefreshing ? "animate-spin" : ""
+                            }`}
+                        />
+                        <span>
+                            {isRefreshing ? "Refreshing..." : "Refresh"}
+                        </span>
                     </Button>
                 </div>
+
+                {/* Show refresh error without disrupting the page */}
+                {error && (
+                    <Alert variant="destructive">
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                )}
+
+                {/* Incomplete Profile Alert */}
+                {!user.customerData && (
+                    <Alert>
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="flex items-center justify-between">
+                            <span>
+                                Your profile is incomplete. Please complete your
+                                customer information to access all features.
+                            </span>
+                            <Button
+                                onClick={handleCompleteProfile}
+                                size="sm"
+                                className="ml-4"
+                            >
+                                Complete Profile
+                            </Button>
+                        </AlertDescription>
+                    </Alert>
+                )}
 
                 {/* Basic Information Card */}
                 <Card>

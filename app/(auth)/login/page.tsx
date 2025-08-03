@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authAPI } from "@/services/auth-api";
+import { useAuth } from "@/hooks/useAuth";
 
 const Page = () => {
     const [emailFormData, setEmailFormData] = useState({
@@ -22,6 +23,7 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
+    const { login } = useAuth();
 
     const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -53,17 +55,14 @@ const Page = () => {
             });
 
             if (response.success) {
-                // Store user data if needed
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
+                // Store user data
+                login(response.data.user);
 
                 // Redirect based on user role
                 if (response.data.user.role === "ADMIN") {
-                    window.location.href = "/admin"; // Redirect to admin dashboard
+                    router.push("/admin");
                 } else {
-                    window.location.href = "/gemstones";
+                    router.push("/gemstones");
                 }
             }
         } catch (err: any) {
@@ -91,29 +90,17 @@ const Page = () => {
         setError("");
 
         try {
-            // Using the VIP login endpoint from the API documentation
+            // Using the VIP login endpoint
             const response = await authAPI.vipLogin({
                 email: passkeyFormData.username,
                 passkey: passkeyFormData.passkey,
             });
 
             if (response.success) {
-                // Store user data if needed
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
-            }
-
-            if (response.success) {
-                // Store user data if needed
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
+                login(response.data.user);
 
                 // Redirect VIP users
-                window.location.href = "/gemstones";
+                router.push("/gemstones");
             } else {
                 setError(response.message || "Passkey login failed");
             }

@@ -57,6 +57,35 @@ export interface FilterOptionsResponse {
     };
 }
 
+export interface fileUploadRequestBody {
+    base64: string;
+    size: number;
+    fileName: string;
+    fileType: string;
+}
+
+export interface UploadResponse {
+    status: number;
+    message: string;
+    data: {
+        imageKeys?: string[];
+        videoKeys?: string[];
+        certificateKeys?: string[];
+    };
+}
+
+export interface SignedUrlResponse {
+    status: number;
+    message: string;
+    data: {
+        signedUrl?: string;
+        signedUrls?: Array<{
+            key: string;
+            signedUrl: string;
+        }>;
+    };
+}
+
 export const gemsApi = {
     // Get all gems with pagination
     getGems: async (
@@ -75,7 +104,7 @@ export const gemsApi = {
         });
 
         const response = await axios.get(
-            `${API_BASE_URL}/api/gems?${queryParams.toString()}`
+            `${API_BASE_URL}/gems?${queryParams.toString()}`
         );
         return response.data;
     },
@@ -97,16 +126,14 @@ export const gemsApi = {
         });
 
         const response = await axios.get(
-            `${API_BASE_URL}/api/gems/search?${queryParams.toString()}`
+            `${API_BASE_URL}/gems/search?${queryParams.toString()}`
         );
         return response.data;
     },
 
     // Get filter options for dropdowns
     getFilterOptions: async (): Promise<FilterOptionsResponse> => {
-        const response = await axios.get(
-            `${API_BASE_URL}/api/gems/filter-options`
-        );
+        const response = await axios.get(`${API_BASE_URL}/filter-options`);
         return response.data;
     },
 
@@ -119,7 +146,7 @@ export const gemsApi = {
         data: Gem;
     }> => {
         const response = await axios.post(
-            `${API_BASE_URL}/api/gems/create`,
+            `${API_BASE_URL}/gems/create`,
             gemData
         );
         return response.data;
@@ -146,6 +173,35 @@ export const gemsApi = {
         message: string;
     }> => {
         const response = await axios.delete(`${API_BASE_URL}/gems/${id}`);
+        return response.data;
+    },
+
+    // upload gem images
+    uploadFilesForGem: async (
+        fileType: "images" | "videos" | "certificates",
+        stockId: string,
+        fileDetails: fileUploadRequestBody[]
+    ): Promise<UploadResponse> => {
+        const response = await axios.post(
+            `https://diamond-inventory.onrender.com/api/diamonds/S3Bucket/insert/${fileType}/${stockId}`,
+            { fileDetails } // Ensure the body matches the expected format
+        );
+        return response.data;
+    },
+
+    // Get files (signed URLs) for a specific gem
+    getFilesForGem: async (
+        fileType: "images" | "videos" | "certificates",
+        stockId: string,
+        key?: string
+    ): Promise<SignedUrlResponse> => {
+        const url = new URL(
+            `${API_BASE_URL}/gems/S3Bucket/${fileType}/${stockId}`
+        );
+        if (key) {
+            url.searchParams.append("key", key);
+        }
+        const response = await axios.get(url.toString());
         return response.data;
     },
 };

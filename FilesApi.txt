@@ -1,0 +1,97 @@
+1. Upload Files to Gems
+Endpoint: POST /api/gems/S3Bucket/insert/:fileType/:stockId
+
+Path Parameters:
+
+fileType: 'images' | 'videos' | 'certificates'
+certificateNumber: String (gem's StockId)
+
+
+Expected Request Body Format: The API expects files in Base64 format with metadata:
+
+"{
+  "fileDetails": [
+    {
+      "base64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...",
+      "size": 1048576,
+      "fileType": "image/jpeg",
+      "fileName": "gem_image_1.jpg"
+    },
+    {
+      "base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+      "size": 2097152,
+      "fileType": "image/png", 
+      "fileName": "gem_image_2.png"
+    }
+  ]
+}"
+
+
+Constraints:
+
+Maximum 5 files per request
+Maximum file size: 2MB per file
+Supported file types: images, videos, certificates
+
+Response Format:
+{
+  "status": 200,
+  "message": "Images uploaded successfully",
+  "data": {
+    "imageKeys": [
+      "uploads/images/uuid1_gem_image_1.jpg",
+      "uploads/images/uuid2_gem_image_2.png"
+    ]
+  }
+}
+
+
+2. Get gem Files (Signed URLs)
+Endpoint: GET /api/gems/S3Bucket/:fileType/:stockId
+
+Path Parameters:
+
+fileType: 'images' | 'videos' | 'certificates'
+certificateNumber: String
+Query Parameters:
+
+key: String (optional) - Specific file key to get URL for
+Examples:
+
+Get all images for a gem:
+GET /api/gems/S3Bucket/images/GIA123456
+
+
+Get specific image:
+GET /api/gems/S3Bucket/images/GIA123456?key=uploads/images/uuid1_gem_image_1.jpg
+
+
+Response Formats:
+
+All files response:
+{
+  "status": 200,
+  "message": "Images URLs retrieved successfully",
+  "data": {
+    "signedUrls": [
+      {
+        "key": "uploads/images/uuid1_gems_image_1.jpg",
+        "signedUrl": "https://s3.amazonaws.com/bucket/signed-url-1"
+      },
+      {
+        "key": "uploads/images/uuid2_gems_image_2.png", 
+        "signedUrl": "https://s3.amazonaws.com/bucket/signed-url-2"
+      }
+    ]
+  }
+}
+
+Specific file response:
+
+{
+  "status": 200,
+  "message": "Image URL retrieved successfully",
+  "data": {
+    "signedUrl": "https://s3.amazonaws.com/bucket/signed-url"
+  }
+}

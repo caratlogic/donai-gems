@@ -91,7 +91,9 @@ export default function MembersPage() {
 
     // Filter users by status on the frontend
     const getFilteredUsers = useCallback(() => {
-        const pending = allUsers.filter((user) => user.status === "PENDING");
+        const pending = allUsers.filter(
+            (user) => user.status === "PENDING" && user.customerData != null
+        );
         const approved = allUsers.filter((user) => user.status === "APPROVED");
         const suspended = allUsers.filter(
             (user) => user.status === "SUSPENDED" || user.status === "REJECTED"
