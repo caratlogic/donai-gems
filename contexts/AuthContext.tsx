@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
     createContext,
     useState,
@@ -7,10 +6,10 @@ import React, {
     useMemo,
     useCallback,
 } from "react";
-import { User } from "@/lib/validations/user-schema"; // Assuming you have a user schema
+import { User } from "@/lib/validations/user-schema";
 import { authAPI } from "@/services/auth-api";
 import { useRouter } from "next/navigation";
-
+import Cookies from "js-cookie";
 interface AuthState {
     user: User | null;
     loading: boolean;
@@ -83,6 +82,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setLoading(true);
         try {
             await authAPI.logout();
+            Cookies.remove("accessToken");
+            sessionStorage.clear();
         } catch (err) {
             console.error("Logout failed, clearing session locally.", err);
         } finally {

@@ -84,13 +84,9 @@ export const authAPI = {
 
     /**
      * Fetches the current user's profile.
-     * NOTE: Your apis.md does not specify a /me or /profile endpoint.
-     * This is a common pattern. If it doesn't exist, this function will fail.
-     * An alternative is to rely solely on data from localStorage after login.
      */
     getProfile: async (): Promise<AuthResponse> => {
-        // Assuming an endpoint like /users/me exists to get the current user
-        const response = await apiClient.get("/users/me");
+        const response = await apiClient.get("/users/profile");
         return response.data;
     },
 
