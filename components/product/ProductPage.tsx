@@ -155,11 +155,9 @@ export function ProductPage({ productId }: ProductPageProps) {
                         {Array.from({ length: 4 }).map((_, index) => (
                             <div
                                 key={index}
-                                className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                                className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer "
                             >
-                                <div className="h-full flex items-center justify-center">
-                                    <Gem className="w-6 h-6 text-[#C49A6C]" />
-                                </div>
+                                <GemImage gem={product} index={index + 1} />
                             </div>
                         ))}
                     </div>

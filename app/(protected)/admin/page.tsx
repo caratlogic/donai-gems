@@ -169,7 +169,10 @@ function AdminPageContent() {
             <AddGemModal
                 isOpen={isAddGemModalOpen}
                 onClose={() => setIsAddGemModalOpen(false)}
-                onSuccess={handleAddGemSuccess}
+                onSuccess={() => {
+                    alert("Gem added successfully!");
+                    handleAddGemSuccess();
+                }}
             />
         </Container>
     );

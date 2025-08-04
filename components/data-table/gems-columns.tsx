@@ -18,6 +18,7 @@ import {
     certificates,
 } from "@/components/filter/gemsFilter";
 import { toast } from "sonner";
+import GemImage from "../client/GemImage";
 
 export const gemsColumns: ColumnDef<Gem>[] = [
     {
@@ -42,6 +43,17 @@ export const gemsColumns: ColumnDef<Gem>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
+    },
+    {
+        accessorKey: "gemImage",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Gem Image" />
+        ),
+        cell: ({ row }) => (
+            <div className="w-10 font-mono text-xs">
+                {<GemImage gem={row.original} />}
+            </div>
+        ),
     },
     {
         accessorKey: "stockId",
