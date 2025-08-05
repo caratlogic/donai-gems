@@ -58,8 +58,9 @@ const Footer = () => {
                         <div className="mb-4 lg:mb-0">
                             <Image
                                 className="w-35 h-auto mb-2"
-                                src="Donai.svg"
+                                src="/Donai.svg"
                                 alt="Logo"
+                                priority
                                 width={100}
                                 height={100}
                             />

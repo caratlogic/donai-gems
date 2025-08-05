@@ -11,7 +11,7 @@ import CategoriesDropdown from "./CategoriesDropdown";
 import GemstoneDropdown from "./GemstoneDropdown";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, Search, LanguagesIcon } from "lucide-react";
 
 const mulish = Mulish({
     subsets: ["latin"],
@@ -75,13 +75,8 @@ const Navbar = () => {
                 <div className="hidden  lg:flex items-center gap-4">
                     {/* Search Bar */}
                     <div className="relative  md:w-[300px]">
-                        <span className="absolute top-2.5 right-4">
-                            <Image
-                                src="search.svg"
-                                alt="Search"
-                                width={20}
-                                height={20}
-                            />
+                        <span className="absolute top-1/2 transform -translate-y-1/2 right-4">
+                            <Search className="h-5 w-5 text-primary" />
                         </span>
                         <input
                             type="text"
@@ -99,12 +94,7 @@ const Navbar = () => {
                             className="flex items-center gap-1 px-2 py-2 border border-[#C49A6C] rounded-full hover:bg-gray-50 transition-colors duration-200"
                         >
                             <span className="text-sm font-medium text-[#2E2B28]">
-                                <Image
-                                    src="Lang.svg"
-                                    alt="Language Icon"
-                                    width={20}
-                                    height={20}
-                                />
+                                <LanguagesIcon className="h-4 w-4 text-primary" />
                             </span>
                         </button>
 
@@ -159,11 +149,13 @@ const Navbar = () => {
                 {/* Logo Section */}
                 <Link href="/">
                     <Image
-                        src="Donai.svg"
+                        src="/Donai.svg"
                         alt="Donai Gems Logo"
                         width={500}
                         height={200}
                         draggable={false}
+                        priority
+                        quality={100}
                         className="w-30 mt-3 lg:w-30 h-auto cursor-pointer"
                         onClick={() => Router.push("/")}
                     />

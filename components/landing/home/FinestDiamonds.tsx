@@ -3,9 +3,9 @@ import React from "react";
 import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
 import gem1 from "@/app/assets/gem1.jpg";
-import gem2 from "@/app/assets/gem2.jpg";
+import gem2 from "@/public/YellowGem-NoClipper.png";
 import gem3 from "@/app/assets/gem3.jpg";
-import gem4 from "@/app/assets/gem4.jpg";
+import gem4 from "@/public/greenGem-NoClipper.png";
 import Link from "next/link";
 import {
     Carousel,

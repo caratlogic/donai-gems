@@ -79,13 +79,13 @@ function AdminPageContent() {
                 >
                     Export ({gems.length} records)
                 </CustomButton>
-                <CustomButton
+                {/* <CustomButton
                     variant="secondary"
                     className="rounded-md border text-neutral-500 shadow-none hover:bg-primary/80 hover:border-none hover:text-white"
                     icon={<FileTextIcon size={15} />}
                 >
                     <span>Import&nbsp;Excel</span>
-                </CustomButton>
+                </CustomButton> */}
                 <CustomButton
                     onClick={handleRefresh}
                     disabled={loading}
