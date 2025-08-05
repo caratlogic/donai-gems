@@ -42,7 +42,6 @@ export function UploadFilesModal({
                         fileType="images"
                         stockId={gem._id}
                         onUploadSuccess={() => {
-                            onSuccess;
                             alert("Images uploaded successfully");
                         }}
                     />
@@ -50,16 +49,14 @@ export function UploadFilesModal({
                         fileType="videos"
                         stockId={gem._id}
                         onUploadSuccess={() => {
-                            onSuccess;
-                            alert("Videos uploaded successfully");
+                            alert("Images uploaded successfully");
                         }}
                     />
                     <FileUploader
                         fileType="certificates"
                         stockId={gem._id}
                         onUploadSuccess={() => {
-                            onSuccess;
-                            alert("Certificates uploaded successfully");
+                            alert("Images uploaded successfully");
                         }}
                     />
                 </div>
