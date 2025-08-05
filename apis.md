@@ -332,6 +332,131 @@ Delete a gem by ID.
 - `404` - Gem not found
 - `500` - Server error
 
+### POST /api/gems/S3Bucket/insert/:fileType/:id
+Upload files (images, videos, certificates) to a specific gem.
+
+**Access:** Public  
+**Query Parameters:** None  
+**Path Parameters:**
+- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
+- `id` (string, required) - Gem ID
+
+**Request Body:** Multipart form data with files
+
+**Response:**
+```json
+{
+  "status": 200,
+  "message": "Files uploaded successfully to gem {id}",
+  "data": {
+    "uploadedFiles": [
+      {
+        "originalName": "image1.jpg",
+        "s3Url": "https://bucket.s3.amazonaws.com/path/to/file.jpg"
+      }
+    ],
+    "failedFiles": []
+  }
+}
+```
+
+**Response Codes:**
+- `200` - Files uploaded successfully
+- `400` - Invalid file type or no files provided
+- `404` - Gem not found
+- `500` - Server error
+
+### GET /api/gems/S3Bucket/:fileType/:id?
+Get file URLs for gems.
+
+**Access:** Public  
+**Query Parameters (when no ID provided):**
+- `page` (number, optional) - Page number (default: 1)
+- `limit` (number, optional) - Items per page (default: 10)
+
+**Path Parameters:**
+- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
+- `id` (string, optional) - Gem ID (if not provided, returns paginated results for all gems)
+
+**Response (Specific gem):**
+```json
+{
+  "status": 200,
+  "message": "images URLs retrieved successfully for gem {id}",
+  "data": {
+    "id": "gem_id",
+    "imagesUrls": [
+      "https://bucket.s3.amazonaws.com/path/to/image1.jpg",
+      "https://bucket.s3.amazonaws.com/path/to/image2.jpg"
+    ]
+  }
+}
+```
+
+**Response (All gems with pagination):**
+```json
+{
+  "status": 200,
+  "message": "All gems images URLs retrieved successfully",
+  "data": [
+    {
+      "id": "gem_id_1",
+      "imagesUrls": ["url1", "url2"]
+    },
+    {
+      "id": "gem_id_2", 
+      "imagesUrls": ["url3", "url4"]
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "totalRecords": 50,
+    "recordsPerPage": 10,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
+}
+```
+
+**Response Codes:**
+- `200` - Success
+- `400` - Invalid file type
+- `404` - Gem not found (when ID provided)
+- `500` - Server error
+
+### POST /api/gems/S3Bucket/delete/:fileType/:id
+Delete files from S3 and remove URLs from gem document.
+
+**Access:** Public  
+**Path Parameters:**
+- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
+- `id` (string, required) - Gem ID
+
+**Request Body:**
+```json
+{
+  "urls": [
+    "https://bucket.s3.amazonaws.com/path/to/file1.jpg",
+    "https://bucket.s3.amazonaws.com/path/to/file2.jpg"
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "status": 200,
+  "message": "Files deleted successfully"
+}
+```
+
+**Response Codes:**
+- `200` - Files deleted successfully
+- `400` - Invalid file type or missing URLs
+- `404` - Gem not found
+- `500` - Server error
+
 ---
 
 ## 3. User Management

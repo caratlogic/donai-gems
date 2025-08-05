@@ -18,7 +18,10 @@ import {
     certificates,
 } from "@/components/filter/gemsFilter";
 import { toast } from "sonner";
+import { useGems } from "@/hooks/useGems";
 import GemImage from "../client/GemImage";
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import Link from "next/link";
 
 export const gemsColumns: ColumnDef<Gem>[] = [
     {
@@ -52,6 +55,20 @@ export const gemsColumns: ColumnDef<Gem>[] = [
         cell: ({ row }) => (
             <div className="w-10 font-mono text-xs">
                 {<GemImage gem={row.original} />}
+            </div>
+        ),
+    },
+    {
+        accessorKey: "View",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="View" />
+        ),
+        cell: ({ row }) => (
+            <div className="w-10 font-mono text-xs">
+                <Link href={`product/${row.original.stockId}`}>
+                    {" "}
+                    <EyeIcon className="h-5 w-5 text-black" />
+                </Link>
             </div>
         ),
     },
@@ -301,7 +318,7 @@ export const gemsColumns: ColumnDef<Gem>[] = [
             <DataTableRowActions
                 row={row}
                 onRefresh={() => {
-                    alert("Gem updated successfully!");
+                    console.log("🔄 Refreshing gems data");
                 }}
             />
         ),

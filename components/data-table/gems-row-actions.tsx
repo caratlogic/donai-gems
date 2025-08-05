@@ -83,14 +83,16 @@ export function DataTableRowActions<TData>({
     const handleEditSuccess = () => {
         console.log("✅ Gem edit successful, refreshing data...");
         if (onRefresh) {
-            onRefresh();
+            alert("Gem updated successfully!");
+            window.location.reload();
         }
     };
 
     const handleDeleteSuccess = () => {
         console.log("✅ Gem delete successful, refreshing data...");
         if (onRefresh) {
-            onRefresh();
+            alert("Gem deleted successfully");
+            window.location.reload();
         }
     };
 

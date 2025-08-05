@@ -106,13 +106,12 @@ export function ClientGemsTable({
                             <Eye className="h-4 w-4" />
                         </Button> */}
                             <div className="flex-col w-full items-start justify-between ">
-                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto ">
+                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto flex flex-col ">
                                     <span className="uppercase">
                                         {" "}
-                                        {/* {gem.category} {gem.stoneType}{" "}
-                                        {gem.color} */}
-                                        {gem._id}
-                                    </span>{" "}
+                                        {gem.category} {gem.stoneType}{" "}
+                                        {gem.color}
+                                    </span>
                                 </h3>
                             </div>
                         </div>

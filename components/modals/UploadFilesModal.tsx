@@ -41,17 +41,26 @@ export function UploadFilesModal({
                     <FileUploader
                         fileType="images"
                         stockId={gem._id}
-                        onUploadSuccess={onSuccess}
+                        onUploadSuccess={() => {
+                            onSuccess;
+                            alert("Images uploaded successfully");
+                        }}
                     />
                     <FileUploader
                         fileType="videos"
                         stockId={gem._id}
-                        onUploadSuccess={onSuccess}
+                        onUploadSuccess={() => {
+                            onSuccess;
+                            alert("Videos uploaded successfully");
+                        }}
                     />
                     <FileUploader
                         fileType="certificates"
                         stockId={gem._id}
-                        onUploadSuccess={onSuccess}
+                        onUploadSuccess={() => {
+                            onSuccess;
+                            alert("Certificates uploaded successfully");
+                        }}
                     />
                 </div>
                 <DialogFooter>
