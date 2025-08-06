@@ -34,20 +34,20 @@ const Gems = [
     {
         src1: gem2,
         alt: "GEM 2",
-        title: "Diamond Series",
-        description: "Certified brilliant cut diamonds",
+        title: "Precious Gems",
+        description: "Certified brilliant cut Gems",
     },
     {
         src1: gem3,
         alt: "GEM 3",
-        title: "Ruby Selection",
-        description: "Pigeon blood rubies from Myanmar",
+        title: "Sapphire Selection",
+        description: "Pigeon blood sapphires from Myanmar",
     },
     {
         src1: gem4,
         alt: "GEM 4",
-        title: "Sapphire Line",
-        description: "Royal blue sapphires from Kashmir",
+        title: "Emerald Line",
+        description: "Royal blue emeralds from Kashmir",
     },
     {
         src1: gem1,
