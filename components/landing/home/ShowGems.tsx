@@ -13,7 +13,7 @@ const Gems = [
     {
         src: gem21,
         alt: "GEM 4",
-        name: "The Ruby Renaissance",
+        name: "The Emerald Renaissance",
     },
     {
         src: gem22,
@@ -30,14 +30,16 @@ const ShowGems = () => {
             {/* <Image src={StarIcon} alt="star" width={25} height={25} className="absolute top-510 right-155" /> */}
             <div className="flex flex-col md:flex-row items-center justify-center">
                 {Gems.map((gem, index) => (
-                    <div key={index} className="w-1/2 px-5">
-                        <Image
-                            src={gem.src}
-                            alt={gem.alt}
-                            width={300}
-                            height={300}
-                            className="w-full object-cover"
-                        />
+                    <div key={index} className="w-1/2 px-5 group">
+                        <div className="overflow-hidden rounded-md">
+                            <Image
+                                src={gem.src}
+                                alt={gem.alt}
+                                width={300}
+                                height={300}
+                                className="w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                            />
+                        </div>
                         <p
                             className={`text-center mt-5 text-lg font-light ${openSans.className}`}
                         >

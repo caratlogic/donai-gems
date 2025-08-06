@@ -27,7 +27,7 @@ const Connect = () => {
                         <div
                             className={`${openSans.className} text-[#2E2B2880] text-sm mb-7`}
                         >
-                            <p>DONAI GEMS, Alex Arov,</p>
+                            <p>DONAI GEMS</p>
                             <p>Pelikanstraat 62,</p>
                             <p>Diamantclub Van Antwerpen,</p>
                             <p>Office #1019–1020, Antwerpen, 2018,</p>

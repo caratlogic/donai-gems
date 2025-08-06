@@ -82,6 +82,23 @@ export interface SignedUrlResponse {
     };
 }
 
+export interface AllGemsFilesResponse {
+    status: number;
+    message: string;
+    data: Array<{
+        id: string;
+        imagesUrls: string[];
+    }>;
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalRecords: number;
+        recordsPerPage: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
+    };
+}
+
 export const gemsApi = {
     // Get all gems with pagination
     getGems: async (
@@ -197,6 +214,20 @@ export const gemsApi = {
         if (key) {
             url.searchParams.append("key", key);
         }
+        const response = await axios.get(url.toString());
+        return response.data;
+    },
+
+    // Get files for all gems with pagination
+    getAllGemsFiles: async (
+        fileType: "images" | "videos" | "certificates",
+        page: number = 1,
+        limit: number = 10
+    ): Promise<AllGemsFilesResponse> => {
+        const url = new URL(`${API_BASE_URL}/gems/S3Bucket/${fileType}`);
+        url.searchParams.append("page", page.toString());
+        url.searchParams.append("limit", limit.toString());
+
         const response = await axios.get(url.toString());
         return response.data;
     },

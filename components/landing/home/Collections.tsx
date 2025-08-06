@@ -1,13 +1,13 @@
 import React from "react";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 
 import gem11 from "@/app/assets/gem11.jpg";
 import gem12 from "@/app/assets/gem12.jpg";
 import gem13 from "@/app/assets/gem13.jpg";
 import gem14 from "@/app/assets/gem14.jpg";
 import gem15 from "@/app/assets/gem15.jpg";
-import { Link } from "lucide-react";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -45,20 +45,22 @@ const Collections = () => {
             {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8 max-w-5xl mx-auto">
                 {Gems.map((gem, index) => (
-                    <div
-                        key={index}
-                        className="rounded-sm border border-[#C49A6C66] cursor-pointer"
-                    >
-                        <Image
-                            src={gem.src}
-                            alt={gem.alt}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
+                    <Link href="/jewelery" key={index}>
+                        <div className="rounded-lg border border-[#C49A6C66] cursor-pointer overflow-hidden group">
+                            <Image
+                                src={gem.src}
+                                alt={gem.alt}
+                                className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                            />
+                        </div>
+                    </Link>
                 ))}
 
                 {/* Last Card */}
-                <div className="flex flex-col items-center justify-center border border-[#C49A6C66] rounded-sm text-center py-10 px-5 bg-[#FFFFFF66]">
+                <Link
+                    href="/jewelery"
+                    className="flex flex-col items-center justify-center border border-[#C49A6C66] rounded-sm text-center py-10 px-5 bg-[#FFFFFF66] hover:bg-[#FFFFFF80] transition-colors duration-300"
+                >
                     <h2
                         className={`${playFair.className} text-5xl text-[#54330C] mb-2`}
                         style={{
@@ -75,13 +77,10 @@ const Collections = () => {
                     >
                         Explore Full Inventory
                     </p>
-                    <Link
-                        href="#"
-                        className="text-sm text-[#2E2B28CC] underline font-light"
-                    >
+                    <span className="text-sm text-[#2E2B28CC] underline font-light">
                         View All
-                    </Link>
-                </div>
+                    </span>
+                </Link>
             </div>
         </div>
     );

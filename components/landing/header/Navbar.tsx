@@ -36,7 +36,7 @@ const Navbar = () => {
     const adminNavBarItems = [
         { name: "ADMIN PANEL", path: "/admin" },
         { name: "MEMBERS", path: "/members" },
-        { name: "QUOTATIONS", path: "/quotations" },
+        { name: "INQUIRIE", path: "/quotations" },
     ];
 
     // Dynamic NavBarItems based on user role

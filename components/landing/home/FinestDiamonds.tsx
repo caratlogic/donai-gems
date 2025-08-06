@@ -6,6 +6,10 @@ import gem1 from "@/app/assets/gem1.jpg";
 import gem2 from "@/public/YellowGem-NoClipper.png";
 import gem3 from "@/app/assets/gem3.jpg";
 import gem4 from "@/public/greenGem-NoClipper.png";
+import gemhover1 from "@/app/assets/Rectangle 73.jpg";
+import gemhover2 from "@/public/yellowGemWearing.png";
+import gemhover3 from "@/app/assets/featureImg.jpg";
+import gemhover4 from "@/app/assets/bangles.jpg";
 import Link from "next/link";
 import {
     Carousel,
@@ -107,19 +111,32 @@ const Collections = () => {
                                                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                                                 />
 
-                                                {/* Overlay with gradient */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                {/* Hover image that appears on hover */}
+                                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                                    <Image
+                                                        src={
+                                                            index === 0
+                                                                ? gemhover1
+                                                                : index === 1
+                                                                ? gemhover2
+                                                                : index === 2
+                                                                ? gemhover3
+                                                                : gemhover4
+                                                        }
+                                                        alt={`${gem.alt} hover`}
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                                    />
+                                                </div>
 
-                                                {/* Content overlay */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                                {/* Title overlay that shows on hover */}
+                                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                                     <h3
-                                                        className={`text-lg font-medium mb-1 ${playFair.className}`}
+                                                        className={`text-lg font-medium ${playFair.className}`}
                                                     >
                                                         {gem.title}
                                                     </h3>
-                                                    <p className="text-sm opacity-90">
-                                                        {gem.description}
-                                                    </p>
                                                 </div>
                                             </div>
 

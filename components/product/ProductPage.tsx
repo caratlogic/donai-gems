@@ -16,6 +16,9 @@ import {
     Eye,
     Video,
     FileText,
+    Shield,
+    Award,
+    MapPin,
 } from "lucide-react";
 import { Gem as GemType } from "@/lib/validations/gems-Schema";
 import { Separator } from "@/components/ui/separator";
@@ -299,36 +302,69 @@ export function ProductPage({ productId }: ProductPageProps) {
         <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Product Images */}
-                <div className="space-y-4">
-                    <div className="aspect-square relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden">
-                        {/* Main product image placeholder */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <GemImage gem={product} />
-                        </div>
-
-                        {/* Action buttons */}
-                        <div className="absolute top-4 right-4 flex gap-2">
-                            <Button
-                                size="sm"
-                                variant="secondary"
-                                onClick={handleShare}
-                                className="bg-white/80 hover:bg-white"
-                            >
-                                <Share2 className="h-4 w-4" />
-                            </Button>
-                        </div>
-                    </div>
-
-                    {/* Thumbnail images */}
-                    <div className="grid grid-cols-4 gap-2">
-                        {Array.from({ length: 4 }).map((_, index) => (
-                            <div
-                                key={index}
-                                className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer "
-                            >
-                                <GemImage gem={product} index={index + 1} />
+                <div className="relative">
+                    <div className="space-y-4 sticky top-30">
+                        <div className="aspect-square relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden">
+                            {/* Main product image placeholder */}
+                            <div className="absolute inset-0  flex items-center justify-center">
+                                <GemImage
+                                    gem={product}
+                                    className="hover:scale-105 transition-all duration-500"
+                                />
                             </div>
-                        ))}
+
+                            {/* Action buttons */}
+                            <div className="absolute top-4 right-4 flex gap-2">
+                                <Button
+                                    size="sm"
+                                    variant="secondary"
+                                    onClick={handleShare}
+                                    className="bg-white/80 hover:bg-white"
+                                >
+                                    <Share2 className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+
+                        {/* Thumbnail images */}
+                        <div className="grid grid-cols-4 gap-2">
+                            {Array.from({ length: 4 }).map((_, index) => (
+                                <div
+                                    key={index}
+                                    className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg   cursor-pointer "
+                                >
+                                    <GemImage
+                                        gem={product}
+                                        index={index + 1}
+                                        className="hover:scale-105 transition-all duration-500"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        {product.availability && (
+                            <div className="flex w-full border-gray-300 border-1 rounded-md p-5 items-center justify-between">
+                                <Badge
+                                    variant={
+                                        product.availability
+                                            ? "default"
+                                            : "secondary"
+                                    }
+                                    className={`${
+                                        product.availability
+                                            ? "bg-green-100 text-green-800 hover:bg-green-200"
+                                            : "bg-red-100 text-red-800 hover:bg-red-200"
+                                    }`}
+                                >
+                                    {product.availability
+                                        ? "In Stock"
+                                        : "Sold Out"}
+                                </Badge>
+                                <Badge variant="outline">
+                                    {" "}
+                                    Ships within 24h
+                                </Badge>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -348,7 +384,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
                             Center Stone
                         </h1>
-                        <h2 className="text-4xl font-light text-gray-800 mb-4">
+                        <h2 className="text-4xl font-normal text-primary mb-4">
                             Natural {product.stoneType}
                         </h2>
 
@@ -362,7 +398,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                     </div>
 
                     {/* Description */}
-                    <div>
+                    <div className="border-primary border rounded-lg p-6 ">
                         <p className="text-gray-600 leading-relaxed">
                             {getProductDescription(product)}
                         </p>
@@ -370,61 +406,125 @@ export function ProductPage({ productId }: ProductPageProps) {
 
                     {/* Specifications */}
                     <Card>
-                        <CardContent className="p-6">
-                            <div className="grid grid-cols-2 gap-4 text-sm">
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Cut:</span>
-                                    <span className="font-medium">
+                        <CardHeader>
+                            <CardTitle className="text-lg font-semibold">
+                                Specifications
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="px-6 py-3">
+                            <div className="flex flex-col gap-6 text-sm">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
+                                        Cut:
+                                    </span>
+                                    <span className="font-semibold text-gray-800">
                                         {product.shape}
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
                                         Color:
                                     </span>
-                                    <span className="font-medium">
+                                    <span className="font-semibold text-gray-800">
                                         {product.color}
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
                                         Carat:
                                     </span>
-                                    <span className="font-medium text-[#C49A6C]">
+                                    <span className="font-semibold text-[#C49A6C] text-base">
                                         {product.carat} ct
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
                                         Origin:
                                     </span>
-                                    <span className="font-medium">
+                                    <span className="font-semibold text-gray-800">
                                         {product.origin}
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
                                         Treatment:
                                     </span>
-                                    <span className="font-medium">
+                                    <span className="font-semibold text-gray-800">
                                         {product.treatment}
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                                    <span className="text-gray-600 font-medium">
                                         Certificate:
                                     </span>
-                                    <span className="font-medium">
+                                    <span className="font-semibold text-gray-800">
                                         {product.certificate}
                                     </span>
                                 </div>
-                                <div className="flex justify-start gap-5 sm:col-span-2">
-                                    <span className="text-gray-600">
+                                <div className="flex justify-between items-center py-2 border-b border-gray-100 col-span-2">
+                                    <span className="text-gray-600 font-medium">
                                         Measurement:
                                     </span>
-                                    <span className="font-medium">
+                                    <span className="font-semibold text-gray-800">
                                         {product.measurement}
                                     </span>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Certifications & Quality */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="text-lg font-semibold">
+                                Certifications & Quality
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+                                {/* GRS Certified */}
+                                <div className="flex items-center text-center space-x-4 space-y-3">
+                                    <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
+                                        <Shield className="h-6 w-6 text-red-500" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-left text-gray-800 mb-1">
+                                            {product.certificate} Certified
+                                        </h4>
+                                        <p className="text-sm text-left text-gray-600">
+                                            Genuine authenticity
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Premium Quality */}
+                                <div className="flex items-center text-center space-x-4 space-y-3">
+                                    <div className="w-12 h-12 bg-yellow-50 rounded-full flex items-center justify-center">
+                                        <Award className="h-6 w-6 text-yellow-500" />
+                                    </div>
+                                    <div className="text-left">
+                                        <h4 className="font-semibold text-gray-800 mb-1">
+                                            Premium Quality
+                                        </h4>
+                                        <p className="text-sm text-gray-600">
+                                            Exceptional craftsmanship
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Origin */}
+                                <div className="flex  items-center text-center space-x-4 space-y-3">
+                                    <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center">
+                                        <MapPin className="h-6 w-6 text-green-500" />
+                                    </div>
+                                    <div className="text-left">
+                                        <h4 className="font-semibold text-gray-800 mb-1">
+                                            {product.origin} Origin
+                                        </h4>
+                                        <p className="text-sm text-gray-600">
+                                            Ethically sourced
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </CardContent>
@@ -438,7 +538,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                 size="lg"
                                 onClick={() => setIsQuoteModalOpen(true)}
                             >
-                                Request Quote
+                                Inquiry
                             </Button>
                             <Button
                                 variant="outline"
@@ -450,31 +550,6 @@ export function ProductPage({ productId }: ProductPageProps) {
                         </div>
 
                         {/* Availability Status */}
-                        <div className="flex items-center justify-center">
-                            <Badge
-                                variant={
-                                    product.availability
-                                        ? "default"
-                                        : "secondary"
-                                }
-                                className={`${
-                                    product.availability
-                                        ? "bg-green-100 text-green-800 hover:bg-green-200"
-                                        : "bg-red-100 text-red-800 hover:bg-red-200"
-                                }`}
-                            >
-                                {product.availability
-                                    ? "Available"
-                                    : "Sold Out"}
-                            </Badge>
-                        </div>
-                    </div>
-
-                    {/* Additional Info */}
-                    <div className="text-center text-sm text-gray-500 space-y-1">
-                        <p>✓ Certified by {product.certificate}</p>
-                        <p>✓ Ethically sourced from {product.origin}</p>
-                        <p>✓ Professional grading and authentication</p>
                     </div>
                 </div>
             </div>

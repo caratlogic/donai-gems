@@ -120,7 +120,6 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
             { label: "Emerald", active: false, disabled: false },
             { label: "Sapphire", active: false, disabled: false },
             { label: "Ruby", active: false, disabled: false },
-            { label: "Semi-precious", active: false, disabled: true },
         ],
         Emerald: [
             {

@@ -5,13 +5,15 @@ import Image from "next/image";
 import { gemsApi } from "@/services/gems";
 import { Gem } from "@/lib/validations/gems-Schema";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface GemImageProps {
     gem: Gem;
-    index?: number; // Optional index prop for potential future use
+    index?: number;
+    className?: string; // Optional className prop for styling
 }
 
-const GemImage = ({ gem, index = 0 }: GemImageProps) => {
+const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
     const [imageUrl, setImageUrl] = useState<
         string | "/semiPreciousFeature.jpg"
     >("/semiPreciousFeature.jpg");
@@ -131,7 +133,10 @@ const GemImage = ({ gem, index = 0 }: GemImageProps) => {
                 alt={`${gem.stoneType} Gem`}
                 width={300}
                 height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 cursor-pointer"
+                className={cn(
+                    `object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 cursor-pointer`,
+                    className
+                )}
                 onClick={openModal}
                 onError={(e) => {
                     // console.error(

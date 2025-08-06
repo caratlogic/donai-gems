@@ -56,8 +56,7 @@ const ContactInfo = () => {
                     >
                         <h4 className="font-normal">Location</h4>
                         <div className="text-sm">
-                            <p>Bill To:</p>
-                            <p>DONAI GEMS, Alex Arov,</p>
+                            <p>DONAI GEMS</p>
                             <p>Pelikanstraat 62,</p>
                             <p>Diamantclub Van</p>
                             <p>
