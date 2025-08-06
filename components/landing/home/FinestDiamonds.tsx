@@ -50,23 +50,23 @@ const Gems = [
         description: "Royal blue emeralds from Kashmir",
     },
     {
-        src1: gem1,
-        alt: "GEM 5",
-        title: "Tanzanite Collection",
-        description: "Rare tanzanites from Tanzania",
-    },
-    {
         src1: gem2,
-        alt: "GEM 6",
-        title: "Paraiba Tourmaline",
-        description: "Electric blue paraiba tourmalines",
+        alt: "GEM 2",
+        title: "Precious Gems",
+        description: "Certified brilliant cut Gems",
     },
-    {
-        src1: gem3,
-        alt: "GEM 7",
-        title: "Padparadscha Sapphire",
-        description: "Sunset colored padparadscha",
-    },
+    // {
+    //     src1: gem2,
+    //     alt: "GEM 6",
+    //     title: "Paraiba Tourmaline",
+    //     description: "Electric blue paraiba tourmalines",
+    // },
+    // {
+    //     src1: gem3,
+    //     alt: "GEM 7",
+    //     title: "Padparadscha Sapphire",
+    //     description: "Sunset colored padparadscha",
+    // },
 ];
 
 const Collections = () => {
@@ -121,7 +121,9 @@ const Collections = () => {
                                                                 ? gemhover2
                                                                 : index === 2
                                                                 ? gemhover3
-                                                                : gemhover4
+                                                                : index === 3
+                                                                ? gemhover4
+                                                                : gemhover2
                                                         }
                                                         alt={`${gem.alt} hover`}
                                                         fill
