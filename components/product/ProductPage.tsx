@@ -213,7 +213,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                 >
                                     <div className="flex items-center gap-3">
                                         {icon}
-                                        <span className="text-sm font-medium truncate max-w-[200px]">
+                                        <span className="text-sm font-bold truncate max-w-[200px]">
                                             {fileType.slice(0, -1)} {index + 1}
                                         </span>
                                     </div>
@@ -351,7 +351,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                     }
                                     className={`${
                                         product.availability
-                                            ? "bg-green-100 text-green-800 hover:bg-green-200"
+                                            ? "text-gray-800 bg-transparent "
                                             : "bg-red-100 text-red-800 hover:bg-red-200"
                                     }`}
                                 >
@@ -359,7 +359,10 @@ export function ProductPage({ productId }: ProductPageProps) {
                                         ? "In Stock"
                                         : "Sold Out"}
                                 </Badge>
-                                <Badge variant="outline">
+                                <Badge
+                                    variant="outline"
+                                    className="border-none text-gray-400"
+                                >
                                     {" "}
                                     Ships within 24h
                                 </Badge>
@@ -384,16 +387,14 @@ export function ProductPage({ productId }: ProductPageProps) {
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
                             Center Stone
                         </h1>
-                        <h2 className="text-4xl font-normal text-primary mb-4">
+                        <h2 className="text-xl font-semibold text-primary mb-4">
                             Natural {product.stoneType}
                         </h2>
 
                         {/* Stock ID */}
                         <p className="text-sm text-gray-600">
                             Stock ID:{" "}
-                            <span className="font-medium">
-                                {product.stockId}
-                            </span>
+                            <span className="font-bold">{product.stockId}</span>
                         </p>
                     </div>
 
@@ -405,67 +406,65 @@ export function ProductPage({ productId }: ProductPageProps) {
                     </div>
 
                     {/* Specifications */}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-lg font-semibold">
-                                Specifications
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="px-6 py-3">
-                            <div className="flex flex-col gap-6 text-sm">
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                    <h1 className="text-lg font-semibold pl-1">
+                        Specifications
+                    </h1>
+                    <Card className="py-3 px-0">
+                        <CardContent className=" py-0 px-0 ">
+                            <div className="flex flex-col  text-base">
+                                <div className="flex justify-between px-5 items-center py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Cut:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="font-normal  text-gray-400">
                                         {product.shape}
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex bg-primary/10 justify-between items-center px-5 py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Color:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="font-semibold text-[#A65940]">
                                         {product.color}
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Carat:
                                     </span>
-                                    <span className="font-semibold text-[#C49A6C] text-base">
+                                    <span className="font-normal  text-gray-400">
                                         {product.carat} ct
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Origin:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="font-normal  text-gray-400">
                                         {product.origin}
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Treatment:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="ffont-normal  text-gray-400">
                                         {product.treatment}
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex justify-between bg-primary/10 items-center px-5 py-4 border-b border-gray-100">
+                                    <span className="text-gray-600 font-bold">
                                         Certificate:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="font-semibold text-[#A65940]">
                                         {product.certificate}
                                     </span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-gray-100 col-span-2">
-                                    <span className="text-gray-600 font-medium">
+                                <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100 col-span-2">
+                                    <span className="text-gray-600 font-bold">
                                         Measurement:
                                     </span>
-                                    <span className="font-semibold text-gray-800">
+                                    <span className="font-normal  text-gray-400">
                                         {product.measurement}
                                     </span>
                                 </div>
@@ -484,7 +483,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
                                 {/* GRS Certified */}
                                 <div className="flex items-center text-center space-x-4 space-y-3">
-                                    <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
+                                    <div className="w-12 h-12 rounded-full flex items-center justify-center">
                                         <Shield className="h-6 w-6 text-red-500" />
                                     </div>
                                     <div>
@@ -499,7 +498,7 @@ export function ProductPage({ productId }: ProductPageProps) {
 
                                 {/* Premium Quality */}
                                 <div className="flex items-center text-center space-x-4 space-y-3">
-                                    <div className="w-12 h-12 bg-yellow-50 rounded-full flex items-center justify-center">
+                                    <div className="w-12 h-12  rounded-full flex items-center justify-center">
                                         <Award className="h-6 w-6 text-yellow-500" />
                                     </div>
                                     <div className="text-left">
@@ -513,11 +512,11 @@ export function ProductPage({ productId }: ProductPageProps) {
                                 </div>
 
                                 {/* Origin */}
-                                <div className="flex  items-center text-center space-x-4 space-y-3">
-                                    <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center">
+                                <div className="flex  items-center  text-center space-x-4 space-y-3">
+                                    <div className="w-12 h-12  rounded-full flex items-center justify-center">
                                         <MapPin className="h-6 w-6 text-green-500" />
                                     </div>
-                                    <div className="text-left">
+                                    <div className="text-left -translate-y-1">
                                         <h4 className="font-semibold text-gray-800 mb-1">
                                             {product.origin} Origin
                                         </h4>
@@ -538,7 +537,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                 size="lg"
                                 onClick={() => setIsQuoteModalOpen(true)}
                             >
-                                Inquiry
+                                Request Quote
                             </Button>
                             <Button
                                 variant="outline"
@@ -549,7 +548,36 @@ export function ProductPage({ productId }: ProductPageProps) {
                             </Button>
                         </div>
 
-                        {/* Availability Status */}
+                        {/* Additional Information */}
+                        <div className="flex flex-col space-y-2">
+                            <div className="flex items-center justify-between gap-2">
+                                <h4 className="font-normal text-gray-400">
+                                    Free shipping worldwide
+                                </h4>
+                                <Badge className="bg-[#E9E3D6] text-black">
+                                    Premium Service
+                                </Badge>
+                            </div>
+                            <div className="flex items-center justify-between gap-2">
+                                <h4 className="font-normal text-gray-400">
+                                    30-day return policy
+                                </h4>
+                                <Badge
+                                    variant={"outline"}
+                                    className=" text-black"
+                                >
+                                    Guaranteed
+                                </Badge>
+                            </div>
+                            <div className="flex items-center justify-between gap-2">
+                                <h4 className="font-normal text-gray-400">
+                                    Lifetime authentication
+                                </h4>
+                                <Badge className="bg-[#A65940] text-white">
+                                    Included
+                                </Badge>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
