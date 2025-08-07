@@ -40,7 +40,7 @@ interface FileUrls {
 }
 
 export function ProductPage({ productId }: ProductPageProps) {
-    const [product, setProduct] = useState<any>(null);
+    const [product, setProduct] = useState<GemType | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -385,7 +385,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                             <Badge variant="outline">{product.category}</Badge>
                         </div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                            Center Stone
+                            {product.category}
                         </h1>
                         <h2 className="text-xl font-semibold text-primary mb-4">
                             Natural {product.stoneType}

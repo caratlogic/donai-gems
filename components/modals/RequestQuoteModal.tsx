@@ -26,17 +26,12 @@ export function RequestQuoteModal({
     onClose,
     productId,
 }: RequestQuoteModalProps) {
-    const [formData, setFormData] = useState({
-        carat: "",
-        noOfPieces: "",
-        quotePrice: "",
-    });
+    const [inquiry, setInquiry] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setInquiry(e.target.value);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -44,25 +39,25 @@ export function RequestQuoteModal({
         setIsLoading(true);
         setError(null);
 
-        const quoteData: QuotationData = {
-            carat: parseFloat(formData.carat),
-            noOfPieces: parseInt(formData.noOfPieces, 10),
-            quotePrice: parseFloat(formData.quotePrice),
-        };
-
-        if (
-            isNaN(quoteData.carat) ||
-            isNaN(quoteData.noOfPieces) ||
-            isNaN(quoteData.quotePrice)
-        ) {
-            setError("Please enter valid numbers.");
+        // Validate inquiry is not empty
+        if (!inquiry.trim()) {
+            setError("Please enter your inquiry.");
             setIsLoading(false);
             return;
         }
 
+        // Create the quotation data according to API specification
+        const quoteData: QuotationData = {
+            quotations: [
+                (productId ? `Inquiry for - ${productId}:  ` : "") +
+                    inquiry.trim(),
+            ],
+        };
+
         try {
             await quotationAPI.submitQuotation(quoteData);
             toast("Your quotation has been submitted successfully.");
+            setInquiry(""); // Reset form
             onClose();
         } catch (err: any) {
             const errorMessage =
@@ -75,57 +70,38 @@ export function RequestQuoteModal({
         }
     };
 
+    const handleClose = () => {
+        setInquiry(""); // Reset form when closing
+        setError(null);
+        onClose();
+    };
+
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
+        <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Request a Quote</DialogTitle>
                     <DialogDescription>
-                        Fill in the details below to submit your quotation.
+                        Fill in your inquiry below to submit your quotation.
                         We'll get back to you shortly.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit}>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="carat" className="text-right">
-                                Carat
+                            <Label htmlFor="inquiry" className="text-right">
+                                Inquiry
                             </Label>
                             <Input
-                                id="carat"
-                                name="carat"
-                                type="number"
-                                value={formData.carat}
+                                id="inquiry"
+                                name="inquiry"
+                                type="text"
+                                value={inquiry}
                                 onChange={handleInputChange}
                                 className="col-span-3"
-                                required
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="noOfPieces" className="text-right">
-                                Pieces
-                            </Label>
-                            <Input
-                                id="noOfPieces"
-                                name="noOfPieces"
-                                type="number"
-                                value={formData.noOfPieces}
-                                onChange={handleInputChange}
-                                className="col-span-3"
-                                required
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="quotePrice" className="text-right">
-                                Quote Price ($)
-                            </Label>
-                            <Input
-                                id="quotePrice"
-                                name="quotePrice"
-                                type="number"
-                                value={formData.quotePrice}
-                                onChange={handleInputChange}
-                                className="col-span-3"
+                                placeholder={`${
+                                    productId ? `${productId} - ` : ""
+                                }Enter your inquiry...`}
                                 required
                             />
                         </div>
@@ -139,7 +115,7 @@ export function RequestQuoteModal({
                         <Button
                             type="button"
                             variant="outline"
-                            onClick={onClose}
+                            onClick={handleClose}
                         >
                             Cancel
                         </Button>

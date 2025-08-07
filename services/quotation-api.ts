@@ -4,32 +4,41 @@ import { User } from "@/lib/validations/user-schema";
 
 export interface QuotationData {
     // Assuming we link quote to a product
-    carat: number;
-    noOfPieces: number;
-    quotePrice: number;
+    quotations: String[];
 }
 
 export interface QuotationResponse {
     message: string;
-    quotation: Quotation[];
+    quotations: string[];
 }
 
 export interface AdminQuotation {
     userId: string;
     username: string;
     email: string;
+    quotations: string[];
     quotationCount: number;
-    quotations: Quotation[];
+}
+
+export interface AllQuotations {
+    users: AdminQuotation[];
+    summary: {
+        totalUsers: number;
+        totalQuotations: number;
+    };
 }
 
 export interface AllQuotationsResponse {
+    success: boolean;
     message: string;
-    data: {
-        users: AdminQuotation[];
-        summary: {
-            totalUsers: number;
-            totalQuotations: number;
-        };
+    data: AllQuotations;
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalRecords: number;
+        recordsPerPage: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
     };
 }
 
@@ -49,30 +58,6 @@ export const quotationAPI = {
      */
     getAllQuotations: async (): Promise<AllQuotationsResponse> => {
         const response = await apiClient.get("/quotations");
-        return response.data;
-    },
-
-    /**
-     * Approve a quotation (Admin only).
-     */
-    approveQuotation: async (
-        quotationId: string
-    ): Promise<{ message: string; quotation: Quotation }> => {
-        const response = await apiClient.post(
-            `/quotations/${quotationId}/approve`
-        );
-        return response.data;
-    },
-
-    /**
-     * Reject a quotation (Admin only).
-     */
-    rejectQuotation: async (
-        quotationId: string
-    ): Promise<{ message: string; quotation: Quotation }> => {
-        const response = await apiClient.post(
-            `/quotations/${quotationId}/reject`
-        );
         return response.data;
     },
 };

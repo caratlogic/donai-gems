@@ -15,7 +15,7 @@ const Page = () => {
     });
 
     const [passkeyFormData, setPasskeyFormData] = useState({
-        username: "",
+        name: "",
         passkey: "",
         rememberMe: false,
     });
@@ -92,7 +92,7 @@ const Page = () => {
         try {
             // Using the VIP login endpoint
             const response = await authAPI.vipLogin({
-                email: passkeyFormData.username,
+                name: passkeyFormData.name,
                 passkey: passkeyFormData.passkey,
             });
 
@@ -244,14 +244,14 @@ const Page = () => {
                                         htmlFor="username"
                                         className="text-base font-medium text-secondary font-openSans"
                                     >
-                                        Username*
+                                        Name*
                                     </label>
                                     <input
-                                        id="username"
-                                        name="username"
+                                        id="name"
+                                        name="name"
                                         type="text"
-                                        placeholder="Enter your username"
-                                        value={passkeyFormData.username}
+                                        placeholder="Enter your name"
+                                        value={passkeyFormData.name}
                                         onChange={handlePasskeyInputChange}
                                         className="w-full px-4 py-3 placeholder:text-[#D9D0C5] bg-primary/10 rounded-md transition-colors font-openSans"
                                         required

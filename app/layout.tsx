@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import {} from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 import Footer from "../components/landing/footer/Footer";
@@ -44,6 +45,7 @@ export default function RootLayout({
                     {children}
                     <Footer />
                 </AuthProvider>
+                <Toaster />
             </body>
         </html>
     );

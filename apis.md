@@ -1,55 +1,72 @@
 # Gems Inventory API Documentation
 
-## Overview
-A REST API for managing gems/diamonds inventory and user quotations built with TypeScript, Express.js, and MongoDB.
+## Base URL
+```
+http://localhost:3000/api
+```
 
-**Base URL:** `http://localhost:3000/api`
+## Response Format
+
+All API responses follow this consistent format:
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "data": {},
+  "message": "Optional message",
+  "count": 10
+}
+```
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "error": "Error message"
+}
+```
 
 ---
 
-## Authentication
-Most endpoints require JWT authentication via cookies or Authorization header. Admin endpoints require additional admin role verification.
+## Health Check
 
----
-
-## API Endpoints
-
-### 1. Health Check
-
-#### GET /api/health
-Check API status and health.
-
-**Access:** Public  
-**Query Parameters:** None  
-**Request Body:** None
+### Check API Status
+- **Endpoint:** `GET /api/health`
+- **Description:** Check if the API is running
+- **Access:** Public
+- **Query Parameters:** None
+- **Request Body:** None
 
 **Response:**
 ```json
 {
   "success": true,
   "message": "Diamond Inventory API is running",
-  "timestamp": "2025-07-27T10:30:00.000Z",
+  "timestamp": "2025-08-07T12:00:00.000Z",
   "environment": "development"
 }
 ```
 
 **Response Codes:**
-- `200` - API is healthy
-- `500` - Health check failed
+- `200` - Success
+- `500` - Server error
 
 ---
 
-## 2. Gems/Diamonds Management
+## Gems/Diamonds API
 
-### GET /api/gems
-Get all gems with pagination.
+### 1. Get All Gems (Paginated)
+- **Endpoint:** `GET /api/gems`
+- **Description:** Retrieve all gems with pagination
+- **Access:** Public
+- **Rate Limit:** Not specified
 
-**Access:** Public  
 **Query Parameters:**
 - `page` (number, optional) - Page number (default: 1)
 - `limit` (number, optional) - Items per page (default: 10)
 - `sortBy` (string, optional) - Field to sort by (default: createdAt)
-- `sortOrder` (string, optional) - Sort order: 'asc' or 'desc' (default: desc)
+- `sortOrder` (string, optional) - Sort direction: asc/desc (default: desc)
 
 **Request Body:** None
 
@@ -62,19 +79,22 @@ Get all gems with pagination.
     {
       "_id": "gem_id",
       "stockId": "GEM001",
-      "productType": "Gem",
-      "category": "Natural",
-      "stoneType": "Ruby",
-      "color": "Red",
-      "shape": "Round",
-      "carat": 2.5,
-      "origin": "Myanmar",
-      "treatment": "Heat",
+      "productType": "jewelry",
+      "category": "ring",
+      "stoneType": "diamond",
+      "color": "white",
+      "shape": "round",
+      "carat": 1.5,
+      "origin": "south africa",
+      "treatment": "none",
       "availability": true,
-      "certificate": "GIA",
-      "measurement": "8.0x8.0x5.0mm",
-      "createdAt": "2025-07-27T10:30:00.000Z",
-      "updatedAt": "2025-07-27T10:30:00.000Z"
+      "certificate": "GIA123456",
+      "measurement": "6.5x6.5x4.0",
+      "imageUrls": [],
+      "videoUrls": [],
+      "certificateUrls": [],
+      "createdAt": "2025-08-07T12:00:00.000Z",
+      "updatedAt": "2025-08-07T12:00:00.000Z"
     }
   ],
   "pagination": {
@@ -92,13 +112,14 @@ Get all gems with pagination.
 - `200` - Success
 - `500` - Server error
 
-### GET /api/gems/all
-Get all gems without pagination.
+### 2. Get All Gems (No Pagination)
+- **Endpoint:** `GET /api/gems/all`
+- **Description:** Retrieve all gems without pagination
+- **Access:** Public
 
-**Access:** Public  
 **Query Parameters:**
 - `sortBy` (string, optional) - Field to sort by (default: createdAt)
-- `sortOrder` (string, optional) - Sort order: 'asc' or 'desc' (default: desc)
+- `sortOrder` (string, optional) - Sort direction: asc/desc (default: desc)
 
 **Request Body:** None
 
@@ -107,8 +128,8 @@ Get all gems without pagination.
 {
   "success": true,
   "message": "All gems fetched successfully",
-  "data": [/* array of gem objects */],
-  "totalRecords": 250
+  "data": [/* array of all gems */],
+  "totalRecords": 1000
 }
 ```
 
@@ -116,29 +137,30 @@ Get all gems without pagination.
 - `200` - Success
 - `500` - Server error
 
-### GET /api/gems/search
-Search gems with advanced filters.
+### 3. Search Gems with Filters
+- **Endpoint:** `GET /api/gems/search`
+- **Description:** Search gems with advanced filters and pagination
+- **Access:** Public
+- **Rate Limit:** 50 requests per 15 minutes
 
-**Access:** Public  
-**Rate Limit:** 50 requests per 15 minutes  
 **Query Parameters:**
-- `page` (number, optional) - Page number
-- `limit` (number, optional) - Items per page
-- `sortBy` (string, optional) - Field to sort by
-- `sortOrder` (string, optional) - Sort order
+- `page` (number, optional) - Page number (default: 1)
+- `limit` (number, optional) - Items per page (default: 10)
+- `sortBy` (string, optional) - Field to sort by (default: createdAt)
+- `sortOrder` (string, optional) - Sort direction: asc/desc (default: desc)
 - `stockId` (string, optional) - Filter by stock ID
-- `productType` (string|array, optional) - Filter by product type
-- `category` (string|array, optional) - Filter by category
-- `stoneType` (string|array, optional) - Filter by stone type
-- `color` (string|array, optional) - Filter by color
-- `shape` (string|array, optional) - Filter by shape
-- `origin` (string|array, optional) - Filter by origin
-- `treatment` (string|array, optional) - Filter by treatment
-- `certificate` (string|array, optional) - Filter by certificate
+- `productType` (string/array, optional) - Filter by product type
+- `category` (string/array, optional) - Filter by category
+- `stoneType` (string/array, optional) - Filter by stone type
+- `color` (string/array, optional) - Filter by color
+- `shape` (string/array, optional) - Filter by shape
+- `origin` (string/array, optional) - Filter by origin
+- `treatment` (string/array, optional) - Filter by treatment
+- `certificate` (string/array, optional) - Filter by certificate
 - `caratMin` (number, optional) - Minimum carat weight
 - `caratMax` (number, optional) - Maximum carat weight
 - `availability` (boolean, optional) - Filter by availability
-- `searchTerm` (string, optional) - General search term
+- `searchTerm` (string, optional) - Search in stockId, stoneType, color, origin, certificate
 
 **Request Body:** None
 
@@ -147,7 +169,7 @@ Search gems with advanced filters.
 {
   "success": true,
   "message": "Gem search completed successfully",
-  "data": [/* filtered gem objects */],
+  "data": [/* filtered gems array */],
   "pagination": {
     "currentPage": 1,
     "totalPages": 5,
@@ -157,9 +179,9 @@ Search gems with advanced filters.
     "hasPrevPage": false
   },
   "appliedFilters": {
-    "stoneType": "Ruby",
+    "stoneType": "diamond",
     "caratMin": 1.0,
-    "caratMax": 3.0
+    "availability": true
   },
   "totalFilteredRecords": 50
 }
@@ -169,12 +191,13 @@ Search gems with advanced filters.
 - `200` - Success
 - `500` - Server error
 
-### GET /api/gems/filter-options
-Get available filter options for UI dropdowns.
+### 4. Get Filter Options
+- **Endpoint:** `GET /api/gems/filter-options`
+- **Description:** Get available filter options for UI dropdowns
+- **Access:** Public
+- **Rate Limit:** 50 requests per 15 minutes
 
-**Access:** Public  
-**Rate Limit:** 50 requests per 15 minutes  
-**Query Parameters:** None  
+**Query Parameters:** None
 **Request Body:** None
 
 **Response:**
@@ -183,14 +206,14 @@ Get available filter options for UI dropdowns.
   "success": true,
   "message": "Filter options fetched successfully",
   "data": {
-    "productTypes": ["Gem", "Jewelry"],
-    "categories": ["Natural", "Synthetic"],
-    "stoneTypes": ["Ruby", "Sapphire", "Emerald"],
-    "colors": ["Red", "Blue", "Green"],
-    "shapes": ["Round", "Oval", "Square"],
-    "origins": ["Myanmar", "Sri Lanka", "Thailand"],
-    "treatments": ["Heat", "Oil", "None"],
-    "certificates": ["GIA", "AIGS", "Lotus"]
+    "productType": ["jewelry", "Gem"],
+    "category": ["ring", "necklace", "bracelet"],
+    "stoneType": ["diamond", "ruby", "sapphire"],
+    "color": ["white", "yellow", "blue"],
+    "shape": ["round", "oval", "princess"],
+    "origin": ["south africa", "india", "sri lanka"],
+    "treatment": ["none", "heated", "enhanced"],
+    "certificate": ["GIA", "IGI", "SSEF"]
   }
 }
 ```
@@ -199,28 +222,29 @@ Get available filter options for UI dropdowns.
 - `200` - Success
 - `500` - Server error
 
-### POST /api/gems/create
-Create a new gem with validation.
+### 5. Create New Gem
+- **Endpoint:** `POST /api/gems/create`
+- **Description:** Create a new gem with validation
+- **Access:** Public
+- **Rate Limit:** 10 requests per minute
 
-**Access:** Public  
-**Rate Limit:** 10 requests per minute  
 **Query Parameters:** None
 
 **Request Body:**
 ```json
 {
   "stockId": "GEM001",
-  "productType": "Gem",
-  "category": "Natural",
-  "stoneType": "Ruby",
-  "color": "Red",
-  "shape": "Round",
-  "carat": 2.5,
-  "origin": "Myanmar",
-  "treatment": "Heat",
+  "productType": "jewelry",
+  "category": "ring",
+  "stoneType": "diamond",
+  "color": "white",
+  "shape": "round",
+  "carat": 1.5,
+  "origin": "south africa",
+  "treatment": "none",
   "availability": true,
-  "certificate": "GIA",
-  "measurement": "8.0x8.0x5.0mm"
+  "certificate": "GIA123456",
+  "measurement": "6.5x6.5x4.0"
 }
 ```
 
@@ -229,20 +253,27 @@ Create a new gem with validation.
 {
   "success": true,
   "message": "Gem created successfully",
-  "data": {/* created gem object */}
+  "data": {
+    "_id": "gem_id",
+    "stockId": "GEM001",
+    /* ... other gem properties */
+    "createdAt": "2025-08-07T12:00:00.000Z",
+    "updatedAt": "2025-08-07T12:00:00.000Z"
+  }
 }
 ```
 
 **Response Codes:**
 - `201` - Created successfully
-- `400` - Validation failed
+- `400` - Validation errors
 - `500` - Server error
 
-### POST /api/gems/bulk-create
-Create multiple gems in bulk.
+### 6. Bulk Create Gems
+- **Endpoint:** `POST /api/gems/bulk-create`
+- **Description:** Create multiple gems in bulk
+- **Access:** Public
+- **Rate Limit:** 5 requests per 5 minutes
 
-**Access:** Public  
-**Rate Limit:** 5 requests per 5 minutes  
 **Query Parameters:** None
 
 **Request Body:**
@@ -250,17 +281,13 @@ Create multiple gems in bulk.
 [
   {
     "stockId": "GEM001",
-    "productType": "Gem",
-    "category": "Natural",
-    "stoneType": "Ruby",
-    "color": "Red",
-    "shape": "Round",
-    "carat": 2.5,
-    "origin": "Myanmar",
-    "treatment": "Heat",
-    "availability": true,
-    "certificate": "GIA",
-    "measurement": "8.0x8.0x5.0mm"
+    "productType": "jewelry",
+    /* ... gem properties */
+  },
+  {
+    "stockId": "GEM002",
+    "productType": "jewelry",
+    /* ... gem properties */
   }
 ]
 ```
@@ -270,29 +297,32 @@ Create multiple gems in bulk.
 {
   "success": true,
   "message": "5 gems created successfully",
-  "data": [/* array of created gem objects */],
+  "data": [/* array of created gems */],
   "count": 5
 }
 ```
 
 **Response Codes:**
 - `201` - Created successfully
-- `400` - Invalid input data
+- `400` - Invalid input
 - `500` - Server error
 
-### PUT /api/gems/:id
-Update a gem by ID.
+### 7. Update Gem
+- **Endpoint:** `PUT /api/gems/:id`
+- **Description:** Update a gem by ID
+- **Access:** Public
+- **Rate Limit:** 10 requests per minute
 
-**Access:** Public  
-**Rate Limit:** 10 requests per minute  
 **Query Parameters:** None
+**URL Parameters:**
+- `id` (string, required) - Gem ID
 
 **Request Body:**
 ```json
 {
-  "color": "Dark Red",
-  "carat": 2.8,
-  "availability": false
+  "color": "yellow",
+  "availability": false,
+  /* ... any gem properties to update */
 }
 ```
 
@@ -301,22 +331,30 @@ Update a gem by ID.
 {
   "success": true,
   "message": "Gem updated successfully",
-  "data": {/* updated gem object */}
+  "data": {
+    "_id": "gem_id",
+    /* ... updated gem properties */
+    "updatedAt": "2025-08-07T12:00:00.000Z"
+  }
 }
 ```
 
 **Response Codes:**
 - `200` - Updated successfully
-- `400` - Validation failed
+- `400` - Validation errors
 - `404` - Gem not found
 - `500` - Server error
 
-### DELETE /api/gems/:id
-Delete a gem by ID.
+### 8. Delete Gem
+- **Endpoint:** `DELETE /api/gems/:id`
+- **Description:** Delete a gem by ID
+- **Access:** Public
+- **Rate Limit:** 10 requests per minute
 
-**Access:** Public  
-**Rate Limit:** 10 requests per minute  
-**Query Parameters:** None  
+**Query Parameters:** None
+**URL Parameters:**
+- `id` (string, required) - Gem ID
+
 **Request Body:** None
 
 **Response:**
@@ -332,68 +370,104 @@ Delete a gem by ID.
 - `404` - Gem not found
 - `500` - Server error
 
-### POST /api/gems/S3Bucket/insert/:fileType/:id
-Upload files (images, videos, certificates) to a specific gem.
+### 9. Bulk Delete Gems
+- **Endpoint:** `POST /api/gems/bulk-delete`
+- **Description:** Delete multiple gems by IDs
+- **Access:** Public
+- **Rate Limit:** 5 requests per minute
 
-**Access:** Public  
-**Query Parameters:** None  
-**Path Parameters:**
-- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
-- `id` (string, required) - Gem ID
+**Query Parameters:** None
 
-**Request Body:** Multipart form data with files
+**Request Body:**
+```json
+{
+  "gemIds": ["gem_id_1", "gem_id_2", "gem_id_3"]
+}
+```
 
 **Response:**
 ```json
 {
-  "status": 200,
-  "message": "Files uploaded successfully to gem {id}",
+  "success": true,
+  "message": "3 gems deleted successfully",
   "data": {
-    "uploadedFiles": [
-      {
-        "originalName": "image1.jpg",
-        "s3Url": "https://bucket.s3.amazonaws.com/path/to/file.jpg"
-      }
-    ],
-    "failedFiles": []
+    "deletedCount": 3
   }
 }
 ```
 
 **Response Codes:**
-- `200` - Files uploaded successfully
-- `400` - Invalid file type or no files provided
-- `404` - Gem not found
+- `200` - Deleted successfully
+- `400` - Invalid input (empty array)
 - `500` - Server error
 
-### GET /api/gems/S3Bucket/:fileType/:id?
-Get file URLs for gems.
+---
 
-**Access:** Public  
-**Query Parameters (when no ID provided):**
-- `page` (number, optional) - Page number (default: 1)
-- `limit` (number, optional) - Items per page (default: 10)
+## File Management API
 
-**Path Parameters:**
-- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
-- `id` (string, optional) - Gem ID (if not provided, returns paginated results for all gems)
+### 10. Upload Files to Gem
+- **Endpoint:** `POST /api/gems/S3Bucket/insert/:fileType/:id`
+- **Description:** Upload files (images, videos, certificates) to a gem
+- **Access:** Public
 
-**Response (Specific gem):**
+**URL Parameters:**
+- `fileType` (string, required) - Type of file: "images", "videos", or "certificates"
+- `id` (string, required) - Gem ID
+
+**Query Parameters:** None
+
+**Request Body:** Multipart form data with file uploads
+
+**Response:**
 ```json
 {
   "status": 200,
-  "message": "images URLs retrieved successfully for gem {id}",
+  "message": "Images uploaded successfully",
   "data": {
-    "id": "gem_id",
-    "imagesUrls": [
-      "https://bucket.s3.amazonaws.com/path/to/image1.jpg",
-      "https://bucket.s3.amazonaws.com/path/to/image2.jpg"
+    "imageUrls": [
+      "https://s3-bucket-url/image1.jpg",
+      "https://s3-bucket-url/image2.jpg"
     ]
   }
 }
 ```
 
-**Response (All gems with pagination):**
+**Response Codes:**
+- `200` - Uploaded successfully
+- `400` - Invalid ID or file type
+- `500` - Server error
+
+### 11. Get File URLs
+- **Endpoint:** `GET /api/gems/S3Bucket/:fileType/:id?`
+- **Description:** Get file URLs for specific gem or all gems with pagination
+- **Access:** Public
+
+**URL Parameters:**
+- `fileType` (string, required) - Type of file: "images", "videos", or "certificates"
+- `id` (string, optional) - Gem ID (if not provided, returns paginated results for all gems)
+
+**Query Parameters (when id not provided):**
+- `page` (number, optional) - Page number (default: 1)
+- `limit` (number, optional) - Items per page (default: 10)
+
+**Request Body:** None
+
+**Response (for specific gem):**
+```json
+{
+  "status": 200,
+  "message": "images URLs retrieved successfully for gem 12345",
+  "data": {
+    "id": "gem_id",
+    "imagesUrls": [
+      "https://s3-bucket-url/image1.jpg",
+      "https://s3-bucket-url/image2.jpg"
+    ]
+  }
+}
+```
+
+**Response (for all gems with pagination):**
 ```json
 {
   "status": 200,
@@ -404,8 +478,267 @@ Get file URLs for gems.
       "imagesUrls": ["url1", "url2"]
     },
     {
-      "id": "gem_id_2", 
+      "id": "gem_id_2",
       "imagesUrls": ["url3", "url4"]
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 10,
+    "totalRecords": 100,
+    "recordsPerPage": 10,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
+}
+```
+
+**Response Codes:**
+- `200` - Success
+- `400` - Invalid file type
+- `404` - Gem not found (when specific ID provided)
+- `500` - Server error
+
+### 12. Delete Files from S3
+- **Endpoint:** `POST /api/gems/S3Bucket/delete/:fileType/:id`
+- **Description:** Delete specific files from S3 and remove URLs from gem record
+- **Access:** Public
+
+**URL Parameters:**
+- `fileType` (string, required) - Type of file: "images", "videos", or "certificates"
+- `id` (string, required) - Gem ID
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "urls": [
+    "https://s3-bucket-url/image1.jpg",
+    "https://s3-bucket-url/image2.jpg"
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "status": 200,
+  "message": "Files deleted successfully"
+}
+```
+
+**Response Codes:**
+- `200` - Deleted successfully
+- `400` - Invalid input or bucket configuration
+- `500` - Server error
+
+---
+
+## Users API
+
+### 13. Register Normal User
+- **Endpoint:** `POST /api/users/register`
+- **Description:** Register a new normal user (requires OTP verification)
+- **Access:** Public
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "phone": "+1234567890",
+  "password": "securePassword123",
+  "name": "John Doe"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "User registered successfully. Please verify OTP.",
+  "data": {
+    "userId": "user_id",
+    "email": "user@example.com",
+    "requiresOTPVerification": true
+  }
+}
+```
+
+**Response Codes:**
+- `201` - Registration successful
+- `400` - Validation errors
+- `409` - User already exists
+- `500` - Server error
+
+### 14. Verify OTP
+- **Endpoint:** `POST /api/users/verify-otp`
+- **Description:** Verify OTP for normal user registration
+- **Access:** Public
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "otp": "123456"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "OTP verified successfully",
+  "data": {
+    "user": {
+      "_id": "user_id",
+      "email": "user@example.com",
+      "role": "USER",
+      "isVerified": true
+    },
+    "token": "jwt_token_here"
+  }
+}
+```
+
+**Response Codes:**
+- `200` - OTP verified successfully
+- `400` - Invalid or expired OTP
+- `404` - User not found
+- `500` - Server error
+
+### 15. Send OTP
+- **Endpoint:** `POST /api/users/otp`
+- **Description:** Send OTP to normal user
+- **Access:** Public
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "OTP sent successfully"
+}
+```
+
+**Response Codes:**
+- `200` - OTP sent successfully
+- `404` - User not found
+- `500` - Server error
+
+### 16. Login Normal User
+- **Endpoint:** `POST /api/users/login`
+- **Description:** Login for normal users with email and password
+- **Access:** Public
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "user": {
+      "_id": "user_id",
+      "email": "user@example.com",
+      "role": "USER",
+      "isVerified": true
+    },
+    "token": "jwt_token_here"
+  }
+}
+```
+
+**Response Codes:**
+- `200` - Login successful
+- `400` - Invalid credentials
+- `401` - User not verified
+- `404` - User not found
+- `500` - Server error
+
+### 17. Login VIP User
+- **Endpoint:** `POST /api/users/login/vip`
+- **Description:** Login for VIP users with passkey (default: 1234)
+- **Access:** Public
+
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "vip@example.com",
+  "passkey": "1234"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "VIP login successful",
+  "data": {
+    "user": {
+      "_id": "user_id",
+      "email": "vip@example.com",
+      "role": "VIP",
+      "isVerified": true
+    },
+    "token": "jwt_token_here"
+  }
+}
+```
+
+**Response Codes:**
+- `200` - Login successful
+- `400` - Invalid passkey
+- `404` - VIP user not found
+- `500` - Server error
+
+### 18. Get All Users (Admin Only)
+- **Endpoint:** `GET /api/users`
+- **Description:** Get all normal users (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
+
+**Query Parameters:**
+- `page` (number, optional) - Page number
+- `limit` (number, optional) - Items per page
+
+**Request Body:** None
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Users retrieved successfully",
+  "data": [
+    {
+      "_id": "user_id",
+      "email": "user@example.com",
+      "role": "USER",
+      "isVerified": true,
+      "createdAt": "2025-08-07T12:00:00.000Z"
     }
   ],
   "pagination": {
@@ -421,117 +754,61 @@ Get file URLs for gems.
 
 **Response Codes:**
 - `200` - Success
-- `400` - Invalid file type
-- `404` - Gem not found (when ID provided)
+- `401` - Unauthorized
+- `403` - Forbidden (not admin)
 - `500` - Server error
 
-### POST /api/gems/S3Bucket/delete/:fileType/:id
-Delete files from S3 and remove URLs from gem document.
+### 19. Get User by ID (Admin Only)
+- **Endpoint:** `GET /api/users/:id`
+- **Description:** Get specific user by ID (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
 
-**Access:** Public  
-**Path Parameters:**
-- `fileType` (string, required) - Type of files: 'images', 'videos', or 'certificates'
-- `id` (string, required) - Gem ID
+**URL Parameters:**
+- `id` (string, required) - User ID
 
-**Request Body:**
-```json
-{
-  "urls": [
-    "https://bucket.s3.amazonaws.com/path/to/file1.jpg",
-    "https://bucket.s3.amazonaws.com/path/to/file2.jpg"
-  ]
-}
-```
-
-**Response:**
-```json
-{
-  "status": 200,
-  "message": "Files deleted successfully"
-}
-```
-
-**Response Codes:**
-- `200` - Files deleted successfully
-- `400` - Invalid file type or missing URLs
-- `404` - Gem not found
-- `500` - Server error
-
----
-
-## 3. User Management
-
-### POST /api/users/register
-Register a new normal user.
-
-**Access:** Public  
 **Query Parameters:** None
-
-**Request Body:**
-```json
-{
-  "username": "john_doe",
-  "email": "john@example.com",
-  "phone": "+1234567890",
-  "password": "securePassword123"
-}
-```
+**Request Body:** None
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "User registered successfully. Please verify OTP.",
-  "userId": "user_id_here"
+  "message": "User retrieved successfully",
+  "data": {
+    "_id": "user_id",
+    "email": "user@example.com",
+    "role": "USER",
+    "isVerified": true,
+    "createdAt": "2025-08-07T12:00:00.000Z"
+  }
 }
 ```
 
 **Response Codes:**
-- `201` - Registration successful
-- `400` - Validation failed
-- `409` - User already exists
-- `500` - Server error
-
-### POST /api/users/verify-otp
-Verify OTP for user registration.
-
-**Access:** Public  
-**Query Parameters:** None
-
-**Request Body:**
-```json
-{
-  "userId": "user_id_here",
-  "otp": "123456"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "OTP verified successfully",
-  "user": {/* user object */}
-}
-```
-
-**Response Codes:**
-- `200` - OTP verified
-- `400` - Invalid or expired OTP
+- `200` - Success
+- `401` - Unauthorized
+- `403` - Forbidden (not admin)
 - `404` - User not found
 - `500` - Server error
 
-### POST /api/users/login
-Login normal user.
+### 20. Update User (Admin Only)
+- **Endpoint:** `PUT /api/users/:id`
+- **Description:** Update user information (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
 
-**Access:** Public  
+**URL Parameters:**
+- `id` (string, required) - User ID
+
 **Query Parameters:** None
 
 **Request Body:**
 ```json
 {
-  "email": "john@example.com",
-  "password": "securePassword123"
+  "email": "newemail@example.com",
+  "role": "USER",
+  "isVerified": true
 }
 ```
 
@@ -539,66 +816,37 @@ Login normal user.
 ```json
 {
   "success": true,
-  "message": "Login successful",
-  "user": {
+  "message": "User updated successfully",
+  "data": {
     "_id": "user_id",
-    "username": "john_doe",
-    "email": "john@example.com",
+    "email": "newemail@example.com",
     "role": "USER",
-    "status": "ACTIVE"
+    "isVerified": true,
+    "updatedAt": "2025-08-07T12:00:00.000Z"
   }
 }
 ```
 
 **Response Codes:**
-- `200` - Login successful
-- `400` - Invalid credentials
-- `401` - Account not verified
+- `200` - Updated successfully
+- `400` - Validation errors
+- `401` - Unauthorized
+- `403` - Forbidden (not admin)
+- `404` - User not found
 - `500` - Server error
 
-### POST /api/users/login/vip
-Login VIP user with passkey.
+### 21. Search Users (Admin Only)
+- **Endpoint:** `GET /api/users/search`
+- **Description:** Search users with filters (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
 
-**Access:** Public  
-**Query Parameters:** None
-
-**Request Body:**
-```json
-{
-  "username": "vip_user",
-  "passkey": "1234"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "VIP login successful",
-  "user": {
-    "_id": "user_id",
-    "username": "vip_user",
-    "role": "USER",
-    "isVip": true
-  }
-}
-```
-
-**Response Codes:**
-- `200` - Login successful
-- `400` - Invalid credentials
-- `500` - Server error
-
-### GET /api/users
-Get all normal users (Admin only).
-
-**Access:** Admin only  
-**Authentication:** Required  
 **Query Parameters:**
+- `email` (string, optional) - Search by email
+- `role` (string, optional) - Filter by role
+- `isVerified` (boolean, optional) - Filter by verification status
 - `page` (number, optional) - Page number
 - `limit` (number, optional) - Items per page
-- `status` (string, optional) - Filter by user status
-- `role` (string, optional) - Filter by user role
 
 **Request Body:** None
 
@@ -606,9 +854,16 @@ Get all normal users (Admin only).
 ```json
 {
   "success": true,
-  "message": "Users fetched successfully",
-  "data": [/* array of user objects */],
-  "pagination": {/* pagination info */}
+  "message": "Users search completed",
+  "data": [/* filtered users array */],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 3,
+    "totalRecords": 25,
+    "recordsPerPage": 10,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
 }
 ```
 
@@ -618,337 +873,240 @@ Get all normal users (Admin only).
 - `403` - Forbidden (not admin)
 - `500` - Server error
 
-### GET /api/users/:id
-Get user by ID (Admin only).
+### 22. Create User (Admin Only)
+- **Endpoint:** `POST /api/users/create`
+- **Description:** Create a new user (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
 
-**Access:** Admin only  
-**Authentication:** Required  
-**Query Parameters:** None  
+**Query Parameters:** None
+
+**Request Body:**
+```json
+{
+  "email": "newuser@example.com",
+  "password": "securePassword123",
+  "role": "USER",
+  "phone": "+1234567890",
+  "name": "New User"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "User created successfully",
+  "data": {
+    "_id": "user_id",
+    "email": "newuser@example.com",
+    "role": "USER",
+    "isVerified": false,
+    "createdAt": "2025-08-07T12:00:00.000Z"
+  }
+}
+```
+
+**Response Codes:**
+- `201` - Created successfully
+- `400` - Validation errors
+- `401` - Unauthorized
+- `403` - Forbidden (not admin)
+- `409` - User already exists
+- `500` - Server error
+
+### 23. Delete User (Admin Only)
+- **Endpoint:** `DELETE /api/users/:id`
+- **Description:** Delete a user (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
+
+**URL Parameters:**
+- `id` (string, required) - User ID
+
+**Query Parameters:** None
 **Request Body:** None
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "User fetched successfully",
-  "data": {/* user object */}
+  "message": "User deleted successfully"
 }
 ```
 
 **Response Codes:**
-- `200` - Success
+- `200` - Deleted successfully
 - `401` - Unauthorized
-- `403` - Forbidden
+- `403` - Forbidden (not admin)
 - `404` - User not found
 - `500` - Server error
 
----
+### 24. Approve Customer Data (Admin Only)
+- **Endpoint:** `POST /api/users/:id/approve-customer-data`
+- **Description:** Approve customer KYC data (admin access required)
+- **Access:** Admin only
+- **Authentication:** Required (JWT token)
 
-## 4. Quotation Management
+**URL Parameters:**
+- `id` (string, required) - User ID
 
-### POST /api/quotations
-Submit a quotation or array of quotations.
-
-**Access:** Authenticated users only (not admins)  
-**Authentication:** Required  
 **Query Parameters:** None
-
-**Request Body (Single):**
-```json
-{
-  "carat": 2.5,
-  "noOfPieces": 1,
-  "quotePrice": 5000
-}
-```
-
-**Request Body (Multiple):**
-```json
-[
-  {
-    "carat": 2.5,
-    "noOfPieces": 1,
-    "quotePrice": 5000
-  },
-  {
-    "carat": 1.8,
-    "noOfPieces": 2,
-    "quotePrice": 3000
-  }
-]
-```
-
-**Response:**
-```json
-{
-  "message": "Quotations submitted successfully",
-  "quotation": [
-    {
-      "quotationId": "unique_id",
-      "carat": 2.5,
-      "noOfPieces": 1,
-      "quotePrice": 5000,
-      "status": "PENDING",
-      "submittedAt": "2025-07-27T10:30:00.000Z"
-    }
-  ],
-  "duplicates": [/* duplicate quotations if any */],
-  "errors": [/* failed quotations if any */],
-  "partialSuccess": false
-}
-```
-
-**Response Codes:**
-- `201` - All quotations submitted successfully
-- `207` - Partial success (some failed)
-- `400` - All quotations failed or validation error
-- `401` - Unauthorized
-- `403` - Forbidden (admin users cannot submit)
-- `500` - Server error
-
-### GET /api/quotations
-Get all users with quotations or specific user quotations (Admin only).
-
-**Access:** Admin only  
-**Authentication:** Required  
-**Query Parameters:**
-- `userId` (string, optional) - Get quotations for specific user
-
-**Request Body:** None
-
-**Response (All users):**
-```json
-{
-  "message": "Users with quotations retrieved successfully",
-  "data": {
-    "users": [
-      {
-        "userId": "user_id",
-        "username": "john_doe",
-        "email": "john@example.com",
-        "quotationCount": 3,
-        "quotations": [
-          {
-            "quotationId": "unique_id",
-            "carat": 2.5,
-            "noOfPieces": 1,
-            "quotePrice": 5000,
-            "status": "PENDING",
-            "submittedAt": "2025-07-27T10:30:00.000Z"
-          }
-        ]
-      }
-    ],
-    "summary": {
-      "totalUsers": 10,
-      "totalQuotations": 25
-    }
-  }
-}
-```
-
-**Response (Specific user):**
-```json
-{
-  "message": "User quotations retrieved successfully",
-  "data": {
-    "userId": "user_id",
-    "username": "john_doe",
-    "quotations": [/* array of quotations */]
-  }
-}
-```
-
-**Response Codes:**
-- `200` - Success
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - User not found (when userId provided)
-- `500` - Server error
-
-### GET /api/quotations/:quotationId
-Get specific quotation details (Admin only).
-
-**Access:** Admin only  
-**Authentication:** Required  
-**Query Parameters:** None  
 **Request Body:** None
 
 **Response:**
 ```json
 {
-  "message": "Quotation details retrieved successfully",
-  "data": {
-    "quotation": {
-      "quotationId": "unique_id",
-      "carat": 2.5,
-      "noOfPieces": 1,
-      "quotePrice": 5000,
-      "status": "PENDING",
-      "submittedAt": "2025-07-27T10:30:00.000Z"
-    },
-    "user": {
-      "userId": "user_id",
-      "username": "john_doe",
-      "email": "john@example.com"
-    }
-  }
-}
-```
-
-**Response Codes:**
-- `200` - Success
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Quotation not found
-- `500` - Server error
-
-### POST /api/quotations/:quotationId/approve
-Approve a quotation (Admin only).
-
-**Access:** Admin only  
-**Authentication:** Required  
-**Query Parameters:** None  
-**Request Body:** None
-
-**Response:**
-```json
-{
-  "message": "Quotation approved successfully",
-  "quotation": {
-    "quotationId": "unique_id",
-    "carat": 2.5,
-    "noOfPieces": 1,
-    "quotePrice": 5000,
-    "status": "APPROVED",
-    "submittedAt": "2025-07-27T10:30:00.000Z",
-    "approvedAt": "2025-07-27T11:00:00.000Z"
-  }
+  "success": true,
+  "message": "Customer data approved successfully"
 }
 ```
 
 **Response Codes:**
 - `200` - Approved successfully
-- `400` - Missing quotation ID
 - `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Quotation not found
+- `403` - Forbidden (not admin)
+- `404` - User not found
 - `500` - Server error
 
-### POST /api/quotations/:quotationId/reject
-Reject a quotation (Admin only).
+---
 
-**Access:** Admin only  
-**Authentication:** Required  
+## Quotations API
+
+### 25. Submit Quotation
+- **Endpoint:** `POST /api/quotations`
+- **Description:** User submits quotation(s) (users only, admins cannot submit)
+- **Access:** Authenticated users only (not admins)
+- **Authentication:** Required (JWT token)
+
 **Query Parameters:** None
 
 **Request Body:**
 ```json
 {
-  "rejectionReason": "Price too high for current market conditions"
+  "quotations": [
+    "GEM001 - $5000",
+    "GEM002 - $3500"
+  ]
+}
+```
+
+Or single quotation:
+```json
+{
+  "quotations": "GEM001 - $5000"
 }
 ```
 
 **Response:**
 ```json
 {
-  "message": "Quotation rejected successfully",
-  "quotation": {
-    "quotationId": "unique_id",
-    "carat": 2.5,
-    "noOfPieces": 1,
-    "quotePrice": 5000,
-    "status": "REJECTED",
-    "submittedAt": "2025-07-27T10:30:00.000Z",
-    "rejectedAt": "2025-07-27T11:00:00.000Z",
-    "rejectionReason": "Price too high for current market conditions"
+  "message": "2 quotation(s) submitted successfully",
+  "quotations": [
+    "GEM001 - $5000",
+    "GEM002 - $3500"
+  ]
+}
+```
+
+**Response Codes:**
+- `201` - Quotations submitted successfully
+- `400` - Invalid quotation format or empty strings
+- `401` - User not authenticated
+- `403` - Admins cannot submit quotations
+- `500` - Server error
+
+### 26. Get Quotations
+- **Endpoint:** `GET /api/quotations`
+- **Description:** Get quotations (admins see all users' quotations, users see only their own)
+- **Access:** Authenticated users
+- **Authentication:** Required (JWT token)
+
+**Query Parameters:**
+- `page` (number, optional) - Page number
+- `limit` (number, optional) - Items per page
+
+**Request Body:** None
+
+**Response (for regular users):**
+```json
+{
+  "success": true,
+  "message": "Quotations retrieved successfully",
+  "data": {
+    "quotations": [
+      "GEM001 - $5000",
+      "GEM002 - $3500"
+    ],
+    "totalQuotations": 2
+  }
+}
+```
+
+**Response (for admins):**
+```json
+{
+  "success": true,
+  "message": "All quotations retrieved successfully",
+  "data": [
+    {
+      "_id": "user_id_1",
+      "email": "user1@example.com",
+      "quotations": ["GEM001 - $5000"],
+      "totalQuotations": 1
+    },
+    {
+      "_id": "user_id_2", 
+      "email": "user2@example.com",
+      "quotations": ["GEM002 - $3500", "GEM003 - $2000"],
+      "totalQuotations": 2
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "totalRecords": 50,
+    "recordsPerPage": 10,
+    "hasNextPage": true,
+    "hasPrevPage": false
   }
 }
 ```
 
 **Response Codes:**
-- `200` - Rejected successfully
-- `400` - Missing quotation ID or rejection reason
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Quotation not found
+- `200` - Success
+- `401` - User not authenticated
 - `500` - Server error
 
 ---
 
-## Error Response Format
+## Authentication
 
-All error responses follow this format:
+Most user management endpoints require JWT authentication. Include the token in the Authorization header:
 
-```json
-{
-  "success": false,
-  "message": "Error description",
-  "error": "Detailed error message",
-  "errors": [/* validation errors if applicable */]
-}
+```
+Authorization: Bearer <jwt_token>
 ```
 
 ## Rate Limiting
 
-Some endpoints have rate limiting applied:
-- Search endpoints: 50 requests per 15 minutes
-- Create gem: 10 requests per minute
-- Update/Delete gem: 10 requests per minute
-- Bulk create: 5 requests per 5 minutes
+Several endpoints have rate limiting applied:
 
-## Authentication
+- **Gem Search:** 50 requests per 15 minutes
+- **Filter Options:** 50 requests per 15 minutes  
+- **Create Gem:** 10 requests per minute
+- **Bulk Create:** 5 requests per 5 minutes
+- **Update/Delete Gem:** 10 requests per minute
+- **Bulk Delete:** 5 requests per minute
 
-JWT tokens are used for authentication, typically sent via cookies. Admin endpoints require additional role verification.
+## Error Handling
 
-## Data Models
+The API includes comprehensive error handling with specific error codes and messages for different scenarios including validation errors, authentication failures, and server errors.
 
-### Gem Model
-```typescript
-{
-  stockId: string;
-  productType: 'jewelry' | 'Jewelry' | 'Gem' | 'GEM';
-  category: string;
-  stoneType: string;
-  color: string;
-  shape: string;
-  carat: number;
-  origin: string;
-  treatment: string;
-  availability: boolean;
-  certificate: string;
-  measurement: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
+## File Upload Notes
 
-### Quotation Model
-```typescript
-{
-  quotationId: string;
-  carat: number;
-  noOfPieces: number;
-  quotePrice: number;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-  submittedAt: Date;
-  approvedAt?: Date;
-  rejectedAt?: Date;
-  rejectionReason?: string;
-}
-```
-
-### User Model
-```typescript
-{
-  username: string;
-  email: string;
-  phone?: string;
-  role: 'USER' | 'ADMIN';
-  status: 'PENDING' | 'ACTIVE' | 'SUSPENDED';
-  isVip: boolean;
-  quotations: Quotation[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
+- Supported file types for upload: images, videos, certificates
+- Files are stored in AWS S3
+- File URLs are stored in the gem records
+- Multiple files can be uploaded in a single request
+- Files can be individually deleted using their URLs

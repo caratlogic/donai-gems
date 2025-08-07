@@ -21,7 +21,7 @@ export interface VerifyOTPData {
 }
 
 export interface VipLoginData {
-    email: string;
+    name: string;
     passkey: string;
 }
 

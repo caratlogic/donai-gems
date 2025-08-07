@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { quotationAPI, AdminQuotation } from "@/services/quotation-api";
-import { Quotation } from "@/lib/validations/quotation-schema";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -13,14 +12,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Check, X, RefreshCw, Eye } from "lucide-react";
+import { RefreshCw, Eye } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Container from "@/components/ui/container";
-import { toast } from "sonner";
 import { AdminGuard } from "@/components/guards/AdminGuard";
-
-type TabType = "pending" | "approved" | "rejected";
 
 const QuotationsPageContent = () => {
     const { user, isAdmin, loading: authLoading } = useAuth();
@@ -29,12 +24,10 @@ const QuotationsPageContent = () => {
     const [adminQuotations, setAdminQuotations] = useState<AdminQuotation[]>(
         []
     );
-    const [activeTab, setActiveTab] = useState<TabType>("pending");
 
     // Common state
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [actionLoading, setActionLoading] = useState<string | null>(null);
 
     const fetchQuotations = useCallback(async () => {
         if (!isAdmin) return;
@@ -42,8 +35,9 @@ const QuotationsPageContent = () => {
         setError(null);
         try {
             const response = await quotationAPI.getAllQuotations();
+            console.log("Fetched quotations:", response);
             setAdminQuotations(response.data.users);
-            console.log("Fetched quotations:", response.data.users);
+            console.log("Fetched quotations:", response.data);
         } catch (err: any) {
             setError(err.response?.data?.message || "Failed to fetch data.");
         } finally {
@@ -57,60 +51,6 @@ const QuotationsPageContent = () => {
         }
     }, [authLoading, fetchQuotations]);
 
-    const handleAction = async (
-        quotationId: string,
-        action: "approve" | "reject"
-    ) => {
-        setActionLoading(quotationId);
-        try {
-            if (action === "approve") {
-                console.log("Approving quotation:", quotationId);
-                await quotationAPI.approveQuotation(quotationId);
-                toast("Quotation approved.");
-            } else {
-                // For simplicity, using a prompt. A modal form would be better for UX.
-
-                await quotationAPI.rejectQuotation(quotationId);
-                toast("Quotation rejected.");
-            }
-            fetchQuotations(); // Refetch to update the list
-        } catch (err: any) {
-            toast(
-                err.response?.data?.message || `Failed to ${action} quotation.`
-            );
-        } finally {
-            setActionLoading(null);
-        }
-    };
-
-    const formatDate = (dateString: string) =>
-        new Date(dateString).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-        });
-
-    const getFilteredQuotations = () => {
-        const allQuotes = adminQuotations.flatMap((user) =>
-            user.quotations.map((q) => ({
-                ...q,
-                username: user.username,
-                email: user.email,
-            }))
-        );
-        console.log("All quotations:", allQuotes);
-
-        switch (activeTab) {
-            case "approved":
-                return allQuotes.filter((q) => q.status === "APPROVED");
-            case "rejected":
-                return allQuotes.filter((q) => q.status === "REJECTED");
-            case "pending":
-            default:
-                return allQuotes.filter((q) => q.status === "PENDING");
-        }
-    };
-
     if (authLoading || loading) {
         return <div className="text-center p-12">Loading...</div>;
     }
@@ -123,12 +63,10 @@ const QuotationsPageContent = () => {
         );
     }
 
-    const filtered = getFilteredQuotations();
-
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Quotations Management</h1>
+                <h1 className="text-2xl font-bold">Quotations</h1>
                 <Button
                     onClick={fetchQuotations}
                     variant="outline"
@@ -142,50 +80,21 @@ const QuotationsPageContent = () => {
                     Refresh
                 </Button>
             </div>
-            <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-                <Button
-                    variant={activeTab === "pending" ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setActiveTab("pending")}
-                >
-                    Pending
-                </Button>
-                <Button
-                    variant={activeTab === "approved" ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setActiveTab("approved")}
-                >
-                    Approved
-                </Button>
-                <Button
-                    variant={activeTab === "rejected" ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setActiveTab("rejected")}
-                >
-                    Rejected
-                </Button>
-            </div>
+
             <div className="rounded-lg border bg-white shadow-sm">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>User</TableHead>
-                            <TableHead>Carat</TableHead>
-                            <TableHead>Pieces</TableHead>
-                            <TableHead>Price</TableHead>
-                            <TableHead>Submitted</TableHead>
-                            {activeTab === "pending" && (
-                                <TableHead className="text-center">
-                                    Actions
-                                </TableHead>
-                            )}
+                            <TableHead>User Email</TableHead>
+                            <TableHead>Total Quotations</TableHead>
+                            <TableHead>Quotations</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {filtered.length === 0 ? (
+                        {adminQuotations.length === 0 ? (
                             <TableRow>
                                 <TableCell
-                                    colSpan={activeTab === "pending" ? 6 : 5}
+                                    colSpan={3}
                                     className="text-center py-12 text-gray-500"
                                 >
                                     <Eye className="mx-auto h-8 w-8 text-gray-300" />
@@ -193,58 +102,24 @@ const QuotationsPageContent = () => {
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            filtered.map((q) => (
-                                <TableRow key={q.quotationId}>
+                            adminQuotations.map((user) => (
+                                <TableRow key={user.userId}>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>{user.quotationCount}</TableCell>
                                     <TableCell>
-                                        {q.username} ({q.email})
+                                        <div className="space-y-1">
+                                            {user.quotations.map(
+                                                (quotation, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="text-sm bg-gray-50 p-2 rounded"
+                                                    >
+                                                        {quotation}
+                                                    </div>
+                                                )
+                                            )}
+                                        </div>
                                     </TableCell>
-                                    <TableCell>{q.carat}</TableCell>
-                                    <TableCell>{q.noOfPieces}</TableCell>
-                                    <TableCell>
-                                        ${q.quotePrice.toLocaleString()}
-                                    </TableCell>
-                                    <TableCell>
-                                        {formatDate(q.submittedAt)}
-                                    </TableCell>
-                                    {activeTab === "pending" && (
-                                        <TableCell className="text-center">
-                                            <div className="flex items-center justify-center space-x-2">
-                                                <Button
-                                                    size="sm"
-                                                    variant="outline"
-                                                    onClick={() =>
-                                                        handleAction(
-                                                            q.quotationId,
-                                                            "approve"
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        actionLoading === q._id
-                                                    }
-                                                    className="text-green-600 hover:text-green-700"
-                                                >
-                                                    <Check className="h-4 w-4" />
-                                                </Button>
-                                                <Button
-                                                    size="sm"
-                                                    variant="outline"
-                                                    onClick={() =>
-                                                        handleAction(
-                                                            q.quotationId,
-                                                            "reject"
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        actionLoading ===
-                                                        q.quotationId
-                                                    }
-                                                    className="text-red-600 hover:text-red-700"
-                                                >
-                                                    <X className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    )}
                                 </TableRow>
                             ))
                         )}
