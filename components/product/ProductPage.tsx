@@ -401,7 +401,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                     {/* Description */}
                     <div className="border-primary border rounded-lg p-6 ">
                         <p className="text-gray-600 leading-relaxed">
-                            {getProductDescription(product)}
+                            {product.details}
                         </p>
                     </div>
 

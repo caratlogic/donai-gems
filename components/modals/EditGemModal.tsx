@@ -28,6 +28,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Loader2 } from "lucide-react";
@@ -53,17 +54,19 @@ export function EditGemModal({
         resolver: zodResolver(createGemSchema),
         defaultValues: {
             stockId: "",
-            productType: "Gem",
+            productType: "gem",
             category: "loose stone",
             stoneType: "",
             color: "red",
             shape: "oval",
-            carat: 2,
+            carat: 0,
             origin: "",
             treatment: "no heat",
             availability: true,
             certificate: "GIA",
             measurement: "",
+            details: "",
+            description: "",
         },
     });
 
@@ -83,6 +86,8 @@ export function EditGemModal({
                 availability: gem.availability,
                 certificate: gem.certificate,
                 measurement: gem.measurement,
+                details: gem.details,
+                description: gem.description,
             });
         }
     }, [gem, isOpen, form]);
@@ -116,7 +121,7 @@ export function EditGemModal({
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
-            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Edit Gem</DialogTitle>
                     <DialogDescription>
@@ -165,18 +170,21 @@ export function EditGemModal({
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="GEM">
-                                                    GEM
-                                                </SelectItem>
-                                                <SelectItem value="Gem">
-                                                    Gem
-                                                </SelectItem>
+                                                {/* <SelectItem value="jewelry">
+                                                    jewelry
+                                                </SelectItem> */}
                                                 <SelectItem value="Jewelry">
                                                     Jewelry
                                                 </SelectItem>
-                                                <SelectItem value="jewelry">
-                                                    jewelry
+                                                {/* <SelectItem value="gem">
+                                                    gem
+                                                </SelectItem> */}
+                                                <SelectItem value="Gem">
+                                                    Gem
                                                 </SelectItem>
+                                                {/* <SelectItem value="GEM">
+                                                    GEM
+                                                </SelectItem> */}
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />
@@ -191,36 +199,12 @@ export function EditGemModal({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Category *</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select category" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="Necklace">
-                                                    Necklace
-                                                </SelectItem>
-                                                <SelectItem value="Ring">
-                                                    Ring
-                                                </SelectItem>
-                                                <SelectItem value="bracelet">
-                                                    Bracelet
-                                                </SelectItem>
-                                                <SelectItem value="earrings">
-                                                    Earrings
-                                                </SelectItem>
-                                                <SelectItem value="loose stone">
-                                                    Loose Stone
-                                                </SelectItem>
-                                                <SelectItem value="ring">
-                                                    ring
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="loose stone, necklace, ring..."
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -251,54 +235,12 @@ export function EditGemModal({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Color *</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select color" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="Light Bleu">
-                                                    Light Bleu
-                                                </SelectItem>
-                                                <SelectItem value="Orange Pink">
-                                                    Orange Pink
-                                                </SelectItem>
-                                                <SelectItem value="bleu">
-                                                    Bleu
-                                                </SelectItem>
-                                                <SelectItem value="bluish green">
-                                                    Bluish Green
-                                                </SelectItem>
-                                                <SelectItem value="green">
-                                                    Green
-                                                </SelectItem>
-                                                <SelectItem value="orange">
-                                                    Orange
-                                                </SelectItem>
-                                                <SelectItem value="purple">
-                                                    Purple
-                                                </SelectItem>
-                                                <SelectItem value="red">
-                                                    Red
-                                                </SelectItem>
-                                                <SelectItem value="royal Bleu">
-                                                    Royal Bleu
-                                                </SelectItem>
-                                                <SelectItem value="royal blue">
-                                                    Royal Blue
-                                                </SelectItem>
-                                                <SelectItem value="violetish bleu">
-                                                    Violetish Bleu
-                                                </SelectItem>
-                                                <SelectItem value="vivid green">
-                                                    Vivid Green
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Red, Blue, Green..."
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -311,42 +253,12 @@ export function EditGemModal({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Shape *</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select shape" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="Oval">
-                                                    Oval
-                                                </SelectItem>
-                                                <SelectItem value="antique cushion">
-                                                    Antique Cushion
-                                                </SelectItem>
-                                                <SelectItem value="cushion">
-                                                    Cushion
-                                                </SelectItem>
-                                                <SelectItem value="heart shape">
-                                                    Heart Shape
-                                                </SelectItem>
-                                                <SelectItem value="octagonal">
-                                                    Octagonal
-                                                </SelectItem>
-                                                <SelectItem value="oval">
-                                                    oval
-                                                </SelectItem>
-                                                <SelectItem value="pear shape">
-                                                    Pear Shape
-                                                </SelectItem>
-                                                <SelectItem value="rectangular">
-                                                    Rectangular
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="oval, round, cushion..."
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -363,15 +275,14 @@ export function EditGemModal({
                                             <Input
                                                 type="number"
                                                 step="0.01"
-                                                min="2"
-                                                max="153.47"
+                                                min="0"
                                                 placeholder="2.50"
                                                 {...field}
                                                 onChange={(e) =>
                                                     field.onChange(
                                                         parseFloat(
                                                             e.target.value
-                                                        ) || 2
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -406,39 +317,12 @@ export function EditGemModal({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Treatment *</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select treatment" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="CE(O) MINOR">
-                                                    CE(O) MINOR
-                                                </SelectItem>
-                                                <SelectItem value="heated">
-                                                    Heated
-                                                </SelectItem>
-                                                <SelectItem value="indication of heating (TE)">
-                                                    Indication of heating (TE)
-                                                </SelectItem>
-                                                <SelectItem value="may be">
-                                                    May be
-                                                </SelectItem>
-                                                <SelectItem value="no heat">
-                                                    No heat
-                                                </SelectItem>
-                                                <SelectItem value="no indication">
-                                                    No indication
-                                                </SelectItem>
-                                                <SelectItem value="treated to change the color">
-                                                    Treated to change the color
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="no heat, heated, treated..."
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -451,30 +335,12 @@ export function EditGemModal({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Certificate *</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select certificate" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="GIA">
-                                                    GIA
-                                                </SelectItem>
-                                                <SelectItem value="GRS">
-                                                    GRS
-                                                </SelectItem>
-                                                <SelectItem value="GUBELIN">
-                                                    GUBELIN
-                                                </SelectItem>
-                                                <SelectItem value="SSEF">
-                                                    SSEF
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="GIA, GRS, GUBELIN, SSEF..."
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -491,6 +357,44 @@ export function EditGemModal({
                                     <FormControl>
                                         <Input
                                             placeholder="8.0x8.0x5.0mm"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Details */}
+                        <FormField
+                            control={form.control}
+                            name="details"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Details *</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="Technical details about the gem..."
+                                            rows={3}
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Description */}
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Description *</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="General description of the gem..."
+                                            rows={3}
                                             {...field}
                                         />
                                     </FormControl>

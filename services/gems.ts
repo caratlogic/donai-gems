@@ -152,7 +152,16 @@ export const gemsApi = {
 
     // Create a new gem
     createGem: async (
-        gemData: Omit<Gem, "_id" | "createdAt" | "updatedAt" | "__v">
+        gemData: Omit<
+            Gem,
+            | "imageUrls"
+            | "videoUrls"
+            | "certificateUrls"
+            | "_id"
+            | "createdAt"
+            | "updatedAt"
+            | "__v"
+        >
     ): Promise<{
         success: boolean;
         message: string;

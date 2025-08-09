@@ -254,6 +254,54 @@ export const gemsColumns: ColumnDef<Gem>[] = [
         },
     },
     {
+        accessorKey: "details",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Details" />
+        ),
+        cell: ({ row }) => {
+            const detailsValue = row.getValue("details") as string;
+            const truncatedDetails =
+                detailsValue.length > 50
+                    ? `${detailsValue.substring(0, 50)}...`
+                    : detailsValue;
+            return (
+                <div className="w-[200px] text-xs" title={detailsValue}>
+                    <span className="whitespace-pre-wrap">
+                        {truncatedDetails}
+                    </span>
+                </div>
+            );
+        },
+        filterFn: (row, id, value) => {
+            const cellValue = row.getValue(id) as string;
+            return cellValue.toLowerCase().includes(value.toLowerCase());
+        },
+    },
+    {
+        accessorKey: "description",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Description" />
+        ),
+        cell: ({ row }) => {
+            const descriptionValue = row.getValue("description") as string;
+            const truncatedDescription =
+                descriptionValue.length > 50
+                    ? `${descriptionValue.substring(0, 50)}...`
+                    : descriptionValue;
+            return (
+                <div className="w-[200px] text-xs" title={descriptionValue}>
+                    <span className="whitespace-pre-wrap">
+                        {truncatedDescription}
+                    </span>
+                </div>
+            );
+        },
+        filterFn: (row, id, value) => {
+            const cellValue = row.getValue(id) as string;
+            return cellValue.toLowerCase().includes(value.toLowerCase());
+        },
+    },
+    {
         accessorKey: "availability",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Availability" />
