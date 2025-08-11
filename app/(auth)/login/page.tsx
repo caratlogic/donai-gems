@@ -92,7 +92,7 @@ const Page = () => {
         try {
             // Using the VIP login endpoint
             const response = await authAPI.vipLogin({
-                name: passkeyFormData.name,
+                name: "vipuser1",
                 passkey: passkeyFormData.passkey,
             });
 
@@ -240,7 +240,7 @@ const Page = () => {
                             >
                                 {/* Username Field */}
                                 <div className="space-y-4">
-                                    <label
+                                    {/* <label
                                         htmlFor="username"
                                         className="text-base font-medium text-secondary font-openSans"
                                     >
@@ -255,7 +255,7 @@ const Page = () => {
                                         onChange={handlePasskeyInputChange}
                                         className="w-full px-4 py-3 placeholder:text-[#D9D0C5] bg-primary/10 rounded-md transition-colors font-openSans"
                                         required
-                                    />
+                                    /> */}
                                 </div>
 
                                 {/* Passkey Field */}

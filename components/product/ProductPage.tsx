@@ -385,11 +385,11 @@ export function ProductPage({ productId }: ProductPageProps) {
                             <Badge variant="outline">{product.category}</Badge>
                         </div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                            {product.category}
+                            {product.description}
                         </h1>
-                        <h2 className="text-xl font-semibold text-primary mb-4">
+                        {/* <h2 className="text-xl font-semibold text-primary mb-4">
                             Natural {product.stoneType}
-                        </h2>
+                        </h2> */}
 
                         {/* Stock ID */}
                         <p className="text-sm text-gray-600">
