@@ -276,7 +276,7 @@ const Navbar = () => {
                                             setShowGemstoneDropdown(true);
                                             setShowCategoriesDropdown(false);
                                         } else if (
-                                            item.name === "FINE JEWELLERY"
+                                            item.name === "FINE JEWELERY"
                                         ) {
                                             setShowCategoriesDropdown(true);
                                             setShowGemstoneDropdown(false);
