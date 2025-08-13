@@ -98,7 +98,7 @@ export function ClientGemsTable({
                         </div>
 
                         {/* Overlay buttons */}
-                        <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 -bottom-20 left-0 group-hover:bottom-0  group-hover:left-0  opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-start justify-end gap-2">
+                        <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 flex bottom-0 flex-col items-start justify-end gap-2">
                             {/* <Button size="sm" className="mr-1">
                             <Heart className="h-4 w-4" />
                         </Button> */}
@@ -109,8 +109,7 @@ export function ClientGemsTable({
                                 <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto flex flex-col ">
                                     <span className="uppercase">
                                         {" "}
-                                        {gem.category} {gem.stoneType}{" "}
-                                        {gem.color}
+                                        {gem.description}
                                     </span>
                                 </h3>
                             </div>
