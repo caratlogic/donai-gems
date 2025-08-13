@@ -13,7 +13,7 @@ const Gems = [
     {
         src: gem21,
         alt: "GEM 4",
-        name: "The Emerald Renaissance",
+        name: "The Tsavorite Renaissance",
     },
     {
         src: gem22,

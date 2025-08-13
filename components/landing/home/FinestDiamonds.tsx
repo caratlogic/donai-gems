@@ -2,14 +2,14 @@
 import React from "react";
 import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
-import gem1 from "@/app/assets/gem1.jpg";
+import gem1 from "@/public/ruby.png";
 import gem2 from "@/public/YellowGem-NoClipper.png";
 import gem3 from "@/app/assets/gem3.jpg";
 import gem4 from "@/public/greenGem-NoClipper.png";
-import gemhover1 from "@/app/assets/Rectangle 73.jpg";
+import gemhover1 from "@/app/assets/Catgem3.png";
 import gemhover2 from "@/public/yellowGemWearing.png";
 import gemhover3 from "@/app/assets/featureImg.jpg";
-import gemhover4 from "@/app/assets/bangles.jpg";
+import gemhover4 from "@/public/emeraldHover.jpg";
 import Link from "next/link";
 import {
     Carousel,
@@ -28,8 +28,8 @@ const Gems = [
     {
         src1: gem1,
         alt: "GEM 1",
-        title: "Emerald Collection",
-        description: "Premium emeralds from Colombia",
+        title: "Ruby Collection",
+        description: "Premium rubies from Colombia",
     },
     {
         src1: gem2,

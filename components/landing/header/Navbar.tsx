@@ -180,7 +180,9 @@ const Navbar = () => {
                             <Button
                                 variant="outline"
                                 onClick={() => Router.push("/profile")}
-                                className="text-md border-primary text-primary hover:bg-primary hover:text-white cursor-pointer flex items-center gap-2"
+                                className={`text-md border-primary text-primary hover:bg-primary hover:text-white cursor-pointer flex items-center gap-2 ${
+                                    user?.isVip === true ? "hidden" : ""
+                                }`}
                             >
                                 <User className="h-4 w-4" />
                                 {user?.username}

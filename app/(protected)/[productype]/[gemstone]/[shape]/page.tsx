@@ -83,11 +83,11 @@ export default function GemstoneShapePage() {
         const getStoneType = (gemstone: string): string => {
             switch (gemstone.toLowerCase()) {
                 case "emerald":
-                    return "nat emerald";
+                    return "emerald";
                 case "sapphire":
-                    return "nat sapphire";
+                    return "sapphire";
                 case "ruby":
-                    return "nat ruby";
+                    return "ruby";
                 default:
                     return gemstone;
             }

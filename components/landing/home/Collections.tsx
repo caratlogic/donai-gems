@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import gem11 from "@/app/assets/gem11.jpg";
-import gem12 from "@/app/assets/gem12.jpg";
+import gem12 from "@/public/HearPreciousStone.jpg";
 import gem13 from "@/app/assets/gem13.jpg";
 import gem14 from "@/app/assets/gem14.jpg";
 import gem15 from "@/app/assets/gem15.jpg";

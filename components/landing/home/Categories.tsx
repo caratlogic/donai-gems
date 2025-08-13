@@ -4,7 +4,7 @@ import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
 import fig1 from "@/app/assets/fig1.jpg";
 import fig2 from "@/app/assets/fig2.jpg";
-import fig3 from "@/app/assets/fig3.jpg";
+import fig3 from "@/public/HearPreciousStone.jpg";
 import fig4 from "@/app/assets/fig4.jpg";
 import Link from "next/link";
 import {
@@ -26,49 +26,42 @@ const Gems = [
         alt: "GEM 1",
         desc: "Ruby Gemstone",
         description: "Finest quality natural rubies from Burma",
-        link: "/categories/all-jewelry",
     },
     {
         src: fig2,
         alt: "GEM 2",
-        desc: "Emerald",
-        description: "Premium Colombian emeralds with exceptional clarity",
-        link: "/categories/all-jewelry",
+        desc: "Tsavorite",
+        description: "Premium Colombian tsavorites with exceptional clarity",
     },
     {
         src: fig3,
         alt: "GEM 3",
-        desc: "Sapphire",
-        description: "Royal blue sapphires from Ceylon",
-        link: "/categories/all-jewelry",
+        desc: "Precious Stone",
+        description: "Precious Stones from Ceylon",
     },
     {
         src: fig4,
         alt: "GEM 4",
         desc: "Semi Precious",
         description: "Carefully curated semi-precious gemstone collection",
-        link: "/categories/all-jewelry",
     },
     {
         src: fig1,
         alt: "GEM 5",
         desc: "Diamond",
         description: "Brilliant cut diamonds with exceptional fire",
-        link: "/categories/all-jewelry",
     },
     {
         src: fig2,
         alt: "GEM 6",
         desc: "Tanzanite",
         description: "Rare tanzanites from the foothills of Kilimanjaro",
-        link: "/categories/all-jewelry",
     },
     {
         src: fig3,
         alt: "GEM 7",
         desc: "Tourmaline",
         description: "Vibrant tourmalines in various stunning colors",
-        link: "/categories/all-jewelry",
     },
 ];
 
@@ -101,7 +94,7 @@ const Categories = () => {
                                 className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                             >
                                 <div className="p-1">
-                                    <Link href={gem.link}>
+                                    <Link href={"/gemstones"}>
                                         <div className="relative overflow-hidden rounded-lg group cursor-pointer bg-white shadow-lg hover:shadow-xl transition-all duration-300">
                                             {/* Image Container */}
                                             <div className="aspect-square relative overflow-hidden">
