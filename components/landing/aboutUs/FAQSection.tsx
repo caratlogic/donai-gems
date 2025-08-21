@@ -25,7 +25,7 @@ const faqs: FAQ[] = [
     {
         id: 1,
         question: "Can I order a custom-designed piece?",
-        answer: "Based in Australia, Powered Globally Our local team handles your needs directly, supported by trusted offshore experts for efficient delivery.",
+        answer: "Based in Belgium, Powered Globally Our local team handles your needs directly, supported by trusted offshore experts for efficient delivery.",
     },
     {
         id: 2,
@@ -50,7 +50,7 @@ const faqs: FAQ[] = [
     {
         id: 6,
         question: "Can I order a custom-designed piece?",
-        answer: "Based in Australia, Powered Globally Our local team handles your needs directly, supported by trusted offshore experts for efficient delivery.",
+        answer: "Based in Belgium, Powered Globally Our local team handles your needs directly, supported by trusted offshore experts for efficient delivery.",
     },
 ];
 

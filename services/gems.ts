@@ -79,6 +79,8 @@ export interface SignedUrlResponse {
     message: string;
     data: {
         imagesUrls?: string[];
+        videoUrls?: string[];
+        certificatesUrls?: string[];
     };
 }
 

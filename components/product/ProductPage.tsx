@@ -26,6 +26,8 @@ import axios from "axios";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import GemImage from "../client/GemImage";
+import GemCertificate from "../client/GemCertificate";
+import GemVideo from "../client/GemVideo";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
@@ -326,22 +328,45 @@ export function ProductPage({ productId }: ProductPageProps) {
                             </div>
                         </div>
 
-                        {/* Thumbnail images */}
+                        {/* Thumbnail images - Now includes images, videos, and certificates */}
                         <div className="grid grid-cols-4 gap-2">
-                            {Array.from({ length: 4 }).map((_, index) => (
-                                <div
-                                    key={index}
-                                    className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg   cursor-pointer "
-                                >
-                                    <GemImage
-                                        gem={product}
-                                        index={index + 1}
-                                        className="hover:scale-105 transition-all duration-500"
-                                    />
-                                </div>
-                            ))}
+                            {/* First thumbnail - additional gem image */}
+                            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer">
+                                <GemImage
+                                    gem={product}
+                                    index={1}
+                                    className="hover:scale-105 transition-all duration-500"
+                                />
+                            </div>
+
+                            {/* Second thumbnail - gem video */}
+                            <div className="aspect-square rounded-lg cursor-pointer">
+                                <GemVideo
+                                    gem={product}
+                                    index={0}
+                                    className="hover:scale-105 transition-all duration-500"
+                                />
+                            </div>
+
+                            {/* Third thumbnail - gem certificate */}
+                            <div className="aspect-square rounded-lg cursor-pointer">
+                                <GemCertificate
+                                    gem={product}
+                                    index={0}
+                                    className="hover:scale-105 transition-all duration-500"
+                                />
+                            </div>
+
+                            {/* Fourth thumbnail - another gem image */}
+                            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer">
+                                <GemImage
+                                    gem={product}
+                                    index={2}
+                                    className="hover:scale-105 transition-all duration-500"
+                                />
+                            </div>
                         </div>
-                        {product.availability && (
+                        {/* {product.availability && (
                             <div className="flex w-full border-gray-300 border-1 rounded-md p-5 items-center justify-between">
                                 <Badge
                                     variant={
@@ -367,7 +392,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                     Ships within 24h
                                 </Badge>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
 

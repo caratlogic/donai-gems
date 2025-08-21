@@ -37,7 +37,7 @@ const DianoApart = () => {
                     className={`${playFair.className} text-5xl text-[#2E2B28] text-center lg:text-left lg:whitespace-nowrap`}
                     style={{ fontWeight: 400 }}
                 >
-                    What Sets DOANI Apart
+                    What Sets DONAI Apart
                 </h1>
                 <div
                     className={`mt-10 ${openSans.className} font-light text-md text-[#2E2B28CC] text-center lg:text-left lg:text-xl`}

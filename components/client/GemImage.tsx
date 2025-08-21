@@ -12,11 +12,9 @@ interface GemImageProps {
     index?: number;
     className?: string; // Optional className prop for styling
 }
-
+const fallbackUrl = "/semiPreciousFeature.jpg";
 const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
-    const [imageUrl, setImageUrl] = useState<
-        string | "/semiPreciousFeature.jpg"
-    >("/semiPreciousFeature.jpg");
+    const [imageUrl, setImageUrl] = useState<string>(fallbackUrl);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,11 +53,11 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
                             setImageUrl(firstUrl);
                         } else {
                             console.log("No URLs found, using fallback");
-                            setImageUrl("/semiPreciousFeature.jpg");
+                            setImageUrl(fallbackUrl);
                         }
                     } else {
                         console.log("Unexpected response structure:", response);
-                        setImageUrl("/semiPreciousFeature.jpg");
+                        setImageUrl(fallbackUrl);
                     }
                 }
             } catch (error) {
@@ -73,7 +71,7 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
                     error instanceof Error ? error.message : "Unknown error"
                 );
                 if (isMounted) {
-                    setImageUrl("/semiPreciousFeature.jpg");
+                    setImageUrl(fallbackUrl);
                 }
             } finally {
                 if (isMounted) {
@@ -131,10 +129,12 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
             <Image
                 src={imageUrl}
                 alt={`${gem.stoneType} Gem`}
+                priority
+                quality={95}
                 width={300}
                 height={300}
                 className={cn(
-                    `object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 cursor-pointer`,
+                    `object-contain w-full h-full transition-transform duration-500 group-hover:scale-110 cursor-pointer`,
                     className
                 )}
                 onClick={openModal}
@@ -145,7 +145,7 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
                     //     "for gem:",
                     //     gem._id
                     // );
-                    setImageUrl("/semiPreciousFeature.jpg");
+                    setImageUrl(fallbackUrl);
                 }}
                 onLoad={() => {
                     console.log(

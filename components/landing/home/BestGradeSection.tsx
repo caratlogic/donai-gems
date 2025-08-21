@@ -32,14 +32,14 @@ const BestGradeSection = () => {
                                 fontFamily: "Playfair Display",
                             }}
                         >
-                            The World&apos;s Precious Gems at DONAI
+                            The World&apos;s Most Precious Gems at DONAI
                         </h2>
 
                         <p
                             className="text-base font-light leading-relaxed text-[#2E2B28] opacity-80 lg:w-70"
                             style={{ fontFamily: "Inter" }}
                         >
-                            Welcome to DONAI, Antwerp&apos;s premier source for
+                            Welcome to Antwerp&apos;s premier source for
                             high-grade natural gemstones — trusted by global
                             jewellers, designers, and collectors. Our core lies
                             in precision-selected gems, while a select few are

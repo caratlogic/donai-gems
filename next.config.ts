@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
             },
             {
                 protocol: "https",
+                hostname:
+                    "donai-gems-inventory-management.s3.eu-north-1.amazonaws.com",
+                pathname: "/uploads/certificates/**",
+            },
+            {
+                protocol: "https",
+                hostname:
+                    "donai-gems-inventory-management.s3.eu-north-1.amazonaws.com",
+                pathname: "/uploads/videos/**",
+            },
+            {
+                protocol: "https",
                 hostname: "images.inc.com",
                 pathname: "/uploaded_files/**",
             },

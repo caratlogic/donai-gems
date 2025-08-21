@@ -284,7 +284,7 @@ export function AddGemModal({ isOpen, onClose, onSuccess }: AddGemModalProps) {
                                                 <FormControl>
                                                     <Input
                                                         type="number"
-                                                        step="0.01"
+                                                        step="0.001"
                                                         min="0"
                                                         placeholder="2.50"
                                                         {...field}
