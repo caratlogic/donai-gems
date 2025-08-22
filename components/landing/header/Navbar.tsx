@@ -67,14 +67,14 @@ const Navbar = () => {
     };
 
     return (
-        <div className="bg-white sticky top-0 z-50">
+        <div className="bg-white sticky top-0 z-1">
             <div
-                className={`max-w-7xl mx-auto flex gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
+                className={`max-w-7xl  -translate-x-1 mx-auto flex gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
             >
                 {/* Search Bar and Language Dropdown */}
                 <div className="hidden  lg:flex items-center gap-4">
                     {/* Search Bar */}
-                    <div className="relative  md:w-[300px]">
+                    <div className="relative  md:w-[200px]">
                         <span className="absolute top-1/2 transform -translate-y-1/2 right-4">
                             <Search className="h-5 w-5 text-primary" />
                         </span>

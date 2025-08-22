@@ -47,7 +47,7 @@ const Footer = () => {
     const pathname = usePathname();
 
     return (
-        <div className={`w-full relative z-0`}>
+        <div className={`w-full relative -z-20`}>
             <footer
                 className={`bg-[#2E2B28] text-black p-10 ${
                     pathname === "/Faq" ? "mt-0" : "mt-12"

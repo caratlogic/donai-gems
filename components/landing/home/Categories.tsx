@@ -48,8 +48,8 @@ const Gems = [
     {
         src: fig1,
         alt: "GEM 5",
-        desc: "Diamond",
-        description: "Brilliant cut diamonds with exceptional fire",
+        desc: "Ruby",
+        description: "Brilliant cut rubies with exceptional fire",
     },
     {
         src: fig2,

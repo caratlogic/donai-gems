@@ -331,12 +331,12 @@ export function ProductPage({ productId }: ProductPageProps) {
                         {/* Thumbnail images - Now includes images, videos, and certificates */}
                         <div className="grid grid-cols-4 gap-2">
                             {/* First thumbnail - additional gem image */}
-                            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer">
-                                <GemImage
+                            <div className="aspect-square bg-transparent rounded-lg cursor-pointer">
+                                {/* <GemImage
                                     gem={product}
                                     index={1}
                                     className="hover:scale-105 transition-all duration-500"
-                                />
+                                /> */}
                             </div>
 
                             {/* Second thumbnail - gem video */}
@@ -358,12 +358,12 @@ export function ProductPage({ productId }: ProductPageProps) {
                             </div>
 
                             {/* Fourth thumbnail - another gem image */}
-                            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg cursor-pointer">
-                                <GemImage
+                            <div className="aspect-square bg-transparent rounded-lg cursor-pointer">
+                                {/* <GemImage
                                     gem={product}
                                     index={2}
                                     className="hover:scale-105 transition-all duration-500"
-                                />
+                                /> */}
                             </div>
                         </div>
                         {/* {product.availability && (

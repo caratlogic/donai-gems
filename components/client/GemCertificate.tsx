@@ -180,20 +180,25 @@ const GemCertificate = ({ gem, index = 0, className }: GemCertificateProps) => {
 
                     {/* Certificate Viewer */}
                     <div
-                        className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center"
+                        className="relative max-w-4xl max-h-[90vh] w-auto h-auto flex items-center justify-center"
                         onClick={closeModal}
                     >
                         <div
                             onClick={(e) => e.stopPropagation()}
                             className="w-full h-full"
                         >
-                            <iframe
+                            <Image
+                                alt={`${gem.stoneType} Certificate ${
+                                    index + 1
+                                }`}
                                 src={certificateUrl}
                                 className="w-full h-full border-0 bg-white"
                                 style={{
                                     minWidth: "600px",
                                     minHeight: "800px",
                                 }}
+                                height={800}
+                                width={600}
                                 title="Certificate Preview"
                             />
                         </div>
