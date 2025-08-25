@@ -106,12 +106,7 @@ export function ClientGemsTable({
                             <Eye className="h-4 w-4" />
                         </Button> */}
                             <div className="flex-col w-full items-start justify-between ">
-                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto flex flex-col ">
-                                    <span className="uppercase">
-                                        {" "}
-                                        {gem.description}
-                                    </span>
-                                </h3>
+                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto flex flex-col "></h3>
                             </div>
                         </div>
 
@@ -186,6 +181,7 @@ export function ClientGemsTable({
                 </div> */}
                 </CardContent>
             </Card>
+            <span className="uppercase"> {gem.description}</span>
         </Link>
     );
 
@@ -457,7 +453,7 @@ export function ClientGemsTable({
 
             {/* Content */}
             {view === "visual" ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {loading
                         ? renderLoadingSkeletons()
                         : gems.length > 0
