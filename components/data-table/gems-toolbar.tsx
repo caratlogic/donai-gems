@@ -104,6 +104,13 @@ export function GemsTableToolbar<TData>({
                         options={certificates}
                     />
                 )}
+                {table.getColumn("productType") && (
+                    <DataTableFacetedFilter
+                        column={table.getColumn("productType")}
+                        title="Product Type"
+                        options={productTypes}
+                    />
+                )}
                 {isFiltered && (
                     <Button
                         variant="ghost"

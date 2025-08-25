@@ -30,8 +30,8 @@ const Gems = [
     {
         src: fig2,
         alt: "GEM 2",
-        desc: "Tsavorite",
-        description: "Premium Colombian tsavorites with exceptional clarity",
+        desc: "Emerald",
+        description: "Premium Colombian Emeralds with exceptional clarity",
     },
     {
         src: fig3,

@@ -4,10 +4,10 @@ export const productType = [
 ];
 
 export const productTypes = [
-    { value: "GEM", label: "GEM" },
+    // { value: "GEM", label: "GEM" },
     { value: "Gem", label: "Gem" },
     { value: "Jewelry", label: "Jewelry" },
-    { value: "jewelry", label: "jewelry" },
+    // { value: "jewelry", label: "jewelry" },
 ];
 
 export const categories = [

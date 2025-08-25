@@ -120,6 +120,7 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
             { label: "Emerald", active: false, disabled: false },
             { label: "Sapphire", active: false, disabled: false },
             { label: "Ruby", active: false, disabled: false },
+            { label: "Semi-precious", active: false, disabled: false },
         ],
         Emerald: [
             {
@@ -184,13 +185,13 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
         "Semi-precious": [
             {
                 section: 1,
-                shapes: [{ name: "Coming Soon", image: emeraldAllImg }],
+                shapes: [{ name: "Semi Precious", image: emeraldAllImg }], // Fixed typo
             },
         ],
     };
 
     const handleGemstoneClick = (gemstoneName: string, shapeName: string) => {
-        if (activeGemstone === "Semi-precious") return; // Disabled functionality
+        // if (activeGemstone === "Semi-precious") return; // Remove this line
 
         // Convert shape name for URL (handle spaces and special cases)
         const urlShape = shapeName.toLowerCase().replace(/\s+/g, "-");
@@ -203,7 +204,14 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
         const filter = gemstoneData.filters.find(
             (f) => f.label === filterLabel
         );
-        if (filter?.disabled) return; // Don't change if disabled
+        if (filter?.disabled) return;
+
+        // Handle direct navigation for Semi-precious
+        if (filterLabel === "Semi-precious") {
+            Router.push("/gemstones/semiprecious");
+            setShowGemstoneDropdown(false);
+            return;
+        }
 
         setActiveGemstone(filterLabel);
     };
@@ -216,7 +224,7 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
             return (
                 <div className="flex justify-center items-center h-32 min-w-[600px]">
                     <div className="text-gray-400 text-lg font-light">
-                        Semi-precious gemstones coming soon...
+                        Redirecting to Semi-precious collection...
                     </div>
                 </div>
             );

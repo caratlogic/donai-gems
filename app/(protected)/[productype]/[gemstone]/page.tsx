@@ -55,7 +55,7 @@ export default function GemstoneShapePage() {
         { value: "emerald", label: "Emerald" },
         { value: "sapphire", label: "Sapphire" },
         { value: "ruby", label: "Ruby" },
-        { value: "semi-precious", label: "Semi-precious" },
+        { value: "semiprecious", label: "Semi-precious" },
     ];
 
     // Initialize filters based on URL params - only gemstone type, no shape filter
