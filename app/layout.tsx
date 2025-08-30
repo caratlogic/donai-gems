@@ -84,7 +84,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`m-0 p-0 data-scroll-container ${openSans.variable} ${playfair.variable} antialiased`}
+                className={`m-0 p-0  ${openSans.variable} ${playfair.variable} antialiased`}
             >
                 <AuthProvider>
                     <Navbar />

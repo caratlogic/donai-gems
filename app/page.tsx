@@ -13,7 +13,6 @@ import InstagramSection from "../components/landing/home/InstagramSection";
 import HeroSection from "@/components/newHome/HeroSection";
 import WelcomeSection from "@/components/newHome/WelcomSection";
 import FinestGemsSection from "@/components/newHome/FinestGemsSection";
-import LocomotiveScroll from "locomotive-scroll";
 import CategoriesSection from "@/components/newHome/CategoriesSection";
 import BuildOnCraftSection from "@/components/newHome/BuildOnCraftSection";
 import CollectionsSection from "@/components/newHome/CollectionsSection";
@@ -35,8 +34,6 @@ const variants: Variants = {
 };
 
 export default function Home() {
-    // const scroll = new LocomotiveScroll();
-
     return (
         <div>
             {/* Each section with its own independent animation */}
