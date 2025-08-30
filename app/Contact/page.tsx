@@ -4,7 +4,7 @@ import ConnectUs from "../../components/landing/contactUs/ConnectUs";
 import BannerSection from "@/components/newAboutUs/BannerSection";
 import { ReactLenis, useLenis } from "lenis/react";
 
-const page = () => {
+const Page = () => {
     const lenis = useLenis((lenis) => {
         console.log(lenis);
     });
@@ -26,4 +26,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
