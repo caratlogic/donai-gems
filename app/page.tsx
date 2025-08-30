@@ -35,7 +35,7 @@ const variants: Variants = {
 };
 
 export default function Home() {
-    const scroll = new LocomotiveScroll();
+    // const scroll = new LocomotiveScroll();
 
     return (
         <div>
