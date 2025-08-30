@@ -1,11 +1,21 @@
+"use client";
 import { InventoryGuard } from "@/components/guards/InventoryGuard";
-import React, { Children } from "react";
+import React from "react";
+import { ReactLenis, useLenis } from "lenis/react";
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
+    const lenis = useLenis((lenis) => {
+        // called every scroll
+        console.log(lenis);
+    });
+
     return (
-        <InventoryGuard>
-            <div>{children}</div>
-        </InventoryGuard>
+        <>
+            <ReactLenis root />
+            <InventoryGuard>
+                <div>{children}</div>
+            </InventoryGuard>
+        </>
     );
 };
 

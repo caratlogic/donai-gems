@@ -1,15 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion, Variants, easeInOut } from "framer-motion";
-import BuildOnCraft from "../components/landing/home/BuildOnCraft";
-import Categories from "../components/landing/home/Categories";
-import Connect from "../components/landing/home/Connect";
-import Testimonial from "../components/landing/home/Testimonial";
-import Collections from "../components/landing/home/Collections";
+import { ReactLenis, useLenis } from "lenis/react";
 import ShowGems from "../components/landing/home/ShowGems";
-import DiamondCards from "../components/landing/home/DiamondCards";
-import InstagramSection from "../components/landing/home/InstagramSection";
 import HeroSection from "@/components/newHome/HeroSection";
 import WelcomeSection from "@/components/newHome/WelcomSection";
 import FinestGemsSection from "@/components/newHome/FinestGemsSection";
@@ -34,49 +28,56 @@ const variants: Variants = {
 };
 
 export default function Home() {
+    const lenis = useLenis((lenis) => {
+        // called every scroll
+        console.log(lenis);
+    });
+
     return (
-        <div>
-            {/* Each section with its own independent animation */}
+        <>
+            <ReactLenis root />
+            <div>
+                {/* Each section with its own independent animation */}
 
-            <HeroSection />
+                <HeroSection />
 
-            <WelcomeSection />
-            <FinestGemsSection />
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <ShowGems />
-            </motion.div>
+                <WelcomeSection />
+                <FinestGemsSection />
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={variants}
+                >
+                    <ShowGems />
+                </motion.div>
 
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <CategoriesSection />
-            </motion.div>
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={variants}
+                >
+                    <CategoriesSection />
+                </motion.div>
 
-            <BuildOnCraftSection />
+                <BuildOnCraftSection />
 
-            <CollectionsSection />
+                <CollectionsSection />
 
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <DiamondCertificates />
-            </motion.div>
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={variants}
+                >
+                    <DiamondCertificates />
+                </motion.div>
 
-            <TestimonialsSection />
-            <SocialSection />
+                <TestimonialsSection />
+                <SocialSection />
 
-            {/* <motion.div
+                {/* <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
@@ -102,6 +103,7 @@ export default function Home() {
             >
                 <Connect />
             </motion.div> */}
-        </div>
+            </div>
+        </>
     );
 }

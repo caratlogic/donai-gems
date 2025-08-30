@@ -1,11 +1,16 @@
+"use client";
 import React from "react";
 import ConnectUs from "../../components/landing/contactUs/ConnectUs";
-import ContactInfo from "../../components/landing/contactUs/ContactInfo";
 import BannerSection from "@/components/newAboutUs/BannerSection";
+import { ReactLenis, useLenis } from "lenis/react";
 
 const page = () => {
+    const lenis = useLenis((lenis) => {
+        console.log(lenis);
+    });
     return (
         <>
+            <ReactLenis root />
             <BannerSection
                 title="Contact Us"
                 breadcrumbs={[
@@ -17,7 +22,6 @@ const page = () => {
                 you choose the perfect gem with confidence.
             </BannerSection>
             <ConnectUs />
-            {/* <ContactInfo /> */}
         </>
     );
 };
