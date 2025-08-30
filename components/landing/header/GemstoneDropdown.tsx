@@ -69,20 +69,20 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
     const Router = useRouter();
     const [activeGemstone, setActiveGemstone] = useState("Emerald");
 
-    const getFeaturedImage = () => {
-        switch (activeGemstone) {
-            case "Emerald":
-                return emeraldFeature;
-            case "Sapphire":
-                return sapphireFeature;
-            case "Ruby":
-                return rubyFeature;
-            case "Semi-precious":
-                return semiPreciousFeature;
-            default:
-                return emeraldFeature;
-        }
-    };
+    // const getFeaturedImage = () => {
+    //     switch (activeGemstone) {
+    //         case "Emerald":
+    //             return emeraldFeature;
+    //         case "Sapphire":
+    //             return sapphireFeature;
+    //         case "Ruby":
+    //             return rubyFeature;
+    //         case "Semi-precious":
+    //             return semiPreciousFeature;
+    //         default:
+    //             return emeraldFeature;
+    //     }
+    // };
 
     const getFeaturedText = () => {
         switch (activeGemstone) {
@@ -221,6 +221,7 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
             gemstoneData[activeGemstone as keyof typeof gemstoneData];
 
         if (activeGemstone === "Semi-precious") {
+            // This part remains for the redirect functionality
             return (
                 <div className="flex justify-center items-center h-32 min-w-[600px]">
                     <div className="text-gray-400 text-lg font-light">
@@ -230,51 +231,37 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
             );
         }
 
+        // Flatten all shapes from different sections into one array
+        const allShapes = (currentData as GemstoneSection[])?.flatMap(
+            (section) => section.shapes
+        );
+
         return (
-            <div className="flex justify-around items-start gap-14 p-0">
-                {(currentData as GemstoneSection[])?.map(
-                    (section: GemstoneSection, sectionIndex: number) => (
-                        <div
-                            key={sectionIndex}
-                            className="relative w-full last:after:hidden after:absolute after:right-0 after:top-0 after:w-px after:h-full after:bg-gradient-to-b after:from-transparent after:via-gray-300 after:to-transparent"
-                        >
-                            <div className="flex flex-col justify-center items-start gap-6">
-                                {section.shapes?.map(
-                                    (
-                                        shape: GemstoneShape,
-                                        shapeIndex: number
-                                    ) => (
-                                        <div
-                                            key={shapeIndex}
-                                            className="flex justify-start items-center gap-3 cursor-pointer group"
-                                            onClick={() =>
-                                                handleGemstoneClick(
-                                                    activeGemstone,
-                                                    shape.name
-                                                )
-                                            }
-                                        >
-                                            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                                <Image
-                                                    src={shape.image}
-                                                    alt={shape.name}
-                                                    width={40}
-                                                    height={40}
-                                                    className="object-cover w-full h-full"
-                                                />
-                                            </div>
-                                            <div
-                                                className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
-                                            >
-                                                {shape.name}
-                                            </div>
-                                        </div>
-                                    )
-                                )}
-                            </div>
+            <div className="flex justify-start items-center gap-8 p-0">
+                {allShapes?.map((shape: GemstoneShape, shapeIndex: number) => (
+                    <div
+                        key={shapeIndex}
+                        className="flex flex-col items-center gap-2 cursor-pointer group"
+                        onClick={() =>
+                            handleGemstoneClick(activeGemstone, shape.name)
+                        }
+                    >
+                        <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                            <Image
+                                src={shape.image}
+                                alt={shape.name}
+                                width={64}
+                                height={64}
+                                className="object-cover w-full h-full"
+                            />
                         </div>
-                    )
-                )}
+                        <div
+                            className={`text-sm font-light ${mulish.className} text-[#2E2B28] group-hover:text-[#D6C5A0] transition-colors duration-200`}
+                        >
+                            {shape.name.replace(` ${activeGemstone}`, "")}
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     };
@@ -287,26 +274,26 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0 z-40"
+                    className="absolute top-full left-20 transform  mt-0 z-40"
                     onMouseEnter={() => setShowGemstoneDropdown(true)}
                     onMouseLeave={() => setShowGemstoneDropdown(false)}
                 >
-                    <div className="w-[1000px] py-6 bg-white shadow-[0px_20px_30px_0px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
-                        <div className="flex justify-between items-start gap-0 px-6">
+                    <div className="w-auto py-6 px-8 bg-white shadow-[0px_20px_30px_0px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
+                        <div className="flex items-start gap-12">
                             {/* Left Filters Section */}
                             <div className="flex flex-col justify-start items-start gap-4">
                                 {gemstoneData.filters.map(
                                     (filter: GemstoneFilter, index: number) => (
                                         <div
                                             key={index}
-                                            className={`py-1 ${
+                                            className={`py-2 px-4 rounded-md transition-all duration-200 w-40 text-center ${
                                                 filter.disabled
                                                     ? "opacity-50 cursor-not-allowed"
                                                     : activeGemstone ===
                                                       filter.label
-                                                    ? "border border-black rounded-sm px-3 shadow-md"
+                                                    ? "bg-[#B99876] text-white shadow-md"
                                                     : "bg-white hover:bg-gray-50 cursor-pointer"
-                                            } transition-all duration-200`}
+                                            }`}
                                             onClick={() =>
                                                 !filter.disabled &&
                                                 handleFilterClick(filter.label)
@@ -318,7 +305,10 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
                                                 } ${
                                                     filter.disabled
                                                         ? "text-gray-400"
-                                                        : "text-[#2E2B28]"
+                                                        : activeGemstone !==
+                                                          filter.label
+                                                        ? "text-[#B99876]"
+                                                        : "text-white"
                                                 }`}
                                             >
                                                 {filter.label}
@@ -329,40 +319,11 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
                             </div>
 
                             {/* Vertical Separator */}
-                            <div className="w-px h-48 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                            <div className="w-px h-32 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
 
                             {/* Dynamic Content */}
-                            <div className="min-w-[600px] p-0">
+                            <div className="flex items-center min-h-[8rem]">
                                 {renderContent()}
-                            </div>
-
-                            {/* Vertical Separator */}
-                            <div className="w-px h-48 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
-
-                            {/* Right Image Section */}
-                            <div className="flex flex-col justify-end items-start gap-4">
-                                <div className="w-50 cursor-pointer h-48 rounded-lg overflow-hidden relative group">
-                                    <Image
-                                        src={getFeaturedImage()}
-                                        alt={`Featured ${activeGemstone}`}
-                                        fill
-                                        className="object-cover transition-all duration-500 group-hover:scale-105"
-                                        key={activeGemstone} // Force re-render when gemstone changes
-                                    />
-                                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                                        <div className="text-white text-lg font-light">
-                                            {getFeaturedText()}
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    className={`text-[#2E2B28] text-lg font-light ${mulish.className} underline hover:text-[#D6C5A0] transition-colors duration-200`}
-                                    onClick={() =>
-                                        Router.push(getFeaturedRoute())
-                                    }
-                                >
-                                    Explore Now
-                                </button>
                             </div>
                         </div>
                     </div>

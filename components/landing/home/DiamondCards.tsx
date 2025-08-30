@@ -4,7 +4,7 @@ import cert1 from "@/public/certificates/giaCert.jpg";
 import cert2 from "@/app/assets/grsCert.jpg";
 import cert3 from "@/app/assets/gublinCert.jpeg";
 import cert4 from "@/app/assets/ssefCert.jpg";
-import { Playfair_Display, Open_Sans } from "next/font/google";
+import { Playfair_Display, Open_Sans, Jost } from "next/font/google";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -12,6 +12,11 @@ const playfair = Playfair_Display({
 });
 
 const openSans = Open_Sans({
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "600", "700"],
+});
+
+const jost = Jost({
     subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700"],
 });
@@ -67,23 +72,18 @@ const DiamondCards = () => {
     };
 
     return (
-        <div className="bg-[#FAF8F2] mt-20 lg:mt-30 p-8 rounded-md">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between ">
+        <div className="bg-[#181818] mt-5 lg:mt-30 p-8 rounded-md">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between ">
                 {/* Left Content */}
                 <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-6">
                     <h1
-                        className={`${playfair.className} text-4xl md:text-5xl`}
-                        style={{
-                            background:
-                                "linear-gradient(to right, #D6BFA6, #8B6C4A)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        }}
+                        className={`${playfair.className} text-primary text-3xl`}
                     >
-                        Certified by the World&apos;s Finest Gem Labs
+                        <span className="text-white">Certified by the</span>{" "}
+                        World&apos;s Finest Gem Labs
                     </h1>
                     <p
-                        className={`${openSans.className} mt-6 text-[#2E2B28CC] text-base leading-7`}
+                        className={`${jost.className} mt-6 text-neutral-400 text-base leading-7`}
                     >
                         Every gemstone is accompanied by certifications from
                         globally recognised laboratories, including GIA, SSEF,
@@ -91,7 +91,7 @@ const DiamondCards = () => {
                         quality.
                     </p>
                     <p
-                        className={`${openSans.className} mt-4 text-[#2E2B28CC] text-base leading-7`}
+                        className={`${jost.className} mt-4 text-neutral-400 C] text-base leading-7`}
                     >
                         Evaluated under rigorous industry standards in Antwerp,
                         the heart of the gem trade, our gems meet the highest
@@ -101,7 +101,7 @@ const DiamondCards = () => {
 
                 {/* Right Carousel */}
                 <div className="w-full md:w-1/2 relative flex items-center justify-center">
-                    <div className="w-full bg-white rounded-xl p-6 text-center shadow-md transition-all duration-500 ease-in-out">
+                    <div className="w-full bg-transparent rounded-xl p-6 text-center shadow-md transition-all duration-500 ease-in-out">
                         <Image
                             src={certificateData[current].image}
                             alt={certificateData[current].alt}
