@@ -1,9 +1,5 @@
 "use client";
 import React from "react";
-
-import { Mulish, Playfair_Display } from "next/font/google";
-import { motion, Variants } from "framer-motion";
-import Link from "next/link";
 import BannerSection from "@/components/newAboutUs/BannerSection";
 import ImageTextSection from "@/components/newAboutUs/ImageTextSection";
 import LocomotiveScroll from "locomotive-scroll";
@@ -13,44 +9,8 @@ import aboutImage2 from "@/public/newAboutUs/About_Page_2.jpg";
 import aboutImage3 from "@/public/newAboutUs/About_Page_3.jpg";
 import SetUsApartSection from "@/components/newAboutUs/SetUsApartSection";
 
-const playFair = Playfair_Display({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-});
-const mulish = Mulish({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
-});
-
-const page = () => {
+const Page = () => {
     const scroll = new LocomotiveScroll();
-
-    const fadeInLeft: Variants = {
-        hidden: { opacity: 0, x: -50 },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.8, ease: "easeInOut" },
-        },
-    };
-
-    const fadeInRight: Variants = {
-        hidden: { opacity: 0, x: 50 },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.8, ease: "easeInOut" },
-        },
-    };
-
-    const fadeInBottom: Variants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.8, ease: "easeInOut" },
-        },
-    };
 
     return (
         <div>
@@ -58,7 +18,7 @@ const page = () => {
                 title="About Us"
                 breadcrumbs={[
                     { name: "Home", path: "/" },
-                    { name: "About Us", path: "/about", active: true },
+                    { name: "About Us", path: "/About", active: true },
                 ]}
             />
             <section className="relative max-w-5xl mx-auto px-6 py-15">
@@ -110,4 +70,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
