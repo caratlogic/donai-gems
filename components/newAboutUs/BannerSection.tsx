@@ -46,9 +46,11 @@ const BannerSection: React.FC<BannerSectionProps> = ({
                         >
                             {title}
                         </h1>
-                        <p className=" text-gray-300 text-sm max-w-lg mx-auto m-4">
-                            {children}
-                        </p>
+                        {children && (
+                            <p className=" text-gray-300 text-sm max-w-lg mx-auto m-4">
+                                {children}
+                            </p>
+                        )}
                         <ul className="flex justify-center items-center gap-2 mt-4">
                             {breadcrumbs.map((crumb, index) => (
                                 <li
