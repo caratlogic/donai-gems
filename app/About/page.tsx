@@ -10,7 +10,7 @@ import aboutImage3 from "@/public/newAboutUs/About_Page_3.jpg";
 import SetUsApartSection from "@/components/newAboutUs/SetUsApartSection";
 
 const Page = () => {
-    const scroll = new LocomotiveScroll();
+    // const scroll = new LocomotiveScroll();
 
     return (
         <div>
