@@ -39,7 +39,7 @@ const FooterSection = () => {
                     {/* Logo */}
                     <div className="lg:w-1/3">
                         <Image
-                            src="/Donai.svg"
+                            src="/logo/logo.png"
                             alt="DONAI Logo"
                             width={200}
                             height={100}

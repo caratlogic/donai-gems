@@ -255,7 +255,7 @@ const Navbar = () => {
                     {/* Logo Section */}
                     <Link className="lg:-translate-x-23" href="/">
                         <Image
-                            src="/Donai.svg"
+                            src="/logo/logo.png"
                             alt="Donai Gems Logo"
                             width={500}
                             height={400}

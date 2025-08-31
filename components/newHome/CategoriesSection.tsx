@@ -35,12 +35,12 @@ const Gems = [
         desc: "Ruby Gemstone",
         description: "Finest quality natural rubies from Burma",
     },
-    {
-        src: fig2,
-        alt: "GEM 2",
-        desc: "Emerald",
-        description: "Premium Colombian Emeralds with exceptional clarity",
-    },
+    // {
+    //     src: fig2,
+    //     alt: "GEM 2",
+    //     desc: "Emerald",
+    //     description: "Premium Colombian Emeralds with exceptional clarity",
+    // },
     {
         src: fig3,
         alt: "GEM 3",
@@ -54,17 +54,18 @@ const Gems = [
         description: "Carefully curated semi-precious gemstone collection",
     },
     {
-        src: fig1,
-        alt: "GEM 5",
-        desc: "Ruby",
-        description: "Brilliant cut rubies with exceptional fire",
-    },
-    {
         src: fig2,
         alt: "GEM 6",
         desc: "Tanzanite",
         description: "Rare tanzanites from the foothills of Kilimanjaro",
     },
+    {
+        src: fig1,
+        alt: "GEM 5",
+        desc: "Ruby",
+        description: "Brilliant cut rubies with exceptional fire",
+    },
+
     {
         src: fig3,
         alt: "GEM 7",
