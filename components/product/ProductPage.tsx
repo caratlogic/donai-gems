@@ -78,7 +78,7 @@ export function ProductPage({ productId }: ProductPageProps) {
 
             // Using search endpoint with stockId filter
             const response = await axios.get(
-                `https://api-gems-inventory.onrender.com/api/gems/search?stockId=${productId}&limit=1`
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/gems/search?stockId=${productId}&limit=1`
             );
 
             if (response.data.success && response.data.data.length > 0) {
@@ -104,7 +104,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                 setFileLoading((prev) => ({ ...prev, [fileType]: true }));
 
                 const response = await axios.get(
-                    `https://api-gems-inventory.onrender.com/api/gems/S3Bucket/${fileType}/${product._id}`
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/gems/S3Bucket/${fileType}/${product._id}`
                 );
 
                 if (response.data.status === 200) {
@@ -128,7 +128,7 @@ export function ProductPage({ productId }: ProductPageProps) {
 
         try {
             const response = await axios.post(
-                `https://api-gems-inventory.onrender.com/api/gems/S3Bucket/delete/${fileType}/${product._id}`,
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/gems/S3Bucket/delete/${fileType}/${product._id}`,
                 {
                     urls: [fileUrl],
                 }
