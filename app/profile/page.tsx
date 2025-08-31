@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,9 +17,17 @@ import {
     Shield,
     Calendar,
     AlertCircle,
+    Edit3,
+    X,
+    Lock,
+    Loader2,
+    Send,
+    CheckCircle,
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
+import { authAPI } from "@/services/auth-api";
+import { Input } from "@/components/ui/input";
 
 export default function ProfilePage() {
     const {
@@ -32,6 +40,31 @@ export default function ProfilePage() {
         isRefreshing,
     } = useAuth();
     const router = useRouter();
+
+    // Modal States
+    const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+    // Email Change States
+    const [newEmail, setNewEmail] = useState("");
+    const [emailOtp, setEmailOtp] = useState("");
+    const [emailOtpSent, setEmailOtpSent] = useState(false);
+    const [emailChangeLoading, setEmailChangeLoading] = useState(false);
+    const [emailChangeError, setEmailChangeError] = useState<string | null>(
+        null
+    );
+    const [emailChangeSuccess, setEmailChangeSuccess] = useState(false);
+
+    // Password Change States
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordOtp, setPasswordOtp] = useState("");
+    const [passwordOtpSent, setPasswordOtpSent] = useState(false);
+    const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
+    const [passwordChangeError, setPasswordChangeError] = useState<
+        string | null
+    >(null);
+    const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
     if (loading) {
         return (
@@ -101,6 +134,121 @@ export default function ProfilePage() {
             })
         );
         router.push("/register");
+    };
+
+    // --- Modal Close Handlers ---
+    const handleCloseEmailModal = () => {
+        setIsEmailModalOpen(false);
+        setNewEmail("");
+        setEmailOtp("");
+        setEmailOtpSent(false);
+        setEmailChangeLoading(false);
+        setEmailChangeError(null);
+        setEmailChangeSuccess(false);
+    };
+
+    const handleClosePasswordModal = () => {
+        setIsPasswordModalOpen(false);
+        setNewPassword("");
+        setConfirmPassword("");
+        setPasswordOtp("");
+        setPasswordOtpSent(false);
+        setPasswordChangeLoading(false);
+        setPasswordChangeError(null);
+        setPasswordChangeSuccess(false);
+    };
+
+    // --- Email Change Logic ---
+    const handleSendEmailOtp = async () => {
+        if (!newEmail || !newEmail.includes("@")) {
+            setEmailChangeError("Please enter a valid email address.");
+            return;
+        }
+        if (newEmail === user.email) {
+            setEmailChangeError(
+                "New email cannot be the same as the current one."
+            );
+            return;
+        }
+
+        setEmailChangeLoading(true);
+        setEmailChangeError(null);
+        try {
+            await authAPI.sendOtp(newEmail);
+            setEmailOtpSent(true);
+        } catch (err: any) {
+            setEmailChangeError(
+                err.response?.data?.message || "Failed to send OTP."
+            );
+        } finally {
+            setEmailChangeLoading(false);
+        }
+    };
+
+    const handleUpdateEmail = async () => {
+        if (!emailOtp || emailOtp.length < 4) {
+            setEmailChangeError("Please enter a valid OTP.");
+            return;
+        }
+        setEmailChangeLoading(true);
+        setEmailChangeError(null);
+        try {
+            await authAPI.updateEmail(newEmail, emailOtp);
+            setEmailChangeSuccess(true);
+            refreshUser(); // Refresh user data to get the new email
+            setTimeout(handleCloseEmailModal, 2000);
+        } catch (err: any) {
+            setEmailChangeError(
+                err.response?.data?.message || "Failed to update email."
+            );
+        } finally {
+            setEmailChangeLoading(false);
+        }
+    };
+
+    // --- Password Change Logic ---
+    const handleSendPasswordOtp = async () => {
+        if (!newPassword || newPassword.length < 6) {
+            setPasswordChangeError("Password must be at least 6 characters.");
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setPasswordChangeError("Passwords do not match.");
+            return;
+        }
+
+        setPasswordChangeLoading(true);
+        setPasswordChangeError(null);
+        try {
+            await authAPI.sendOtp(user.email);
+            setPasswordOtpSent(true);
+        } catch (err: any) {
+            setPasswordChangeError(
+                err.response?.data?.message || "Failed to send OTP."
+            );
+        } finally {
+            setPasswordChangeLoading(false);
+        }
+    };
+
+    const handleUpdatePassword = async () => {
+        if (!passwordOtp || passwordOtp.length < 4) {
+            setPasswordChangeError("Please enter a valid OTP.");
+            return;
+        }
+        setPasswordChangeLoading(true);
+        setPasswordChangeError(null);
+        try {
+            await authAPI.updatePassword(user.email, newPassword, passwordOtp);
+            setPasswordChangeSuccess(true);
+            setTimeout(handleClosePasswordModal, 2000);
+        } catch (err: any) {
+            setPasswordChangeError(
+                err.response?.data?.message || "Failed to update password."
+            );
+        } finally {
+            setPasswordChangeLoading(false);
+        }
     };
 
     return (
@@ -182,9 +330,21 @@ export default function ProfilePage() {
                                 <label className="text-sm font-medium text-gray-500">
                                     Email
                                 </label>
-                                <div className="mt-1 flex items-center space-x-2">
-                                    <Mail className="h-4 w-4 text-gray-400" />
-                                    <span>{user.email}</span>
+                                <div className="mt-1 flex items-center justify-between">
+                                    <div className="flex items-center space-x-2">
+                                        <Mail className="h-4 w-4 text-gray-400" />
+                                        <span>{user.email}</span>
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6"
+                                        onClick={() =>
+                                            setIsEmailModalOpen(true)
+                                        }
+                                    >
+                                        <Edit3 className="h-4 w-4" />
+                                    </Button>
                                 </div>
                             </div>
                             {user.phone && (
@@ -198,6 +358,27 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                             )}
+                            <div>
+                                <label className="text-sm font-medium text-gray-500">
+                                    Password
+                                </label>
+                                <div className="mt-1 flex items-center justify-between">
+                                    <div className="flex items-center space-x-2">
+                                        <Lock className="h-4 w-4 text-gray-400" />
+                                        <span>••••••••</span>
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6"
+                                        onClick={() =>
+                                            setIsPasswordModalOpen(true)
+                                        }
+                                    >
+                                        <Edit3 className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </div>
                             <div>
                                 <label className="text-sm font-medium text-gray-500">
                                     Member Since
@@ -442,6 +623,257 @@ export default function ProfilePage() {
                     </Button>
                 </div> */}
             </div>
+
+            {/* Email Change Modal */}
+            {isEmailModalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 m-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold">
+                                Change Email
+                            </h3>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleCloseEmailModal}
+                            >
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                        {emailChangeSuccess ? (
+                            <div className="text-center py-4">
+                                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                                <h4 className="font-semibold">
+                                    Email Updated!
+                                </h4>
+                                <p className="text-sm text-gray-600">
+                                    Your email has been changed to {newEmail}.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {!emailOtpSent ? (
+                                    <div>
+                                        <label
+                                            htmlFor="new-email"
+                                            className="text-sm font-medium"
+                                        >
+                                            New Email Address
+                                        </label>
+                                        <Input
+                                            id="new-email"
+                                            type="email"
+                                            value={newEmail}
+                                            onChange={(e) =>
+                                                setNewEmail(e.target.value)
+                                            }
+                                            placeholder="Enter your new email"
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <label
+                                            htmlFor="email-otp"
+                                            className="text-sm font-medium"
+                                        >
+                                            OTP
+                                        </label>
+                                        <Input
+                                            id="email-otp"
+                                            value={emailOtp}
+                                            onChange={(e) =>
+                                                setEmailOtp(e.target.value)
+                                            }
+                                            placeholder="Enter OTP sent to new email"
+                                            maxLength={6}
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                )}
+                                {emailChangeError && (
+                                    <p className="text-sm text-red-600">
+                                        {emailChangeError}
+                                    </p>
+                                )}
+                                <div className="flex justify-end space-x-2 pt-2">
+                                    <Button
+                                        variant="outline"
+                                        onClick={handleCloseEmailModal}
+                                        disabled={emailChangeLoading}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    {!emailOtpSent ? (
+                                        <Button
+                                            onClick={handleSendEmailOtp}
+                                            disabled={
+                                                emailChangeLoading || !newEmail
+                                            }
+                                        >
+                                            {emailChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Send OTP
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={handleUpdateEmail}
+                                            disabled={
+                                                emailChangeLoading || !emailOtp
+                                            }
+                                        >
+                                            {emailChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Update Email
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* Password Change Modal */}
+            {isPasswordModalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 m-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold">
+                                Change Password
+                            </h3>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleClosePasswordModal}
+                            >
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                        {passwordChangeSuccess ? (
+                            <div className="text-center py-4">
+                                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                                <h4 className="font-semibold">
+                                    Password Updated!
+                                </h4>
+                                <p className="text-sm text-gray-600">
+                                    You can now use your new password to log in.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {!passwordOtpSent ? (
+                                    <>
+                                        <div>
+                                            <label
+                                                htmlFor="new-password"
+                                                className="text-sm font-medium"
+                                            >
+                                                New Password
+                                            </label>
+                                            <Input
+                                                id="new-password"
+                                                type="password"
+                                                value={newPassword}
+                                                onChange={(e) =>
+                                                    setNewPassword(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Enter new password"
+                                                className="mt-1"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                htmlFor="confirm-password"
+                                                className="text-sm font-medium"
+                                            >
+                                                Confirm New Password
+                                            </label>
+                                            <Input
+                                                id="confirm-password"
+                                                type="password"
+                                                value={confirmPassword}
+                                                onChange={(e) =>
+                                                    setConfirmPassword(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Confirm new password"
+                                                className="mt-1"
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div>
+                                        <label
+                                            htmlFor="password-otp"
+                                            className="text-sm font-medium"
+                                        >
+                                            OTP
+                                        </label>
+                                        <Input
+                                            id="password-otp"
+                                            value={passwordOtp}
+                                            onChange={(e) =>
+                                                setPasswordOtp(e.target.value)
+                                            }
+                                            placeholder={`Enter OTP sent to ${user.email}`}
+                                            maxLength={6}
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                )}
+                                {passwordChangeError && (
+                                    <p className="text-sm text-red-600">
+                                        {passwordChangeError}
+                                    </p>
+                                )}
+                                <div className="flex justify-end space-x-2 pt-2">
+                                    <Button
+                                        variant="outline"
+                                        onClick={handleClosePasswordModal}
+                                        disabled={passwordChangeLoading}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    {!passwordOtpSent ? (
+                                        <Button
+                                            onClick={handleSendPasswordOtp}
+                                            disabled={
+                                                passwordChangeLoading ||
+                                                !newPassword ||
+                                                newPassword !== confirmPassword
+                                            }
+                                        >
+                                            {passwordChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Send OTP
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={handleUpdatePassword}
+                                            disabled={
+                                                passwordChangeLoading ||
+                                                !passwordOtp
+                                            }
+                                        >
+                                            {passwordChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Update Password
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </Container>
     );
 }

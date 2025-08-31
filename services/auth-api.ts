@@ -97,6 +97,46 @@ export const authAPI = {
         const response = await apiClient.post("/users/login/vip", data);
         return response.data;
     },
+
+    /**
+     * Request an OTP for updating email or password.
+     */
+    sendOtp: async (
+        email: string
+    ): Promise<{ success: boolean; message: string }> => {
+        const response = await apiClient.post(`/users/otp`, { email });
+        return response.data;
+    },
+
+    /**
+     * Update the user's email address.
+     */
+    updateEmail: async (
+        newEmail: string,
+        otp: string
+    ): Promise<{ success: boolean; message: string; user: User }> => {
+        const response = await apiClient.put("/users/update-email", {
+            newEmail,
+            otp,
+        });
+        return response.data;
+    },
+
+    /**
+     * Update the user's password.
+     */
+    updatePassword: async (
+        email: string,
+        newPassword: string,
+        otp: string
+    ): Promise<{ success: boolean; message: string }> => {
+        const response = await apiClient.put("/users/update-password", {
+            email,
+            newPassword,
+            otp,
+        });
+        return response.data;
+    },
 };
 
 export interface UsersResponse {
