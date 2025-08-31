@@ -36,7 +36,7 @@ const HeroSection = () => {
 
             {/* Content Container */}
             {/* <div className="relative bg-red-400  mx-auto px-6 py-24"> */}
-            <div className="absolute -top-10 left-30">
+            <div className="absolute -top-10 left-30  ">
                 {/* Text Content */}
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}

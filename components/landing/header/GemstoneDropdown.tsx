@@ -291,7 +291,7 @@ const GemstoneDropdown: React.FC<GemstoneDropdownProps> = ({
                                                     ? "opacity-50 cursor-not-allowed"
                                                     : activeGemstone ===
                                                       filter.label
-                                                    ? "bg-[#B99876] text-white shadow-md"
+                                                    ? "bg-[#181818] border-1 border-primary text-white shadow-md"
                                                     : "bg-white hover:bg-gray-50 cursor-pointer"
                                             }`}
                                             onClick={() =>

@@ -4,8 +4,8 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, Variants } from "motion/react";
 import { Playfair_Display, Inter, Jost } from "next/font/google";
-import firstImage from "@/public/newHome/WelcomeSection/img1.jpeg";
-import SecondImage from "@/public/newHome/WelcomeSection/img3.jpeg";
+import firstImage from "@/public/newHome/Red-Ring-Hand.jpg";
+import SecondImage from "@/public/newHome/Red-Ring.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -71,21 +71,17 @@ const WelcomeSection = () => {
                                 style={{ y: maskTransform }}
                                 className="absolute inset-0 w-full h-full"
                             >
-                                <div
-                                    data-scroll
-                                    className="w-full h-full  rounded-t-full overflow-hidden"
-                                >
+                                <div className="w-full h-full  rounded-t-full overflow-hidden">
                                     {/* Image with different parallax speed */}
                                     <motion.div
                                         style={{ y: imageTransform }}
                                         className=" transition-all ease-linear relative w-full h-[170%]  -top-4"
-                                        data-scroll
                                     >
                                         <Image
-                                            data-scroll
                                             src={firstImage} // Update with your actual image path
                                             alt="Precious Gem 1"
                                             fill
+                                            quality={100}
                                             className="object-cover"
                                             sizes="(max-width: 1024px) 0vw, 33vw"
                                         />

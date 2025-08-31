@@ -46,7 +46,6 @@ interface AddGemModalProps {
 export function AddGemModal({ isOpen, onClose, onSuccess }: AddGemModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [createdGem, setCreatedGem] = useState<Gem | null>(null);
-
     const form = useForm<CreateGem>({
         resolver: zodResolver(createGemSchema),
         defaultValues: {
@@ -123,91 +122,268 @@ export function AddGemModal({ isOpen, onClose, onSuccess }: AddGemModalProps) {
     };
 
     return (
-        <Dialog open={isOpen} onOpenChange={handleClose}>
-            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
-                {!createdGem ? (
-                    <>
-                        <DialogHeader>
-                            <DialogTitle>Add New Gem (Step 1 of 2)</DialogTitle>
-                            <DialogDescription>
-                                Fill in the details to add a new gem to the
-                                inventory.
-                            </DialogDescription>
-                        </DialogHeader>
+        <>
+            <Dialog open={isOpen} onOpenChange={handleClose}>
+                <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+                    {!createdGem ? (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle>
+                                    Add New Gem (Step 1 of 2)
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Fill in the details to add a new gem to the
+                                    inventory.
+                                </DialogDescription>
+                            </DialogHeader>
 
-                        <Form {...form}>
-                            <form
-                                onSubmit={form.handleSubmit(onSubmit)}
-                                className="space-y-4"
-                            >
-                                <div className="grid grid-cols-2 gap-4">
-                                    {/* Stock ID */}
-                                    <FormField
-                                        control={form.control}
-                                        name="stockId"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Stock ID *
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="GEM001"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    {/* Product Type */}
-                                    <FormField
-                                        control={form.control}
-                                        name="productType"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Product Type *
-                                                </FormLabel>
-                                                <Select
-                                                    onValueChange={
-                                                        field.onChange
-                                                    }
-                                                    defaultValue={field.value}
-                                                >
+                            <Form {...form}>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {/* Stock ID */}
+                                        <FormField
+                                            control={form.control}
+                                            name="stockId"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Stock ID *
+                                                    </FormLabel>
                                                     <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Select product type" />
-                                                        </SelectTrigger>
+                                                        <Input
+                                                            placeholder="GEM001"
+                                                            {...field}
+                                                        />
                                                     </FormControl>
-                                                    <SelectContent>
-                                                        <SelectItem value="Jewelry">
-                                                            jewelry
-                                                        </SelectItem>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                                        <SelectItem value="Gem">
-                                                            gem
-                                                        </SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                        {/* Product Type */}
+                                        <FormField
+                                            control={form.control}
+                                            name="productType"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Product Type *
+                                                    </FormLabel>
+                                                    <Select
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                        defaultValue={
+                                                            field.value
+                                                        }
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select product type" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            <SelectItem value="Jewelry">
+                                                                jewelry
+                                                            </SelectItem>
 
-                                    {/* Category */}
+                                                            <SelectItem value="Gem">
+                                                                gem
+                                                            </SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Category */}
+                                        <FormField
+                                            control={form.control}
+                                            name="category"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Category *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="loose stone, necklace, ring..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Stone Type */}
+                                        <FormField
+                                            control={form.control}
+                                            name="stoneType"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Stone Type *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Ruby, Sapphire, Emerald..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Color */}
+                                        <FormField
+                                            control={form.control}
+                                            name="color"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Color *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Red, Blue, Green..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Shape */}
+                                        <FormField
+                                            control={form.control}
+                                            name="shape"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Shape *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="oval, round, cushion..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Carat */}
+                                        <FormField
+                                            control={form.control}
+                                            name="carat"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Carat Weight *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.0001"
+                                                            min="0"
+                                                            placeholder="2.50"
+                                                            {...field}
+                                                            onChange={(e) =>
+                                                                field.onChange(
+                                                                    parseFloat(
+                                                                        e.target
+                                                                            .value
+                                                                    ) || 0
+                                                                )
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Origin */}
+                                        <FormField
+                                            control={form.control}
+                                            name="origin"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Origin *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Myanmar, Sri Lanka, Thailand..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Treatment */}
+                                        <FormField
+                                            control={form.control}
+                                            name="treatment"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Treatment *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="no heat, heated, treated..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        {/* Certificate */}
+                                        <FormField
+                                            control={form.control}
+                                            name="certificate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Certificate *
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="GIA, GRS, GUBELIN, SSEF..."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    {/* Measurement - Full width */}
                                     <FormField
                                         control={form.control}
-                                        name="category"
+                                        name="measurement"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Category *
+                                                    Measurement *
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                        placeholder="loose stone, necklace, ring..."
+                                                        placeholder="8.0x8.0x5.0mm"
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -216,18 +392,38 @@ export function AddGemModal({ isOpen, onClose, onSuccess }: AddGemModalProps) {
                                         )}
                                     />
 
-                                    {/* Stone Type */}
+                                    {/* Details */}
                                     <FormField
                                         control={form.control}
-                                        name="stoneType"
+                                        name="details"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Details *</FormLabel>
+                                                <FormControl>
+                                                    <Textarea
+                                                        placeholder="Technical details about the gem..."
+                                                        rows={3}
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Description */}
+                                    <FormField
+                                        control={form.control}
+                                        name="description"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Stone Type *
+                                                    Description *
                                                 </FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="Ruby, Sapphire, Emerald..."
+                                                    <Textarea
+                                                        placeholder="General description of the gem..."
+                                                        rows={3}
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -236,280 +432,99 @@ export function AddGemModal({ isOpen, onClose, onSuccess }: AddGemModalProps) {
                                         )}
                                     />
 
-                                    {/* Color */}
+                                    {/* Availability */}
                                     <FormField
                                         control={form.control}
-                                        name="color"
+                                        name="availability"
                                         render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Color *</FormLabel>
+                                            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                                                <div className="space-y-0.5">
+                                                    <FormLabel className="text-base">
+                                                        Availability
+                                                    </FormLabel>
+                                                    <div className="text-sm text-muted-foreground">
+                                                        Mark if this gem is
+                                                        available for sale
+                                                    </div>
+                                                </div>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="Red, Blue, Green..."
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    {/* Shape */}
-                                    <FormField
-                                        control={form.control}
-                                        name="shape"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Shape *</FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="oval, round, cushion..."
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    {/* Carat */}
-                                    <FormField
-                                        control={form.control}
-                                        name="carat"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Carat Weight *
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        step="0.0001"
-                                                        min="0"
-                                                        placeholder="2.50"
-                                                        {...field}
-                                                        onChange={(e) =>
-                                                            field.onChange(
-                                                                parseFloat(
-                                                                    e.target
-                                                                        .value
-                                                                ) || 0
-                                                            )
+                                                    <Switch
+                                                        checked={field.value}
+                                                        onCheckedChange={
+                                                            field.onChange
                                                         }
                                                     />
                                                 </FormControl>
-                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />
 
-                                    {/* Origin */}
-                                    <FormField
-                                        control={form.control}
-                                        name="origin"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Origin *</FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Myanmar, Sri Lanka, Thailand..."
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    {/* Treatment */}
-                                    <FormField
-                                        control={form.control}
-                                        name="treatment"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Treatment *
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="no heat, heated, treated..."
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    {/* Certificate */}
-                                    <FormField
-                                        control={form.control}
-                                        name="certificate"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Certificate *
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="GIA, GRS, GUBELIN, SSEF..."
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
-
-                                {/* Measurement - Full width */}
-                                <FormField
-                                    control={form.control}
-                                    name="measurement"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Measurement *</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="8.0x8.0x5.0mm"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                    <DialogFooter>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={handleClose}
+                                            disabled={isSubmitting}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            {isSubmitting
+                                                ? "Creating..."
+                                                : "Create and Continue"}
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </>
+                    ) : (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle>
+                                    Upload Files for {createdGem.stockId} (Step
+                                    2 of 2)
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Upload images, videos, and certificates for
+                                    the new gem.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="space-y-6 py-4">
+                                <FileUploader
+                                    fileType="images"
+                                    stockId={createdGem._id}
+                                    onUploadSuccess={onSuccess}
                                 />
-
-                                {/* Details */}
-                                <FormField
-                                    control={form.control}
-                                    name="details"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Details *</FormLabel>
-                                            <FormControl>
-                                                <Textarea
-                                                    placeholder="Technical details about the gem..."
-                                                    rows={3}
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                <FileUploader
+                                    fileType="videos"
+                                    stockId={createdGem._id}
+                                    onUploadSuccess={onSuccess}
                                 />
-
-                                {/* Description */}
-                                <FormField
-                                    control={form.control}
-                                    name="description"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Description *</FormLabel>
-                                            <FormControl>
-                                                <Textarea
-                                                    placeholder="General description of the gem..."
-                                                    rows={3}
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                <FileUploader
+                                    fileType="certificates"
+                                    stockId={createdGem._id}
+                                    onUploadSuccess={onSuccess}
                                 />
-
-                                {/* Availability */}
-                                <FormField
-                                    control={form.control}
-                                    name="availability"
-                                    render={({ field }) => (
-                                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                                            <div className="space-y-0.5">
-                                                <FormLabel className="text-base">
-                                                    Availability
-                                                </FormLabel>
-                                                <div className="text-sm text-muted-foreground">
-                                                    Mark if this gem is
-                                                    available for sale
-                                                </div>
-                                            </div>
-                                            <FormControl>
-                                                <Switch
-                                                    checked={field.value}
-                                                    onCheckedChange={
-                                                        field.onChange
-                                                    }
-                                                />
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <DialogFooter>
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        onClick={handleClose}
-                                        disabled={isSubmitting}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting && (
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        )}
-                                        {isSubmitting
-                                            ? "Creating..."
-                                            : "Create and Continue"}
-                                    </Button>
-                                </DialogFooter>
-                            </form>
-                        </Form>
-                    </>
-                ) : (
-                    <>
-                        <DialogHeader>
-                            <DialogTitle>
-                                Upload Files for {createdGem.stockId} (Step 2 of
-                                2)
-                            </DialogTitle>
-                            <DialogDescription>
-                                Upload images, videos, and certificates for the
-                                new gem.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="space-y-6 py-4">
-                            <FileUploader
-                                fileType="images"
-                                stockId={createdGem._id}
-                                onUploadSuccess={onSuccess}
-                            />
-                            <FileUploader
-                                fileType="videos"
-                                stockId={createdGem._id}
-                                onUploadSuccess={onSuccess}
-                            />
-                            <FileUploader
-                                fileType="certificates"
-                                stockId={createdGem._id}
-                                onUploadSuccess={onSuccess}
-                            />
-                        </div>
-                        <DialogFooter>
-                            <Button
-                                type="button"
-                                variant="default"
-                                onClick={handleClose}
-                            >
-                                Finish
-                            </Button>
-                        </DialogFooter>
-                    </>
-                )}
-            </DialogContent>
-        </Dialog>
+                            </div>
+                            <DialogFooter>
+                                <Button
+                                    type="button"
+                                    variant="default"
+                                    onClick={handleClose}
+                                >
+                                    Finish
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }

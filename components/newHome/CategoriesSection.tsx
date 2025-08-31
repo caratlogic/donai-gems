@@ -2,9 +2,9 @@
 import React from "react";
 import { Playfair_Display, Marcellus, Jost } from "next/font/google";
 import Image from "next/image";
-import fig1 from "@/public/newHome/CategoriesSection/img4.jpg";
-import fig2 from "@/public/newHome/CategoriesSection/emerald.jpg";
-import fig3 from "@/public/newHome/CategoriesSection/sami-precease.jpg";
+import fig1 from "@/public/newHome/Red-Ring-2.jpg";
+import fig2 from "@/public/newHome/Green-Necklace.jpg";
+import fig3 from "@/public/yellow-ring-3.jpg";
 import fig4 from "@/public/newHome/CategoriesSection/precious_stone.jpg";
 import Link from "next/link";
 import {

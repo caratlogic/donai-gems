@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { InventoryGuard } from "@/components/guards/InventoryGuard";
+import { ReactLenis, useLenis } from "lenis/react";
 
 function InventoryPageContent() {
     const {
@@ -86,9 +87,16 @@ function InventoryPageContent() {
 }
 
 export default function InventoryPage() {
+    const lenis = useLenis((lenis) => {
+        // called every scroll
+        console.log(lenis);
+    });
     return (
-        <InventoryGuard>
-            <InventoryPageContent />
-        </InventoryGuard>
+        <>
+            <ReactLenis root />
+            <InventoryGuard>
+                <InventoryPageContent />
+            </InventoryGuard>
+        </>
     );
 }

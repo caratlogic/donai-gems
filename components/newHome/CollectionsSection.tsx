@@ -7,7 +7,7 @@ import gem11 from "@/public/newHome/buildOnCraft/img2.jpg";
 import gem12 from "@/public/HearPreciousStone.jpg";
 import gem13 from "@/public/newHome/CategoriesSection/img4.jpg";
 import gem14 from "@/public/newHome/CategoriesSection/precious_stone.jpg";
-import gem15 from "@/public/newHome/CategoriesSection/sami-precease.jpg";
+import gem15 from "@/public/newHome/Blue-Ring.jpg";
 import { Button } from "../ui/button";
 
 const playFair = Playfair_Display({
@@ -76,7 +76,7 @@ const CollectionsSection = () => {
                                     alt={gem.alt}
                                     width={400}
                                     height={400}
-                                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                    className="w-full aspect-square h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                 />
                             </div>
                         </Link>

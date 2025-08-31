@@ -10,7 +10,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
-import Footer from "../components/landing/footer/Footer";
 import Navbar from "../components/landing/header/Navbar";
 import FooterSection from "@/components/newHome/FooterSection";
 

@@ -148,7 +148,7 @@ const Navbar = () => {
                             <span>info@donaigems.com</span>
                         </div>
                     </div>
-                    <div className="flex items-center space-x-4 text-sm text-gray-300 ">
+                    <div className="flex items-center space-x-4 text-sm opacity-0 text-gray-300 ">
                         <div className="flex items-center space-x-2 ">
                             <Facebook className="h-4 w-4 " />
                         </div>

@@ -141,7 +141,7 @@ export default function ProfilePage() {
                 )}
 
                 {/* Incomplete Profile Alert */}
-                {!user.customerData && (
+                {!user.customerData && !isAdmin && (
                     <Alert>
                         <AlertCircle className="h-4 w-4" />
                         <AlertDescription className="flex items-center justify-between">

@@ -35,7 +35,7 @@ export default function Home() {
 
     return (
         <>
-            <ReactLenis root />
+            <ReactLenis />
             <div>
                 {/* Each section with its own independent animation */}
 
@@ -76,33 +76,6 @@ export default function Home() {
 
                 <TestimonialsSection />
                 <SocialSection />
-
-                {/* <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <InstagramSection />
-            </motion.div>
-
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <Testimonial />
-            </motion.div>
-
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={variants}
-            >
-                <Connect />
-            </motion.div> */}
             </div>
         </>
     );

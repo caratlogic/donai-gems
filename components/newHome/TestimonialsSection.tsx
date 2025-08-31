@@ -63,7 +63,7 @@ const TestimonialsSection = () => {
 
     return (
         <section
-            className="testimonial-section relative w-full h-[50vh] flex items-center justify-center bg-cover bg-center bg-no-repeat bg-fixed"
+            className="testimonial-section relative w-full py-30 flex items-center justify-center bg-cover bg-center bg-no-repeat bg-fixed"
             style={{
                 backgroundImage: `url(${BgImage.src})`,
             }}
