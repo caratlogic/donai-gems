@@ -42,7 +42,7 @@ const OurStory = () => {
                                 WebkitTextFillColor: "transparent",
                             }}
                         >
-                            The Gem Capital of the World
+                            The Diamond Capital of the World
                         </h1>
                         <div className={`mt-10  font-light text-md lg:text-xl`}>
                             <p>

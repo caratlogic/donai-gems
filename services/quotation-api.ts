@@ -49,7 +49,7 @@ export const quotationAPI = {
     submitQuotation: async (
         data: QuotationData
     ): Promise<QuotationResponse> => {
-        const response = await apiClient.post("/quotations", data);
+        const response = await apiClient.post("/api/quotations", data);
         return response.data;
     },
 
@@ -57,7 +57,7 @@ export const quotationAPI = {
      * Get all quotations for all users (Admin only).
      */
     getAllQuotations: async (): Promise<AllQuotationsResponse> => {
-        const response = await apiClient.get("/quotations");
+        const response = await apiClient.get("/api/quotations");
         return response.data;
     },
 };

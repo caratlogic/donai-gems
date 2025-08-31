@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Playfair_Display, Inter } from "next/font/google";
-import HeroBanner from "@/public/newHome/test_banner2.jpg";
+import HeroBanner from "@/public/newHome/test_banner.jpg";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -19,7 +19,7 @@ const inter = Inter({
 
 const HeroSection = () => {
     return (
-        <section className="relative min-h-screen flex items-center justify-start overflow-hidden">
+        <section className="relative min-h-[90vh] flex items-center justify-start overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image

@@ -37,7 +37,7 @@ const Page = () => {
                         imageShapeClass="rounded-t-full"
                     />
                     <ImageTextSection
-                        title="The Gem Capital"
+                        title="The Diamond Capital"
                         subheading="of the World"
                         description="Our roots run deep in Antwerp, the historical heart of the global diamond and gemstone trade. Located in the prestigious Diamond Street, we operate inside a legacy market trusted for:"
                         bulletPoints={[

@@ -3,7 +3,7 @@ import { Gem } from "@/lib/validations/gems-Schema";
 
 const API_BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    "https://api-gems-inventory.onrender.com/api";
+    "https://api-gems-inventory.onrender.com";
 
 export interface GemsApiResponse {
     success: boolean;
@@ -119,7 +119,7 @@ export const gemsApi = {
         });
 
         const response = await axios.get(
-            `${API_BASE_URL}/gems?${queryParams.toString()}`
+            `${API_BASE_URL}/api/gems?${queryParams.toString()}`
         );
         return response.data;
     },
@@ -141,7 +141,7 @@ export const gemsApi = {
         });
 
         const response = await axios.get(
-            `${API_BASE_URL}/gems/search?${queryParams.toString()}`
+            `${API_BASE_URL}/api/gems/search?${queryParams.toString()}`
         );
         return response.data;
     },
@@ -170,7 +170,7 @@ export const gemsApi = {
         data: Gem;
     }> => {
         const response = await axios.post(
-            `${API_BASE_URL}/gems/create`,
+            `${API_BASE_URL}/api/gems/create`,
             gemData
         );
         return response.data;
@@ -185,7 +185,10 @@ export const gemsApi = {
         message: string;
         data: Gem;
     }> => {
-        const response = await axios.put(`${API_BASE_URL}/gems/${id}`, gemData);
+        const response = await axios.put(
+            `${API_BASE_URL}/api/gems/${id}`,
+            gemData
+        );
         return response.data;
     },
 
@@ -196,7 +199,7 @@ export const gemsApi = {
         success: boolean;
         message: string;
     }> => {
-        const response = await axios.delete(`${API_BASE_URL}/gems/${id}`);
+        const response = await axios.delete(`${API_BASE_URL}/api/gems/${id}`);
         return response.data;
     },
 
@@ -207,7 +210,7 @@ export const gemsApi = {
         fileDetails: fileUploadRequestBody[]
     ): Promise<UploadResponse> => {
         const response = await axios.post(
-            `${API_BASE_URL}/gems/S3Bucket/insert/${fileType}/${stockId}`,
+            `${API_BASE_URL}/api/gems/S3Bucket/insert/${fileType}/${stockId}`,
             { fileDetails } // Ensure the body matches the expected format
         );
         return response.data;
@@ -220,7 +223,7 @@ export const gemsApi = {
         key?: string
     ): Promise<SignedUrlResponse> => {
         const url = new URL(
-            `${API_BASE_URL}/gems/S3Bucket/${fileType}/${stockId}`
+            `${API_BASE_URL}/api/gems/S3Bucket/${fileType}/${stockId}`
         );
         if (key) {
             url.searchParams.append("key", key);
@@ -235,7 +238,7 @@ export const gemsApi = {
         page: number = 1,
         limit: number = 10
     ): Promise<AllGemsFilesResponse> => {
-        const url = new URL(`${API_BASE_URL}/gems/S3Bucket/${fileType}`);
+        const url = new URL(`${API_BASE_URL}/api/gems/S3Bucket/${fileType}`);
         url.searchParams.append("page", page.toString());
         url.searchParams.append("limit", limit.toString());
 

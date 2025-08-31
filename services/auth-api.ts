@@ -38,7 +38,7 @@ export const authAPI = {
      * Login a user
      */
     login: async (data: LoginData): Promise<AuthResponse> => {
-        const response = await apiClient.post("/users/login", data);
+        const response = await apiClient.post("/api/users/login", data);
         return response.data;
     },
 
@@ -48,7 +48,7 @@ export const authAPI = {
     register: async (
         data: RegisterData
     ): Promise<{ success: boolean; message: string; userId: string }> => {
-        const response = await apiClient.post("/users/register", data);
+        const response = await apiClient.post("/api/users/register", data);
         return response.data;
     },
 
@@ -58,7 +58,7 @@ export const authAPI = {
     verifyOTP: async (
         data: VerifyOTPData
     ): Promise<{ success: boolean; message: string; user?: User }> => {
-        const response = await apiClient.post("/users/verify-otp", data);
+        const response = await apiClient.post("/api/users/verify-otp", data);
         return response.data;
     },
 
@@ -70,7 +70,7 @@ export const authAPI = {
     registerCustomer: async (
         data: CustomerData
     ): Promise<{ success: boolean; message: string; userId: string }> => {
-        const response = await apiClient.post("/users/customer-data", data);
+        const response = await apiClient.post("/api/users/customer-data", data);
         return response.data;
     },
 
@@ -78,7 +78,7 @@ export const authAPI = {
      * Logout the current user
      */
     logout: async (): Promise<{ success: boolean; message: string }> => {
-        const response = await apiClient.post("/users/logout");
+        const response = await apiClient.post("/api/users/logout");
         return response.data;
     },
 
@@ -86,7 +86,7 @@ export const authAPI = {
      * Fetches the current user's profile.
      */
     getProfile: async (): Promise<AuthResponse> => {
-        const response = await apiClient.get("/users/profile");
+        const response = await apiClient.get("/api/users/profile");
         return response.data;
     },
 
@@ -94,7 +94,7 @@ export const authAPI = {
      * VIP login with passkey
      */
     vipLogin: async (data: VipLoginData): Promise<AuthResponse> => {
-        const response = await apiClient.post("/users/login/vip", data);
+        const response = await apiClient.post("/api/users/login/vip", data);
         return response.data;
     },
 
@@ -104,7 +104,7 @@ export const authAPI = {
     sendOtpForPassword: async (
         email?: string
     ): Promise<{ success: boolean; message: string }> => {
-        const response = await apiClient.post(`/users/otp`, { email });
+        const response = await apiClient.post(`/api/users/otp`, { email });
         return response.data;
     },
     /**
@@ -114,7 +114,7 @@ export const authAPI = {
         email?: string
     ): Promise<{ success: boolean; message: string }> => {
         const response = await apiClient.post(
-            `/users/otp${email ? `?email=${email}` : ""}`
+            `/api/users/otp${email ? `?email=${email}` : ""}`
         );
         return response.data;
     },
@@ -126,7 +126,7 @@ export const authAPI = {
         newEmail: string,
         otp: string
     ): Promise<{ success: boolean; message: string; user: User }> => {
-        const response = await apiClient.put("/users/update-email", {
+        const response = await apiClient.put("/api/users/update-email", {
             newEmail,
             otp,
         });
@@ -141,7 +141,7 @@ export const authAPI = {
         newPassword: string,
         otp: string
     ): Promise<{ success: boolean; message: string }> => {
-        const response = await apiClient.put("/users/update-password", {
+        const response = await apiClient.put("/api/users/update-password", {
             email,
             newPassword,
             otp,
@@ -180,7 +180,7 @@ export const userAPI = {
         status?: "PENDING" | "ACTIVE" | "SUSPENDED";
         role?: "USER" | "ADMIN";
     }): Promise<UsersResponse> => {
-        const response = await apiClient.get("/users", { params });
+        const response = await apiClient.get("/api/users", { params });
         return response.data;
     },
 
@@ -188,7 +188,7 @@ export const userAPI = {
      * Get user by ID
      */
     getUserById: async (userId: string): Promise<UserResponse> => {
-        const response = await apiClient.get(`/users/${userId}`);
+        const response = await apiClient.get(`/api/users/${userId}`);
         return response.data;
     },
 
@@ -199,7 +199,9 @@ export const userAPI = {
         userId: string,
         status: "PENDING" | "ACTIVE" | "SUSPENDED"
     ): Promise<UserResponse> => {
-        const response = await apiClient.put(`/users/${userId}`, { status });
+        const response = await apiClient.put(`/api/users/${userId}`, {
+            status,
+        });
         return response.data;
     },
 };
