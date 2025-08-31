@@ -28,6 +28,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { authAPI } from "@/services/auth-api";
 import { Input } from "@/components/ui/input";
+import { ResetPasswordModal } from "@/components/modals/ResetPasswordModal";
 
 export default function ProfilePage() {
     const {
@@ -55,16 +56,16 @@ export default function ProfilePage() {
     );
     const [emailChangeSuccess, setEmailChangeSuccess] = useState(false);
 
-    // Password Change States
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [passwordOtp, setPasswordOtp] = useState("");
-    const [passwordOtpSent, setPasswordOtpSent] = useState(false);
-    const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
-    const [passwordChangeError, setPasswordChangeError] = useState<
-        string | null
-    >(null);
-    const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
+    // Password Change States - These can be removed or simplified
+    // const [newPassword, setNewPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
+    // const [passwordOtp, setPasswordOtp] = useState("");
+    // const [passwordOtpSent, setPasswordOtpSent] = useState(false);
+    // const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
+    // const [passwordChangeError, setPasswordChangeError] = useState<
+    //     string | null
+    // >(null);
+    // const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
     if (loading) {
         return (
@@ -149,13 +150,7 @@ export default function ProfilePage() {
 
     const handleClosePasswordModal = () => {
         setIsPasswordModalOpen(false);
-        setNewPassword("");
-        setConfirmPassword("");
-        setPasswordOtp("");
-        setPasswordOtpSent(false);
-        setPasswordChangeLoading(false);
-        setPasswordChangeError(null);
-        setPasswordChangeSuccess(false);
+        // No longer need to reset password state here
     };
 
     // --- Email Change Logic ---
@@ -174,11 +169,11 @@ export default function ProfilePage() {
         setEmailChangeLoading(true);
         setEmailChangeError(null);
         try {
-            await authAPI.sendOtp(newEmail);
+            await authAPI.sendOtpForEmail(newEmail);
             setEmailOtpSent(true);
         } catch (err: any) {
             setEmailChangeError(
-                err.response?.data?.message || "Failed to send OTP."
+                err.response?.data?.error || "Failed to send OTP."
             );
         } finally {
             setEmailChangeLoading(false);
@@ -193,61 +188,17 @@ export default function ProfilePage() {
         setEmailChangeLoading(true);
         setEmailChangeError(null);
         try {
-            await authAPI.updateEmail(newEmail, emailOtp);
+            const response = await authAPI.updateEmail(newEmail, emailOtp);
+            console.error(response);
             setEmailChangeSuccess(true);
             refreshUser(); // Refresh user data to get the new email
             setTimeout(handleCloseEmailModal, 2000);
         } catch (err: any) {
             setEmailChangeError(
-                err.response?.data?.message || "Failed to update email."
+                err.response?.data?.error || "Failed to update email."
             );
         } finally {
             setEmailChangeLoading(false);
-        }
-    };
-
-    // --- Password Change Logic ---
-    const handleSendPasswordOtp = async () => {
-        if (!newPassword || newPassword.length < 6) {
-            setPasswordChangeError("Password must be at least 6 characters.");
-            return;
-        }
-        if (newPassword !== confirmPassword) {
-            setPasswordChangeError("Passwords do not match.");
-            return;
-        }
-
-        setPasswordChangeLoading(true);
-        setPasswordChangeError(null);
-        try {
-            await authAPI.sendOtp(user.email);
-            setPasswordOtpSent(true);
-        } catch (err: any) {
-            setPasswordChangeError(
-                err.response?.data?.message || "Failed to send OTP."
-            );
-        } finally {
-            setPasswordChangeLoading(false);
-        }
-    };
-
-    const handleUpdatePassword = async () => {
-        if (!passwordOtp || passwordOtp.length < 4) {
-            setPasswordChangeError("Please enter a valid OTP.");
-            return;
-        }
-        setPasswordChangeLoading(true);
-        setPasswordChangeError(null);
-        try {
-            await authAPI.updatePassword(user.email, newPassword, passwordOtp);
-            setPasswordChangeSuccess(true);
-            setTimeout(handleClosePasswordModal, 2000);
-        } catch (err: any) {
-            setPasswordChangeError(
-                err.response?.data?.message || "Failed to update password."
-            );
-        } finally {
-            setPasswordChangeLoading(false);
         }
     };
 
@@ -737,143 +688,11 @@ export default function ProfilePage() {
             )}
 
             {/* Password Change Modal */}
-            {isPasswordModalOpen && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 m-4">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold">
-                                Change Password
-                            </h3>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={handleClosePasswordModal}
-                            >
-                                <X className="h-4 w-4" />
-                            </Button>
-                        </div>
-                        {passwordChangeSuccess ? (
-                            <div className="text-center py-4">
-                                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                                <h4 className="font-semibold">
-                                    Password Updated!
-                                </h4>
-                                <p className="text-sm text-gray-600">
-                                    You can now use your new password to log in.
-                                </p>
-                            </div>
-                        ) : (
-                            <div className="space-y-4">
-                                {!passwordOtpSent ? (
-                                    <>
-                                        <div>
-                                            <label
-                                                htmlFor="new-password"
-                                                className="text-sm font-medium"
-                                            >
-                                                New Password
-                                            </label>
-                                            <Input
-                                                id="new-password"
-                                                type="password"
-                                                value={newPassword}
-                                                onChange={(e) =>
-                                                    setNewPassword(
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Enter new password"
-                                                className="mt-1"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label
-                                                htmlFor="confirm-password"
-                                                className="text-sm font-medium"
-                                            >
-                                                Confirm New Password
-                                            </label>
-                                            <Input
-                                                id="confirm-password"
-                                                type="password"
-                                                value={confirmPassword}
-                                                onChange={(e) =>
-                                                    setConfirmPassword(
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Confirm new password"
-                                                className="mt-1"
-                                            />
-                                        </div>
-                                    </>
-                                ) : (
-                                    <div>
-                                        <label
-                                            htmlFor="password-otp"
-                                            className="text-sm font-medium"
-                                        >
-                                            OTP
-                                        </label>
-                                        <Input
-                                            id="password-otp"
-                                            value={passwordOtp}
-                                            onChange={(e) =>
-                                                setPasswordOtp(e.target.value)
-                                            }
-                                            placeholder={`Enter OTP sent to ${user.email}`}
-                                            maxLength={6}
-                                            className="mt-1"
-                                        />
-                                    </div>
-                                )}
-                                {passwordChangeError && (
-                                    <p className="text-sm text-red-600">
-                                        {passwordChangeError}
-                                    </p>
-                                )}
-                                <div className="flex justify-end space-x-2 pt-2">
-                                    <Button
-                                        variant="outline"
-                                        onClick={handleClosePasswordModal}
-                                        disabled={passwordChangeLoading}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    {!passwordOtpSent ? (
-                                        <Button
-                                            onClick={handleSendPasswordOtp}
-                                            disabled={
-                                                passwordChangeLoading ||
-                                                !newPassword ||
-                                                newPassword !== confirmPassword
-                                            }
-                                        >
-                                            {passwordChangeLoading && (
-                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            )}
-                                            Send OTP
-                                        </Button>
-                                    ) : (
-                                        <Button
-                                            onClick={handleUpdatePassword}
-                                            disabled={
-                                                passwordChangeLoading ||
-                                                !passwordOtp
-                                            }
-                                        >
-                                            {passwordChangeLoading && (
-                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            )}
-                                            Update Password
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
+            <ResetPasswordModal
+                isOpen={isPasswordModalOpen}
+                onClose={handleClosePasswordModal}
+                initialEmail={user?.email}
+            />
         </Container>
     );
 }

@@ -99,12 +99,23 @@ export const authAPI = {
     },
 
     /**
-     * Request an OTP for updating email or password.
+     * Request an OTP for updating password.
      */
-    sendOtp: async (
-        email: string
+    sendOtpForPassword: async (
+        email?: string
     ): Promise<{ success: boolean; message: string }> => {
         const response = await apiClient.post(`/users/otp`, { email });
+        return response.data;
+    },
+    /**
+     * Request an OTP for updating email .
+     */
+    sendOtpForEmail: async (
+        email?: string
+    ): Promise<{ success: boolean; message: string }> => {
+        const response = await apiClient.post(
+            `/users/otp${email ? `?email=${email}` : ""}`
+        );
         return response.data;
     },
 

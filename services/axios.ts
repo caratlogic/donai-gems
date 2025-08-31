@@ -29,8 +29,9 @@ apiClient.interceptors.response.use(
     },
     (error) => {
         if (error.response?.status === 401) {
-            // Handle unauthorized access
-            window.location.href = "/login";
+            if (window.location.pathname !== "/login") {
+                window.location.href = "/login";
+            }
         }
         return Promise.reject(error);
     }
