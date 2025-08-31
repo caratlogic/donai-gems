@@ -466,7 +466,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
                     onMouseEnter={() => setShowCategoriesDropdown(true)}
                     onMouseLeave={() => setShowCategoriesDropdown(false)}
                 >
-                    <div className="w-[1000px] py-6 bg-white shadow-[0px_20px_30px_0px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
+                    <div className="w-fit py-6 bg-white shadow-[0px_20px_30px_0px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
                         <div className="flex justify-between items-start gap-0 px-6">
                             {/* Left Filters Section */}
                             <div className="flex flex-col justify-start items-start gap-4">

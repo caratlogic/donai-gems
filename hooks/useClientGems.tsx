@@ -194,7 +194,9 @@ export function useClientGems(): UseClientGemsReturn {
                 });
 
                 const response = await axios.get(
-                    `https://api-gems-inventory.onrender.com${endpoint}?${queryParams.toString()}`
+                    `${
+                        process.env.NEXT_PUBLIC_API_BASE_URL
+                    }${endpoint}?${queryParams.toString()}`
                 );
 
                 if (!response.data.success) {

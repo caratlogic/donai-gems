@@ -25,42 +25,15 @@ const ContactForm = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative w-full bg-[#ffffff] pt-20 pb-8 px-4 md:px-24 mt-10 md:mt-10"
+            className="relative w-full bg-[#ffffff]  px-4 md:px-24 my-20 "
         >
             {/* Decorative Stars */}
-            <Image
-                src={StarIcon}
-                alt="star"
-                width={25}
-                height={25}
-                className="absolute top-10 right-50"
-            />
-            <Image
-                src={StarIcon}
-                alt="star"
-                width={25}
-                height={25}
-                className="absolute bottom-20 right-10"
-            />
 
             {/* Section Title */}
-            <div className="max-w-7xl mx-auto mb-12">
-                <h2
-                    className={`text-5xl font-normal ${playFair.className}`}
-                    style={{
-                        background:
-                            "linear-gradient(to right, #D6BFA6, #8B6C4A)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                    }}
-                >
-                    Connect with DONAI
-                </h2>
-            </div>
 
             {/* Grid Layout */}
             <div
-                className={`max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch ${inter.className}`}
+                className={`max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center justify-center ${inter.className}`}
             >
                 {/* Image Side */}
                 <motion.div
@@ -68,7 +41,7 @@ const ContactForm = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.1 }}
                     viewport={{ once: true }}
-                    className="w-full h-full"
+                    className="w-full hidden lg:block h-full"
                 >
                     <div className="relative w-full h-full min-h-[420px]">
                         <Image

@@ -10,8 +10,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
-import Footer from "../components/landing/footer/Footer";
 import Navbar from "../components/landing/header/Navbar";
+import FooterSection from "@/components/newHome/FooterSection";
 
 const playfair = Playfair_Display({
     variable: "--font-playfair",
@@ -83,14 +83,15 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={` ${openSans.variable} ${playfair.variable} antialiased`}
+                className={`m-0 p-0  ${openSans.variable} ${playfair.variable} antialiased`}
             >
                 <AuthProvider>
                     <Navbar />
                     {children}
-                    <Footer />
+
+                    <FooterSection />
+                    <Toaster />
                 </AuthProvider>
-                <Toaster />
             </body>
         </html>
     );

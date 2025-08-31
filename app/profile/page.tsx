@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,9 +17,18 @@ import {
     Shield,
     Calendar,
     AlertCircle,
+    Edit3,
+    X,
+    Lock,
+    Loader2,
+    Send,
+    CheckCircle,
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
+import { authAPI } from "@/services/auth-api";
+import { Input } from "@/components/ui/input";
+import { ResetPasswordModal } from "@/components/modals/ResetPasswordModal";
 
 export default function ProfilePage() {
     const {
@@ -32,6 +41,31 @@ export default function ProfilePage() {
         isRefreshing,
     } = useAuth();
     const router = useRouter();
+
+    // Modal States
+    const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+    // Email Change States
+    const [newEmail, setNewEmail] = useState("");
+    const [emailOtp, setEmailOtp] = useState("");
+    const [emailOtpSent, setEmailOtpSent] = useState(false);
+    const [emailChangeLoading, setEmailChangeLoading] = useState(false);
+    const [emailChangeError, setEmailChangeError] = useState<string | null>(
+        null
+    );
+    const [emailChangeSuccess, setEmailChangeSuccess] = useState(false);
+
+    // Password Change States - These can be removed or simplified
+    // const [newPassword, setNewPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
+    // const [passwordOtp, setPasswordOtp] = useState("");
+    // const [passwordOtpSent, setPasswordOtpSent] = useState(false);
+    // const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
+    // const [passwordChangeError, setPasswordChangeError] = useState<
+    //     string | null
+    // >(null);
+    // const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
     if (loading) {
         return (
@@ -103,6 +137,71 @@ export default function ProfilePage() {
         router.push("/register");
     };
 
+    // --- Modal Close Handlers ---
+    const handleCloseEmailModal = () => {
+        setIsEmailModalOpen(false);
+        setNewEmail("");
+        setEmailOtp("");
+        setEmailOtpSent(false);
+        setEmailChangeLoading(false);
+        setEmailChangeError(null);
+        setEmailChangeSuccess(false);
+    };
+
+    const handleClosePasswordModal = () => {
+        setIsPasswordModalOpen(false);
+        // No longer need to reset password state here
+    };
+
+    // --- Email Change Logic ---
+    const handleSendEmailOtp = async () => {
+        if (!newEmail || !newEmail.includes("@")) {
+            setEmailChangeError("Please enter a valid email address.");
+            return;
+        }
+        if (newEmail === user.email) {
+            setEmailChangeError(
+                "New email cannot be the same as the current one."
+            );
+            return;
+        }
+
+        setEmailChangeLoading(true);
+        setEmailChangeError(null);
+        try {
+            await authAPI.sendOtpForEmail(newEmail);
+            setEmailOtpSent(true);
+        } catch (err: any) {
+            setEmailChangeError(
+                err.response?.data?.error || "Failed to send OTP."
+            );
+        } finally {
+            setEmailChangeLoading(false);
+        }
+    };
+
+    const handleUpdateEmail = async () => {
+        if (!emailOtp || emailOtp.length < 4) {
+            setEmailChangeError("Please enter a valid OTP.");
+            return;
+        }
+        setEmailChangeLoading(true);
+        setEmailChangeError(null);
+        try {
+            const response = await authAPI.updateEmail(newEmail, emailOtp);
+            console.error(response);
+            setEmailChangeSuccess(true);
+            refreshUser(); // Refresh user data to get the new email
+            setTimeout(handleCloseEmailModal, 2000);
+        } catch (err: any) {
+            setEmailChangeError(
+                err.response?.data?.error || "Failed to update email."
+            );
+        } finally {
+            setEmailChangeLoading(false);
+        }
+    };
+
     return (
         <Container className="min-h-screen">
             <div className="max-w-4xl mx-auto py-8 space-y-6">
@@ -141,7 +240,7 @@ export default function ProfilePage() {
                 )}
 
                 {/* Incomplete Profile Alert */}
-                {!user.customerData && (
+                {!user.customerData && !isAdmin && (
                     <Alert>
                         <AlertCircle className="h-4 w-4" />
                         <AlertDescription className="flex items-center justify-between">
@@ -182,9 +281,21 @@ export default function ProfilePage() {
                                 <label className="text-sm font-medium text-gray-500">
                                     Email
                                 </label>
-                                <div className="mt-1 flex items-center space-x-2">
-                                    <Mail className="h-4 w-4 text-gray-400" />
-                                    <span>{user.email}</span>
+                                <div className="mt-1 flex items-center justify-between">
+                                    <div className="flex items-center space-x-2">
+                                        <Mail className="h-4 w-4 text-gray-400" />
+                                        <span>{user.email}</span>
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6"
+                                        onClick={() =>
+                                            setIsEmailModalOpen(true)
+                                        }
+                                    >
+                                        <Edit3 className="h-4 w-4" />
+                                    </Button>
                                 </div>
                             </div>
                             {user.phone && (
@@ -198,6 +309,27 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                             )}
+                            <div>
+                                <label className="text-sm font-medium text-gray-500">
+                                    Password
+                                </label>
+                                <div className="mt-1 flex items-center justify-between">
+                                    <div className="flex items-center space-x-2">
+                                        <Lock className="h-4 w-4 text-gray-400" />
+                                        <span>••••••••</span>
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6"
+                                        onClick={() =>
+                                            setIsPasswordModalOpen(true)
+                                        }
+                                    >
+                                        <Edit3 className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </div>
                             <div>
                                 <label className="text-sm font-medium text-gray-500">
                                     Member Since
@@ -442,6 +574,125 @@ export default function ProfilePage() {
                     </Button>
                 </div> */}
             </div>
+
+            {/* Email Change Modal */}
+            {isEmailModalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 m-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold">
+                                Change Email
+                            </h3>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleCloseEmailModal}
+                            >
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                        {emailChangeSuccess ? (
+                            <div className="text-center py-4">
+                                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                                <h4 className="font-semibold">
+                                    Email Updated!
+                                </h4>
+                                <p className="text-sm text-gray-600">
+                                    Your email has been changed to {newEmail}.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {!emailOtpSent ? (
+                                    <div>
+                                        <label
+                                            htmlFor="new-email"
+                                            className="text-sm font-medium"
+                                        >
+                                            New Email Address
+                                        </label>
+                                        <Input
+                                            id="new-email"
+                                            type="email"
+                                            value={newEmail}
+                                            onChange={(e) =>
+                                                setNewEmail(e.target.value)
+                                            }
+                                            placeholder="Enter your new email"
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <label
+                                            htmlFor="email-otp"
+                                            className="text-sm font-medium"
+                                        >
+                                            OTP
+                                        </label>
+                                        <Input
+                                            id="email-otp"
+                                            value={emailOtp}
+                                            onChange={(e) =>
+                                                setEmailOtp(e.target.value)
+                                            }
+                                            placeholder="Enter OTP sent to new email"
+                                            maxLength={6}
+                                            className="mt-1"
+                                        />
+                                    </div>
+                                )}
+                                {emailChangeError && (
+                                    <p className="text-sm text-red-600">
+                                        {emailChangeError}
+                                    </p>
+                                )}
+                                <div className="flex justify-end space-x-2 pt-2">
+                                    <Button
+                                        variant="outline"
+                                        onClick={handleCloseEmailModal}
+                                        disabled={emailChangeLoading}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    {!emailOtpSent ? (
+                                        <Button
+                                            onClick={handleSendEmailOtp}
+                                            disabled={
+                                                emailChangeLoading || !newEmail
+                                            }
+                                        >
+                                            {emailChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Send OTP
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={handleUpdateEmail}
+                                            disabled={
+                                                emailChangeLoading || !emailOtp
+                                            }
+                                        >
+                                            {emailChangeLoading && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Update Email
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* Password Change Modal */}
+            <ResetPasswordModal
+                isOpen={isPasswordModalOpen}
+                onClose={handleClosePasswordModal}
+                initialEmail={user?.email}
+            />
         </Container>
     );
 }

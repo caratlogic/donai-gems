@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+::selection {
+    @apply bg-primary text-white;
+}
 
 @theme {
     /* Define your custom animation variable */

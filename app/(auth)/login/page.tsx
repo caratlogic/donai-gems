@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authAPI } from "@/services/auth-api";
 import { useAuth } from "@/hooks/useAuth";
+import { ResetPasswordModal } from "@/components/modals/ResetPasswordModal";
 
 const Page = () => {
     const [emailFormData, setEmailFormData] = useState({
@@ -22,6 +23,8 @@ const Page = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] =
+        useState(false);
     const router = useRouter();
     const { login } = useAuth();
 
@@ -68,8 +71,8 @@ const Page = () => {
         } catch (err: any) {
             console.error("Login error:", err);
 
-            if (err.response?.data?.message) {
-                setError(err.response.data.message);
+            if (err.response?.data?.error) {
+                setError(err.response.data.error);
             } else if (err.response?.status === 400) {
                 setError("Invalid email or password");
             } else if (err.response?.status === 401) {
@@ -105,8 +108,10 @@ const Page = () => {
                 setError(response.message || "Passkey login failed");
             }
         } catch (err: any) {
-            console.error("Passkey login error:", err);
-            setError("Passkey login failed. Please try again.");
+            setError(
+                err.response?.data?.error ||
+                    "Passkey login failed. Please try again."
+            );
         } finally {
             setIsLoading(false);
         }
@@ -215,6 +220,9 @@ const Page = () => {
                                     </div>
                                     <button
                                         type="button"
+                                        onClick={() =>
+                                            setIsForgotPasswordModalOpen(true)
+                                        }
                                         className="text-sm text-gray-500 hover:text-[#C49A6C] transition-colors font-openSans"
                                     >
                                         Forgot Password?
@@ -334,6 +342,10 @@ const Page = () => {
                     </div>
                 </div>
             </div>
+            <ResetPasswordModal
+                isOpen={isForgotPasswordModalOpen}
+                onClose={() => setIsForgotPasswordModalOpen(false)}
+            />
         </div>
     );
 };

@@ -113,10 +113,7 @@ const Footer = () => {
                     <div
                         className={`relative z-10 container mx-auto px-4 flex flex-col md:flex-row justify-center items-center text-sm text-[#FFFFFF] ${inter.className}`}
                     >
-                        <p>
-                            &copy; {new Date().getFullYear()} Motion Creative
-                            Cloud Inc.
-                        </p>
+                        <p>&copy; {new Date().getFullYear()} Donai Gems </p>
                         <div className="flex gap-4 mt-2 md:mt-0">
                             <Link
                                 href="/privacy"
