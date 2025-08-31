@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL =
     process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "https://api-gems-inventory.onrender.com/api";
+    "https://api-gems-inventory.onrender.com";
 
 export const apiClient = axios.create({
     baseURL: API_BASE_URL,
