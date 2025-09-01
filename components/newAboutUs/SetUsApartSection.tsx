@@ -4,11 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { Playfair_Display, Inter, Marcellus, Jost } from "next/font/google";
 
-import about1 from "@/public/newAboutUs/SetUsApartSection/about1.jpg";
-import about2 from "@/public/newAboutUs/SetUsApartSection/about2.jpg";
-import about3 from "@/public/newAboutUs/SetUsApartSection/about3.jpg";
-import about4 from "@/public/newAboutUs/SetUsApartSection/about4.jpg";
-import centerImage from "@/public/newAboutUs/SetUsApartSection/About-gallery-center.jpg";
+import about1 from "@/public/newHome/yellow-gem-.jpg";
+import about2 from "@/public/newHome/purple-gem-blue-bg.jpg";
+import about3 from "@/public/newHome/blue-heart-gem.jpg";
+import about4 from "@/public/newHome/blue-gem-on-cushion.jpeg";
+import centerImage from "@/public/setusabout-Senter.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -107,9 +107,9 @@ const SetUsApartSection = () => {
                 </div>
 
                 <div className="max-w-5xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 items-center justify-center">
+                    <div className="grid grid-cols-1  lg:grid-cols-3 gap-3 items-center justify-center">
                         {/* Left Side 2 Boxes */}
-                        <div className="flex flex-col justify-center items-stretch gap-3">
+                        <div className="flex flex-col  justify-center items-stretch gap-3">
                             <FeatureCard
                                 title={features[0].title}
                                 description={features[0].description}
@@ -123,10 +123,10 @@ const SetUsApartSection = () => {
                         </div>
 
                         {/* Center Image */}
-                        <div className="text-center h-full hidden lg:block">
+                        <div className="text-center h-full  hidden lg:block">
                             <Image
                                 src={centerImage}
-                                className="w-full h-full object-cover rounded-[10px]"
+                                className="w-full h-full aspect-square object-cover rounded-[10px]"
                                 alt="Main Showcase"
                             />
                         </div>

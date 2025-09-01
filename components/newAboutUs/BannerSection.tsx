@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Marcellus } from "next/font/google";
-import bannerImage from "@/public/newAboutUs/bANNER_about.jpg";
+import bannerImage from "@/public/colorful-gems-2.jpg";
 
 const marcellus = Marcellus({
     subsets: ["latin"],
@@ -35,6 +35,7 @@ const BannerSection: React.FC<BannerSectionProps> = ({
                 className="object-cover"
                 alt="Banner with various gemstones"
                 fill
+                quality={100}
                 priority
             />
             <div className="absolute inset-0 bg-black/30"></div>

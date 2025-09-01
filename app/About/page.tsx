@@ -4,9 +4,9 @@ import BannerSection from "@/components/newAboutUs/BannerSection";
 import ImageTextSection from "@/components/newAboutUs/ImageTextSection";
 import { ReactLenis, useLenis } from "lenis/react";
 
-import aboutImage1 from "@/public/newAboutUs/About_Page_1.jpg";
-import aboutImage2 from "@/public/newAboutUs/About_Page_2.jpg";
-import aboutImage3 from "@/public/newAboutUs/About_Page_3.jpg";
+import aboutImage1 from "@/public/newHome/blu-gem-blue-bg.jpg";
+import aboutImage2 from "@/public/newHome/Antwerp.jpg";
+import aboutImage3 from "@/public/newHome/pink-gem.jpg";
 import SetUsApartSection from "@/components/newAboutUs/SetUsApartSection";
 
 const Page = () => {

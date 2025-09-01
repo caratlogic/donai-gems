@@ -80,7 +80,10 @@ const Navbar = () => {
 
     // User dropdown menu items (including admin items if admin)
     const userMenuItems = [
-        { name: "Profile", path: "/profile", icon: UserCircle },
+        // Only show Profile if user is not VIP
+        ...(user?.isVip !== true
+            ? [{ name: "Profile", path: "/profile", icon: UserCircle }]
+            : []),
         ...(isAdmin
             ? [
                   { name: "Admin Panel", path: "/admin", icon: Settings },
@@ -280,7 +283,7 @@ const Navbar = () => {
                                     <Button
                                         variant="outline"
                                         className={`text-md hover:border-primary text-white bg-transparent hover:text-primary hover:bg-transparent rounded-none cursor-pointer flex items-center gap-2 ${
-                                            user?.isVip === true ? "hidden" : ""
+                                            user?.isVip === true ? "" : ""
                                         }`}
                                         onMouseEnter={() =>
                                             setShowUserDropdown(true)
