@@ -1,9 +1,7 @@
 import axios from "axios";
 import { Gem } from "@/lib/validations/gems-Schema";
 
-const API_BASE_URL =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://api-gems-inventory.onrender.com";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface GemsApiResponse {
     success: boolean;
