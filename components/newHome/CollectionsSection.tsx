@@ -7,7 +7,7 @@ import gem11 from "@/public/newHome/buildOnCraft/img2.jpg";
 import gem12 from "@/public/HearPreciousStone.jpg";
 import gem13 from "@/public/newHome/CategoriesSection/img4.jpg";
 import gem14 from "@/public/newHome/CategoriesSection/precious_stone.jpg";
-import gem15 from "@/public/newHome/Blue-Ring.jpg";
+import gem15 from "@/public/Blue-Ring-zoomed.jpg";
 import { Button } from "../ui/button";
 
 const playFair = Playfair_Display({

@@ -17,7 +17,7 @@ const Gems = [
     {
         src: gem21,
         alt: "GEM 4",
-        name: "The Tsavorite Renaissance",
+        name: "The Tourmaline Renaissance",
     },
     {
         src: gem22,

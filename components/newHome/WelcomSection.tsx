@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, Variants } from "motion/react";
 import { Playfair_Display, Inter, Jost } from "next/font/google";
 import firstImage from "@/public/newHome/Red-Ring-Hand.jpg";
-import SecondImage from "@/public/newHome/Red-Ring.jpg";
+import SecondImage from "@/public/newHome/red-ring-sunlight.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -151,7 +151,7 @@ const WelcomeSection = () => {
                                     {/* Image with different parallax speed */}
                                     <motion.div
                                         style={{ y: imageTransform }}
-                                        className="relative transition-all ease-linear w-full h-[170%] -top-4"
+                                        className="relative transition-all ease-linear w-full h-[170%] top-20"
                                     >
                                         <Image
                                             src={SecondImage} // Update with your actual image path

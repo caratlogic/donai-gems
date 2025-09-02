@@ -135,7 +135,7 @@ const Navbar = () => {
                 className="bg-[#181818] sticky top-0 z-1 shadow-lg"
             >
                 <div
-                    className={` hidden lg:flex max-w-[1380px] mx-auto py-3 px-10  gap-60 lg:gap-10 justify-between items-center ${mulish.className}`}
+                    className={` hidden lg:flex max-w-[1380px] mx-auto py-3 px-10  gap-60 lg:gap-10 justify-center items-center ${mulish.className}`}
                 >
                     <div className="flex items-center space-x-5 text-sm text-gray-300">
                         <div className="flex items-center space-x-2 ">
@@ -144,14 +144,14 @@ const Navbar = () => {
                         </div>
                         <div className="flex items-center space-x-2">
                             <Phone className="h-3 w-3 " />
-                            <span>+32 (0)3 XXX XXXX</span>
+                            <span>+32 3 233 4309</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <Mail className="h-3 w-3 " />
                             <span>info@donaigems.com</span>
                         </div>
                     </div>
-                    <div className="flex items-center space-x-4 text-sm opacity-0 text-gray-300 ">
+                    <div className=" items-center space-x-4 text-sm hidden text-gray-300 ">
                         <div className="flex items-center space-x-2 ">
                             <Facebook className="h-4 w-4 " />
                         </div>

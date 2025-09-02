@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     creator: "DONAI Gems",
     publisher: "DONAI Gems",
     openGraph: {
-        title: "DONAI Gems - Premium Natural Gemstones & Luxury Jewelry",
+        title: "DONAI Gems - Precious Stones Gemstones & Luxury Jewelry",
         description:
             "Antwerp's premier source for high-grade natural gemstones. Certified precious stones trusted by global jewelers and collectors.",
         url: "https://donaigems.com",
