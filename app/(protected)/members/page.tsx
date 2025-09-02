@@ -61,7 +61,7 @@ export default function MembersPage() {
             setError(null);
 
             // Fetch all users without status filter
-            const response = await apiClient.get<UsersResponse>("/users", {
+            const response = await apiClient.get<UsersResponse>("/api/users", {
                 params: {
                     limit: 100, // Get a large number to fetch all users
                     page: 1,
@@ -115,7 +115,7 @@ export default function MembersPage() {
         try {
             // Note: Based on your APIs.md, there's no direct user status update endpoint
             // You might need to create one or use a different approach
-            const response = await apiClient.put(`/users/${userId}`, {
+            const response = await apiClient.put(`/api/users/${userId}`, {
                 status: newStatus,
             });
 
