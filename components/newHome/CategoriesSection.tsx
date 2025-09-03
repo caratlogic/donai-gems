@@ -4,7 +4,7 @@ import { Playfair_Display, Marcellus, Jost } from "next/font/google";
 import Image from "next/image";
 import fig1 from "@/public/newHome/green-ring.jpg";
 import fig2 from "@/public/newHome/green-pendant.jpg";
-import fig3 from "@/public/yellow-ring-3.jpg";
+import fig3 from "@/public/newHome/yelloe-Ring2.jpg";
 import fig4 from "@/public/newHome/purple-gem.jpg";
 import Link from "next/link";
 import {

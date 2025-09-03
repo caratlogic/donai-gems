@@ -4,7 +4,7 @@ import { Playfair_Display, Mulish, Jost } from "next/font/google";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import gem8 from "@/app/assets/blue.jpg";
-import gem22 from "@/public/newHome/green-bracelet.jpg"; // Added a second image for the layout
+import gem22 from "@/public/newHome/green-bracelet2.jpg"; // Added a second image for the layout
 import Link from "next/link";
 
 const playFair = Playfair_Display({

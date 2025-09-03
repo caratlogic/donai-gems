@@ -54,7 +54,7 @@ const HeroSection = () => {
                         Where Gems Meet Elegance
                     </motion.h1>
 
-                    <motion.p
+                    {/* <motion.p
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
@@ -62,7 +62,7 @@ const HeroSection = () => {
                     >
                         Discover timeless diamonds and rare gemstones, crafted
                         to perfection and designed to define your legacy.
-                    </motion.p>
+                    </motion.p> */}
 
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
