@@ -23,7 +23,7 @@ const FooterSection = () => {
                     {/* Address */}
                     <div className="lg:w-1/3">
                         <h3 className={`text-xl mb-2 ${playFair.className}`}>
-                            Address
+                            Headquaters
                         </h3>
                         <p
                             className={`text-sm text-gray-300 ${jost.className}`}
@@ -55,7 +55,7 @@ const FooterSection = () => {
                         <p
                             className={` flex justify-center  gap-2 text-sm text-gray-300 ${jost.className}`}
                         >
-                            <Phone size={15} /> +32 (0)3 XXX XXXX
+                            <Phone size={15} /> +32 3 233 4309
                         </p>
 
                         <p
