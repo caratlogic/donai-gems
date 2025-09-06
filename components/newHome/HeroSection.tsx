@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Playfair_Display, Inter } from "next/font/google";
-import HeroBanner from "@/public/newHome/WelcomeSection/bannerTest.jpg";
+import HeroBanner from "@/public/newHome/WelcomeSection/banner-new.jpg";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
