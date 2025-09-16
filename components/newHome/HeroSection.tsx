@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Playfair_Display, Inter } from "next/font/google";
-import HeroBanner from "@/public/newHome/WelcomeSection/banner-white.jpg";
+import HeroBanner from "@/public/newHome/WelcomeSection/banner-gold.jpg";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -49,7 +49,7 @@ const HeroSection = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className={`text-3xl md:text-3xl lg:text-4xl max-w-xl font-normal leading-tight mb-6 text-[#927650] ${playfair.className}`}
+                        className={`text-3xl md:text-3xl lg:text-4xl max-w-xl font-normal leading-tight mb-6 text-black  ${playfair.className}`}
                     >
                         Where Gems Meet
                         <br />
@@ -62,7 +62,7 @@ const HeroSection = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className={`text-md leading-relaxed mb-8 max-w-md font-light text-gray-600 ${inter.className}`}
+                        className={`text-md leading-relaxed mb-8 max-w-md font-light text-black ${inter.className}`}
                     >
                         Discover timeless diamonds and rare gemstones, crafted
                         to perfection and designed to define your legacy.
@@ -74,7 +74,7 @@ const HeroSection = () => {
                         transition={{ duration: 0.6, delay: 0.6 }}
                     >
                         <Link href="/gemstones">
-                            <button className="group relative overflow-hidden bg-[#927650]  px-5 py-2 text-white hover:shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] transition-all duration-300 ease-in-out">
+                            <button className="group cursor-pointer relative overflow-hidden bg-[#927650]  px-5 py-2 text-white hover:shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] transition-all duration-300 ease-in-out">
                                 <span className="relative text-sm  font-medium tracking-wide">
                                     EXPLORE MORE
                                 </span>
