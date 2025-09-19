@@ -6,7 +6,7 @@ import { ReactLenis, useLenis } from "lenis/react";
 
 import aboutImage1 from "@/public/newHome/blu-gem-blue-bg.jpg";
 import aboutImage2 from "@/public/newHome/Antwerp.jpg";
-import aboutImage3 from "@/public/newHome/pink-gem.jpg";
+import aboutImage3 from "@/public/newAboutUs/redGemOnBLueBg.jpg";
 import SetUsApartSection from "@/components/newAboutUs/SetUsApartSection";
 
 const Page = () => {
@@ -57,10 +57,9 @@ const Page = () => {
                         subheading="Truly Do"
                         description="At DONAI, gemstones are our identity. We specialise in natural, premium-grade gems sourced from around the world and evaluated under the strictest international labs. We are known for:"
                         bulletPoints={[
-                            "Loose Gemstones: Rubies, Sapphires, Emeralds, Spinels, Tourmalines & more",
-                            "Certified Inventory: GIA, IGI, and HRD-certified pieces",
-                            "B2B First: Serving jewellers, designers, and bulk buyers",
-                            "Limited Jewellery Offerings: Only 20% of our stock is converted into high-end jewellery — a reflection of what our gems deserve to become",
+                            "Loose Gemstones: Rubies, Sapphires, Emeralds & more",
+                            "Certified Inventory: SSEF, GRS, GUBELIN, AGL",
+                            "We are rare top-quality precious stone dealers, dedicated to finding and sourcing only the highest quality precious stones such as Rubies, Sapphires, and Emeralds. Our focus is solely on providing the very best in top-quality colored precious stones.",
                         ]}
                         imageSrc={aboutImage3}
                         imagePosition="left"

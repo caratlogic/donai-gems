@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Marcellus } from "next/font/google";
-import bannerImage from "@/public/colorful-gems-2.jpg";
+import bannerImage from "@/public/newAboutUs/banner-aboutus2.jpg";
 
 const marcellus = Marcellus({
     subsets: ["latin"],

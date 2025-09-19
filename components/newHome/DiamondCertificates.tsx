@@ -96,9 +96,8 @@ const DiamondCertificates = () => {
                         className={`${jost.className} mt-6 text-neutral-400 text-base leading-7`}
                     >
                         Every gemstone is accompanied by certifications from
-                        globally recognised laboratories, including GIA, SSEF,
-                        GRS, HRD, and Gübelin, ensuring authenticity and
-                        quality.
+                        globally recognised laboratories, including SSEF, GRS,
+                        Gübelin and AGL, ensuring authenticity and quality.
                     </p>
                     <p
                         className={`${jost.className} mt-4 text-neutral-400 text-base leading-7`}

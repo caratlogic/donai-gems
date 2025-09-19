@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import gem3 from "@/app/assets/gem3.jpg";
 import greenGem from "@/public/greenGem-NoClipper.png";
 import ruby from "@/public/ruby.png";
-import yellowGem from "@/public/YellowGem-NoClipper.png";
+import yellowGem from "@/public/newHome/Green-semiprecious.jpeg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],
@@ -60,9 +60,9 @@ const gemsData: GemData[] = [
     },
     {
         id: "precious",
-        title: "Precious Gems",
+        title: "Semi Precious Gems",
         image: yellowGem,
-        alt: "Precious Gems",
+        alt: "Semi Precious Gems",
         delay: 0.4,
     },
 ];

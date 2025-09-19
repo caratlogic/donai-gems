@@ -44,8 +44,8 @@ const Gems = [
     {
         src: fig4,
         alt: "GEM 4",
-        desc: "Semi Precious",
-        description: "Carefully curated semi-precious gemstone collection",
+        desc: "Precious Ruby Gem",
+        description: "Carefully curated precious gemstone collection",
     },
     {
         src: fig2,
