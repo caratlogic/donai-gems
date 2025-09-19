@@ -7,10 +7,10 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 // Import gem images
-import gem3 from "@/app/assets/gem3.jpg";
-import greenGem from "@/public/greenGem-NoClipper.png";
-import ruby from "@/public/ruby.png";
-import yellowGem from "@/public/newHome/Green-semiprecious.jpeg";
+import gem3 from "@/public/newHome/FinestGem/finestgem1.jpg";
+import greenGem from "@/public/newHome/FinestGem/finestgem2.jpg";
+import ruby from "@/public/newHome/FinestGem/finestgem3.jpg";
+import yellowGem from "@/public/newHome/FinestGem/finestgem4.jpg";
 
 const playFair = Playfair_Display({
     subsets: ["latin"],

@@ -10,7 +10,7 @@ import { Playfair_Display, Jost } from "next/font/google";
 // Placeholder images - replace with your actual image paths
 import img1 from "@/public/newHome/buildOnCraft/img2.jpg";
 import img2 from "@/public/newHome/CategoriesSection/img4.jpg";
-import img3 from "@/public/newHome/CategoriesSection/precious_stone.jpg";
+import img3 from "@/public/saphhireRing.jpeg";
 import img4 from "@/public/newHome/CategoriesSection/sami-precease.jpg";
 
 const playFair = Playfair_Display({

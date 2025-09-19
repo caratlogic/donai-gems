@@ -2,7 +2,7 @@ import React from "react";
 import { Open_Sans, Marcellus } from "next/font/google";
 import Image from "next/image";
 import gem21 from "@/app/assets/gem21.jpg";
-import gem22 from "@/app/assets/gem22.jpg";
+import gem22 from "@/public/newHome/multipleEmeralds.jpg";
 
 const openSans = Open_Sans({
     subsets: ["latin"],
@@ -41,7 +41,7 @@ const ShowGems = () => {
                                 alt={gem.alt}
                                 width={300}
                                 height={300}
-                                className="w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                className="w-full  object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
                             />
                             <p
                                 className={`absolute bottom-10  left-10 font-playfair text-white mt-5 text-[22px] font-medium ${marcellus.className}`}
