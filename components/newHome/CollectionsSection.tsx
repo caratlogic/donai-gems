@@ -6,7 +6,7 @@ import Link from "next/link";
 import gem11 from "@/public/newHome/buildOnCraft/img2.jpg";
 import gem12 from "@/public/HearPreciousStone.jpg";
 import gem13 from "@/public/newHome/CategoriesSection/img4.jpg";
-import gem14 from "@/public/newHome/Red-Ring.jpg";
+import gem14 from "@/public/newHome/Red-Ring1.jpg";
 import gem15 from "@/public/Blue-Ring-zoomed.jpg";
 import { Button } from "../ui/button";
 
