@@ -6,7 +6,7 @@ import { Playfair_Display, Open_Sans } from "next/font/google";
 import test1 from "@/app/assets/test1.jpg";
 import test2 from "@/app/assets/test2.jpg";
 import test3 from "@/app/assets/test3.jpg";
-import BgImage from "@/public/newHome/Testimonial/Testimonial.png";
+import BgImage from "@/public/newHome/Testimonial/Testimonial1.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 const playFair = Playfair_Display({
