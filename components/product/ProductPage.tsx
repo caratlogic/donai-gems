@@ -30,7 +30,13 @@ import GemCertificate from "../client/GemCertificate";
 import GemVideo from "../client/GemVideo";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 export interface ProductPageProps {
     productId: string;
 }
@@ -308,12 +314,47 @@ export function ProductPage({ productId }: ProductPageProps) {
                     <div className="space-y-4 sticky top-30">
                         <div className="aspect-square relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden">
                             {/* Main product image placeholder */}
-                            <div className="absolute inset-0  flex items-center justify-center">
-                                <GemImage
-                                    gem={product}
-                                    className="hover:scale-105 transition-all duration-500"
-                                />
-                            </div>
+                            <Carousel className="w-full h-full">
+                                <CarouselContent>
+                                    {/* Default GemImage if no uploaded images */}
+                                    {fileUrls.images.length === 0 && (
+                                        <CarouselItem>
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <GemImage
+                                                    gem={product}
+                                                    className="hover:scale-105 transition-all duration-500"
+                                                />
+                                            </div>
+                                        </CarouselItem>
+                                    )}
+
+                                    {/* Uploaded images from S3 */}
+                                    {fileUrls.images.map((imageUrl, index) => (
+                                        <CarouselItem key={index}>
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <img
+                                                    src={imageUrl}
+                                                    alt={`${
+                                                        product.description
+                                                    } - Image ${index + 1}`}
+                                                    className="object-contain hover:scale-105 transition-all duration-500"
+                                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                                />
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+
+                                {/* Show navigation only if there are multiple images */}
+                                {(fileUrls.images.length > 1 ||
+                                    (fileUrls.images.length === 0 &&
+                                        1 > 1)) && (
+                                    <>
+                                        <CarouselPrevious className="left-4" />
+                                        <CarouselNext className="right-4" />
+                                    </>
+                                )}
+                            </Carousel>
 
                             {/* Action buttons */}
                             <div className="absolute top-4 right-4 flex gap-2">
@@ -574,7 +615,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                         </div>
 
                         {/* Additional Information */}
-                        <div className="flex flex-col space-y-2">
+                        {/* <div className="flex flex-col space-y-2">
                             <div className="flex items-center justify-between gap-2">
                                 <h4 className="font-normal text-gray-400">
                                     Free shipping worldwide
@@ -602,7 +643,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                     Included
                                 </Badge>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
