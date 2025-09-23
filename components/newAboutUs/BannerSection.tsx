@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Marcellus } from "next/font/google";
-import bannerImage from "@/public/newAboutUs/banner-aboutus2.jpg";
+import bannerImage from "@/public/newAboutUs/banner3.jpg";
 
 const marcellus = Marcellus({
     subsets: ["latin"],
@@ -29,7 +29,11 @@ const BannerSection: React.FC<BannerSectionProps> = ({
     children,
 }) => {
     return (
-        <section id="subheader" className="relative text-white py-18">
+        <section
+            id="subheader"
+            className="relative text-white py-23
+        "
+        >
             <Image
                 src={bannerImage}
                 className="object-cover"

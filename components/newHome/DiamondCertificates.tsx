@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-// import cert1 from "@/public/certificates/giaCert.jpg";
+import cert1 from "@/public/newHome/DiamondCertficates/AGL.jpg";
 import cert2 from "@/public/newHome/DiamondCertficates/cert1.png";
 import cert3 from "@/public/newHome/DiamondCertficates/cert2.png";
 import cert4 from "@/public/newHome/DiamondCertficates/cert3.png";
@@ -42,14 +42,14 @@ const fadeIn: Variants = {
 };
 
 const certificateData = [
-    // {
-    //     id: 1,
-    //     image: cert1,
-    //     title: "GIA-CERTIFICATE",
-    //     description:
-    //         "When buying a gem, its grading is a key focus. The grading certificate serves as its identity, proving quality and authenticity.",
-    //     alt: "GIA Certificate",
-    // },
+    {
+        id: 1,
+        image: cert1,
+        title: "AGL-CERTIFICATE",
+        description:
+            "The American Gemological Laboratories (AGL) is a globally recognized authority in gemstone certification, renowned for its expertise in colored stone analysis. ",
+        alt: "AGL Certificate",
+    },
     {
         id: 2,
         image: cert2,
