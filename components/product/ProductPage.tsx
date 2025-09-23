@@ -323,6 +323,7 @@ export function ProductPage({ productId }: ProductPageProps) {
                                                 <GemImage
                                                     gem={product}
                                                     className="hover:scale-105 transition-all duration-500"
+                                                    disableModal={true}
                                                 />
                                             </div>
                                         </CarouselItem>
@@ -330,15 +331,19 @@ export function ProductPage({ productId }: ProductPageProps) {
 
                                     {/* Uploaded images from S3 */}
                                     {fileUrls.images.map((imageUrl, index) => (
-                                        <CarouselItem key={index}>
+                                        <CarouselItem
+                                            key={index}
+                                            onClick={() =>
+                                                openPreview(imageUrl, "images")
+                                            }
+                                            className="cursor-pointer"
+                                        >
                                             <div className="w-full h-full flex items-center justify-center">
-                                                <img
-                                                    src={imageUrl}
-                                                    alt={`${
-                                                        product.description
-                                                    } - Image ${index + 1}`}
-                                                    className="object-contain hover:scale-105 transition-all duration-500"
-                                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                                <GemImage
+                                                    gem={product}
+                                                    index={index}
+                                                    className="hover:scale-105 transition-all duration-500 object-center"
+                                                    disableModal={true}
                                                 />
                                             </div>
                                         </CarouselItem>

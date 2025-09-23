@@ -87,7 +87,7 @@ export function ClientGemsTable({
             >
                 <CardContent className="p-0 rounded-sm ">
                     {/* Gem Image Placeholder */}
-                    <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                    <div className="aspect-square bg-transparent relative overflow-hidden">
                         <GemImage gem={gem} />
                         <div className="absolute inset-0 flex items-center justify-center">
                             {/* <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center">
@@ -95,19 +95,6 @@ export function ClientGemsTable({
                                 {gem.stoneType?.charAt(0) || "G"}
                             </span>
                         </div> */}
-                        </div>
-
-                        {/* Overlay buttons */}
-                        <div className="absolute bg-gradient-to-b from-transparent  to-black/30 w-full h-3/4 flex bottom-0 flex-col items-start justify-end gap-2">
-                            {/* <Button size="sm" className="mr-1">
-                            <Heart className="h-4 w-4" />
-                        </Button> */}
-                            {/* <Button size="sm">
-                            <Eye className="h-4 w-4" />
-                        </Button> */}
-                            <div className="flex-col w-full items-start justify-between ">
-                                <h3 className="pl-2 py-5 text-white font-medium text-lg truncate mx-auto flex flex-col "></h3>
-                            </div>
                         </div>
 
                         {/* Availability badge */}

@@ -11,9 +11,15 @@ interface GemImageProps {
     gem: Gem;
     index?: number;
     className?: string; // Optional className prop for styling
+    disableModal?: boolean; // Add this prop to disable modal functionality
 }
 const fallbackUrl = "/semiPreciousFeature.jpg";
-const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
+const GemImage = ({
+    gem,
+    index = 0,
+    className,
+    disableModal = false,
+}: GemImageProps) => {
     const [imageUrl, setImageUrl] = useState<string>(fallbackUrl);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -108,7 +114,9 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
     }, [isModalOpen]);
 
     const openModal = () => {
-        setIsModalOpen(true);
+        if (!disableModal) {
+            setIsModalOpen(true);
+        }
     };
 
     const closeModal = () => {
@@ -130,14 +138,16 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
                 src={imageUrl}
                 alt={`${gem.stoneType} Gem`}
                 priority
-                quality={95}
+                quality={100}
                 width={300}
                 height={300}
                 className={cn(
-                    `object-contain w-full h-full transition-transform duration-500 group-hover:scale-110 cursor-pointer`,
+                    `object-contain w-full h-full transition-transform duration-500 group-hover:scale-110 ${
+                        !disableModal ? "cursor-pointer" : ""
+                    }`,
                     className
                 )}
-                onClick={openModal}
+                onClick={disableModal ? undefined : openModal}
                 onError={(e) => {
                     // console.error(
                     //     "Image failed to load:",
@@ -157,8 +167,8 @@ const GemImage = ({ gem, index = 0, className }: GemImageProps) => {
                 }}
             />
 
-            {/* Modal Overlay */}
-            {isModalOpen && (
+            {/* Modal Overlay - only render if modal is enabled */}
+            {!disableModal && isModalOpen && (
                 <div
                     className="fixed inset-0 bg-[#00000082]  flex items-center justify-center z-50 p-4"
                     onClick={closeModal}
