@@ -20,15 +20,19 @@ export const categories = [
 ];
 
 export const stoneTypes = [
-    { value: "Diamond", label: "Diamond" },
-    { value: "Parabia Tourmaline", label: "Parabia Tourmaline" },
-    { value: "nat emerald", label: "nat emerald" },
-    { value: "nat ruby", label: "nat ruby" },
-    { value: "nat sapphire", label: "nat sapphire" },
-    { value: "spessartine garnet", label: "spessartine garnet" },
-    { value: "spinel", label: "spinel" },
-    { value: "tourmaline", label: "tourmaline" },
-    { value: "tsavorite", label: "tsavorite" },
+    // { value: "Diamond", label: "Diamond" },
+    { value: "Sapphire", label: "Sapphire" },
+    { value: "Emerald", label: "Emerald" },
+    { value: "Ruby", label: "Ruby" },
+    { value: "semiprecious", label: "Semi Precious" },
+    // { value: "Parabia Tourmaline", label: "Parabia Tourmaline" },
+    // { value: "nat emerald", label: "nat emerald" },
+    // { value: "nat ruby", label: "nat ruby" },
+    // { value: "nat sapphire", label: "nat sapphire" },
+    // { value: "spessartine garnet", label: "spessartine garnet" },
+    // { value: "spinel", label: "spinel" },
+    // { value: "tourmaline", label: "tourmaline" },
+    // { value: "tsavorite", label: "tsavorite" },
 ];
 
 export const colors = [
