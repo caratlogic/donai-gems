@@ -125,9 +125,9 @@ const WelcomeSection = () => {
                                 Welcome to Antwerp's premier source for
                                 high-grade natural gemstones — trusted by global
                                 jewellers, designers, and collectors. Our core
-                                lies in precision-selected gems, while a select
-                                few are transformed into exclusive jewellery
-                                creations.
+                                lies in precision-selected gems, showcasing an
+                                exquisite inventory of top-quality color
+                                precious stones.
                             </motion.p>
                         </motion.div>
                     </div>
