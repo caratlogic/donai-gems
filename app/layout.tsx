@@ -26,11 +26,11 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "DONAI Gems - Premium Natural Gemstones & Luxury Jewelry | Antwerp",
+    title: "DONAI Gems - Belgium's Premium & Certified Gemstones Online",
     description:
-        "Discover the world's finest natural gemstones at DONAI Gems, Antwerp's premier gemstone dealer. Certified rubies, emeralds, sapphires, and custom luxury jewelry. Trusted by jewelers worldwide since decades.",
+        "Discover DONAI Gems, Belgium's trusted dealer of premium, certified gemstones. Premium rubies, emeralds, sapphires & rare gems for jewelers in Belgium.",
     keywords:
-        "natural gemstones, certified gems, luxury jewelry, Antwerp diamonds, rubies, emeralds, sapphires, custom jewelry, GIA certified, IGI certified, gemstone dealer, precious stones",
+        "natural gemstones, certified gems, rubies, emeralds, sapphires, custom jewelry, gemstone dealer, IGI certified, precious stones",
     authors: [{ name: "DONAI Gems" }],
     creator: "DONAI Gems",
     publisher: "DONAI Gems",
