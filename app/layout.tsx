@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     title: "DONAI Gems - Belgium's Premium & Certified Gemstones Online",
     description:
         "Discover DONAI Gems, Belgium's trusted dealer of premium, certified gemstones. Premium rubies, emeralds, sapphires & rare gems for jewelers in Belgium.",
+    alternates: {
+        canonical: "https://www.donaigems.com",
+    },
     keywords:
         "natural gemstones, certified gems, rubies, emeralds, sapphires, custom jewelry, gemstone dealer, IGI certified, precious stones",
     authors: [{ name: "DONAI Gems" }],
