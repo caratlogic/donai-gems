@@ -37,17 +37,19 @@ export const metadata: Metadata = {
     authors: [{ name: "DONAI Gems" }],
     creator: "DONAI Gems",
     publisher: "DONAI Gems",
+    icons: {
+        icon: "/favicon.ico",
+    },
     openGraph: {
-        title: "DONAI Gems - Precious Stones Gemstones & Luxury Jewelry",
-        description:
-            "Antwerp's premier source for high-grade natural gemstones. Certified precious stones trusted by global jewelers and collectors.",
-        url: "https://donaigems.com",
+        title: "DONAI Gems",
+        description: "Authentic gemstones and jewelry from DONAI Gems.",
+        url: "https://www.donaigems.com",
         siteName: "DONAI Gems",
         images: [
             {
-                url: "/og-image.jpg",
-                width: 1200,
-                height: 630,
+                url: "/og-image.png",
+                width: 500,
+                height: 459,
                 alt: "DONAI Gems - Premium Natural Gemstones",
             },
         ],
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
         title: "DONAI Gems - Premium Natural Gemstones",
         description:
             "Discover the world's finest certified gemstones from Antwerp's Diamond Street",
-        images: ["/twitter-image.jpg"],
+        images: ["/og-image.png"],
     },
     robots: {
         index: true,
