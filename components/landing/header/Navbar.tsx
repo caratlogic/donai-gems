@@ -69,14 +69,19 @@ const Navbar = () => {
         }
     });
 
-    // Only common navigation items for all users
+    // Updated navigation items with Resources instead of About Us and Gem Knowledge
     const baseNavBarItems = [
         { name: "HOME", path: "/" },
-        { name: "ABOUT US", path: "/About" },
         { name: "GEMSTONE", path: "/gemstones" },
         { name: "FINE JEWELRY", path: "/jewelery" },
-        { name: "GEM KNOWLEDGE", path: "/gem-knowledge" },
+        { name: "RESOURCES", path: "#" }, // Changed to Resources
         { name: "CONTACT US", path: "/Contact" },
+    ];
+
+    // Resources dropdown items
+    const resourcesItems = [
+        { name: "About Us", path: "/About" },
+        { name: "Gem Knowledge", path: "/gem-knowledge" },
     ];
 
     // User dropdown menu items (including admin items if admin)
@@ -98,7 +103,7 @@ const Navbar = () => {
     const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
     const [showGemstoneDropdown, setShowGemstoneDropdown] = useState(false);
     const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
-    const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+    const [showResourcesDropdown, setShowResourcesDropdown] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState("EN");
 
     const languages = [
@@ -180,45 +185,23 @@ const Navbar = () => {
                         onMouseLeave={() => {
                             setShowCategoriesDropdown(false);
                             setShowGemstoneDropdown(false);
+                            setShowResourcesDropdown(false);
                         }}
                         className="relative hidden lg:block justify-self-start"
                     >
                         <ul className="hidden lg:flex justify-start flex-wrap  gap-x-4 gap-y-0 text-[12px]">
                             {baseNavBarItems.map((item) => {
-                                if (item.name === "ABOUT US") {
-                                    return (
-                                        <div key={item.path}>
-                                            <li
-                                                key={item.path}
-                                                className={`py-3 relative cursor-pointer ${
-                                                    mulish.className
-                                                } text-md ${
-                                                    pathname === `${item.path}`
-                                                        ? "text-[#D6C5A0]"
-                                                        : "text-white hover:text-[#D6C5A0]"
-                                                }`}
-                                                style={{ fontWeight: 300 }}
-                                                onClick={() => {
-                                                    Router.push(`${item.path}`);
-                                                }}
-                                                onMouseEnter={() =>
-                                                    setShowAboutDropdown(
-                                                        !showAboutDropdown
-                                                    )
-                                                }
-                                            >
-                                                {item.name}
-                                            </li>
-                                        </div>
-                                    );
-                                }
                                 return (
                                     <li
                                         key={item.path}
                                         className={`py-3 relative cursor-pointer ${
                                             mulish.className
                                         } text-md ${
-                                            pathname === `${item.path}`
+                                            pathname === `${item.path}` ||
+                                            (item.name === "RESOURCES" &&
+                                                (pathname === "/About" ||
+                                                    pathname ===
+                                                        "/gem-knowledge"))
                                                 ? "text-[#D6C5A0]"
                                                 : "text-white hover:text-[#D6C5A0]"
                                         }`}
@@ -229,20 +212,33 @@ const Navbar = () => {
                                                 setShowCategoriesDropdown(
                                                     false
                                                 );
+                                                setShowResourcesDropdown(false);
                                             } else if (
                                                 item.name === "FINE JEWELRY"
                                             ) {
                                                 setShowCategoriesDropdown(true);
+                                                setShowGemstoneDropdown(false);
+                                                setShowResourcesDropdown(false);
+                                            } else if (
+                                                item.name === "RESOURCES"
+                                            ) {
+                                                setShowResourcesDropdown(true);
+                                                setShowCategoriesDropdown(
+                                                    false
+                                                );
                                                 setShowGemstoneDropdown(false);
                                             } else {
                                                 setShowCategoriesDropdown(
                                                     false
                                                 );
                                                 setShowGemstoneDropdown(false);
+                                                setShowResourcesDropdown(false);
                                             }
                                         }}
                                         onClick={() => {
-                                            Router.push(`${item.path}`);
+                                            if (item.name !== "RESOURCES") {
+                                                Router.push(`${item.path}`);
+                                            }
                                         }}
                                     >
                                         {item.name}
@@ -255,6 +251,37 @@ const Navbar = () => {
                             showGemstoneDropdown={showGemstoneDropdown}
                             setShowGemstoneDropdown={setShowGemstoneDropdown}
                         />
+
+                        {/* Resources Dropdown */}
+                        <AnimatePresence>
+                            {showResourcesDropdown && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="absolute top-full left-1/2 mt-2 w-48 py-2 bg-[#181818] shadow-lg rounded-lg  z-50"
+                                    onMouseEnter={() =>
+                                        setShowResourcesDropdown(true)
+                                    }
+                                    onMouseLeave={() =>
+                                        setShowResourcesDropdown(false)
+                                    }
+                                >
+                                    {resourcesItems.map((resource, index) => (
+                                        <div
+                                            key={index}
+                                            className="px-4 py-2 text-sm text-white  hover:text-[#D6C5A0] cursor-pointer transition-colors duration-200"
+                                            onClick={() =>
+                                                Router.push(resource.path)
+                                            }
+                                        >
+                                            {resource.name}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     {/* Logo Section */}
@@ -406,14 +433,36 @@ const Navbar = () => {
                         {baseNavBarItems.map((item) => (
                             <li
                                 key={item.path}
-                                onClick={() => Router.push(`${item.path}`)}
+                                onClick={() => {
+                                    if (item.name !== "RESOURCES") {
+                                        Router.push(`${item.path}`);
+                                    }
+                                }}
                                 className={`py-3 relative cursor-pointer ${
-                                    pathname === `${item.path}`
+                                    pathname === `${item.path}` ||
+                                    (item.name === "RESOURCES" &&
+                                        (pathname === "/About" ||
+                                            pathname === "/gem-knowledge"))
                                         ? "text-[#D6C5A0]"
                                         : "text-black hover:text-[#D6C5A0]"
                                 }`}
                             >
                                 {item.name}
+                            </li>
+                        ))}
+
+                        {/* Resources submenu in mobile */}
+                        {resourcesItems.map((resource) => (
+                            <li
+                                key={resource.path}
+                                onClick={() => Router.push(resource.path)}
+                                className={`py-2 pl-4 relative cursor-pointer text-base ${
+                                    pathname === resource.path
+                                        ? "text-[#D6C5A0]"
+                                        : "text-gray-600 hover:text-[#D6C5A0]"
+                                }`}
+                            >
+                                {resource.name}
                             </li>
                         ))}
 
