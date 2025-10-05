@@ -75,6 +75,7 @@ const Navbar = () => {
         { name: "ABOUT US", path: "/About" },
         { name: "GEMSTONE", path: "/gemstones" },
         { name: "FINE JEWELRY", path: "/jewelery" },
+        { name: "GEM KNOWLEDGE", path: "/gem-knowledge" },
         { name: "CONTACT US", path: "/Contact" },
     ];
 
@@ -172,16 +173,17 @@ const Navbar = () => {
 
                 <div className="w-full border-t border-[#C49A6C66]" />
 
-                <div className="flex  max-w-[1380px] mx-auto flex-row items-center  justify-between lg:justify-between px-10 relative">
+                {/* lower navbar */}
+                <div className="grid grid-cols-3 max-w-[1500px] mx-auto items-center px-10 relative">
                     {/* Nav Links */}
                     <div
                         onMouseLeave={() => {
                             setShowCategoriesDropdown(false);
                             setShowGemstoneDropdown(false);
                         }}
-                        className="relative hidden lg:block"
+                        className="relative hidden lg:block justify-self-start"
                     >
-                        <ul className="hidden lg:flex gap-[20px] text-[12px]">
+                        <ul className="hidden lg:flex justify-start flex-wrap  gap-x-4 gap-y-0 text-[12px]">
                             {baseNavBarItems.map((item) => {
                                 if (item.name === "ABOUT US") {
                                     return (
@@ -256,22 +258,25 @@ const Navbar = () => {
                     </div>
 
                     {/* Logo Section */}
-                    <Link className="lg:-translate-x-23" href="/">
-                        <Image
-                            src="/logo/logo.png"
-                            alt="Donai Gems Logo"
-                            width={500}
-                            height={400}
-                            draggable={false}
-                            priority
-                            quality={100}
-                            className="w-30 mt-3 lg:w-40 h-auto cursor-pointer"
-                            onClick={() => Router.push("/")}
-                        />
-                    </Link>
+                    <div className="justify-self-center">
+                        <Link className="" href="/">
+                            <Image
+                                src="/logo/logo.png"
+                                alt="Donai Gems Logo"
+                                width={500}
+                                height={400}
+                                draggable={false}
+                                priority
+                                quality={100}
+                                className="w-30 mt-3 lg:w-40 h-auto cursor-pointer"
+                                onClick={() => Router.push("/")}
+                            />
+                        </Link>
+                    </div>
+
                     {/* Profile and Logout */}
                     <div
-                        className={`hidden lg:flex items-center gap-3 ${mulish.className} relative`}
+                        className={`hidden lg:flex items-center gap-3 ${mulish.className} relative justify-self-end`}
                         onMouseLeave={() => setShowUserDropdown(false)}
                     >
                         {loading ? (
@@ -375,7 +380,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Hamburger Logo */}
-                    <div className="lg:hidden text-white flex gap-4">
+                    <div className="lg:hidden text-white flex gap-4 justify-self-end">
                         <button onClick={() => setMenuOpen(!isMenuOpen)}>
                             <HiOutlineMenu size={30} />
                         </button>
