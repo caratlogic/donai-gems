@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Jost } from "next/font/google";
 import ReactLenis from "lenis/react";
-
+import { useRouter } from "next/navigation";
 interface Section {
     title: string;
     content: string;
@@ -47,6 +47,7 @@ const page = () => {
             align: "left",
         },
     ];
+    const router = useRouter();
     return (
         <div>
             <ReactLenis />
@@ -398,11 +399,11 @@ const page = () => {
             </section>
 
             <section>
-                <div className="min-h-screen">
+                <div className="">
                     {sections.map((section, index) => (
                         <div
                             key={index}
-                            className="lg:min-h-screen flex items-center bg-gradient-to-r from-orange-50 to-gray-100"
+                            className=" flex items-center bg-gradient-to-r from-orange-50 to-gray-100"
                         >
                             <div className="w-full">
                                 <div
@@ -410,7 +411,7 @@ const page = () => {
                                         section.align === "left"
                                             ? "lg:flex-row-reverse"
                                             : "lg:flex-row"
-                                    } items-stretch lg:items-center lg:min-h-screen`}
+                                    } items-stretch lg:items-center `}
                                 >
                                     <motion.div
                                         initial={{
@@ -423,7 +424,7 @@ const page = () => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.8 }}
                                         viewport={{ once: true, amount: 0.3 }}
-                                        className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 lg:py-16"
+                                        className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16  "
                                     >
                                         <div className="max-w-xl w-full">
                                             <h2
@@ -437,10 +438,13 @@ const page = () => {
                                                 {section.content}
                                             </p>
                                             <button
-                                                className={`text-white px-6 sm:px-8 py-2.5 sm:py-3 transition-all duration-300 font-medium uppercase text-xs sm:text-sm hover:opacity-90 hover:shadow-2xl w-full sm:w-auto ${jost.className}`}
+                                                className={`text-white cursor-pointer px-6 sm:px-8 py-2.5 sm:py-3 transition-all duration-300 font-medium uppercase text-xs sm:text-sm hover:opacity-90 hover:shadow-2xl w-full sm:w-auto ${jost.className} mb-1 `}
                                                 style={{
                                                     background: "#aa8765",
                                                 }}
+                                                onClick={() =>
+                                                    router.push("/gemstones")
+                                                }
                                             >
                                                 View Details
                                             </button>
@@ -458,7 +462,7 @@ const page = () => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.8 }}
                                         viewport={{ once: true, amount: 0.3 }}
-                                        className="w-full lg:w-1/2 h-64 sm:h-80 md:h-96 lg:h-screen"
+                                        className="w-full lg:w-1/2 h-64 sm:h-80 md:h-96 lg:h-auto"
                                     >
                                         <div className="relative w-full h-full">
                                             <img
