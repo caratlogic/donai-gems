@@ -16,7 +16,7 @@ const jost = Jost({
     subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700"],
 });
-const page = () => {
+const Page = () => {
     const sections: Section[] = [
         {
             title: "Emeralds in Belgium: Timeless Green Treasures",
@@ -482,4 +482,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
