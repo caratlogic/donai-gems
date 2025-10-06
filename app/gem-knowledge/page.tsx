@@ -411,7 +411,7 @@ const page = () => {
                                         section.align === "left"
                                             ? "lg:flex-row-reverse"
                                             : "lg:flex-row"
-                                    } items-stretch lg:items-center `}
+                                    } items-stretch lg:items-center`}
                                 >
                                     <motion.div
                                         initial={{
