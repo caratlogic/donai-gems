@@ -9,6 +9,7 @@ interface Section {
     title: string;
     content: string;
     image: string;
+    link: string;
     align: "left" | "right";
 }
 
@@ -23,6 +24,7 @@ const Page = () => {
             content:
                 "Emeralds, celebrated for their rich green hues, have been treasured since ancient times as symbols of harmony, renewal, and prosperity. As members of the beryl family, emeralds rank among the worlds most iconic gemstones. At Donai Gems, we offer finely sourced emeralds in Belgium, handpicked for their brilliance, clarity, and rarity. These collectible green gemstones are perfect for bespoke jewellery, heirloom pieces, or sophisticated collector displays",
             image: "/images/Emerald.jpg",
+            link: "gem-knowledge/emeralds",
             align: "right",
         },
         {
@@ -30,6 +32,7 @@ const Page = () => {
             content:
                 "Rubies, with their fiery red tones, are prized as symbols of passion, protection, and vitality. Belonging to the corundum family, rubies are admired worldwide for their hardness, vivid color, and historical significance. At Donai Gems, we present a curated selection of premium rubies in Belgium, showcasing authentic red gemstones ideal for fine jewellery, heirloom-quality rings, and investment collections.",
             image: "/images/Ruby.jpg",
+            link: "gem-knowledge/rubies",
             align: "left",
         },
         {
@@ -37,6 +40,7 @@ const Page = () => {
             content:
                 "Sapphires, famous for their exceptional durability and stunning spectrum of colors, are among the most sought-after premium gemstones in Belgium. Beyond the classic deep blue, sapphires appear in pink, yellow, and even rare green varieties. These artisan-crafted gemstones blend timeless elegance with European craftsmanship, making them a favourite for bespoke necklaces, rings, and collectible jewellery.",
             image: "/images/sapphire.jpg",
+            link: "gem-knowledge/sapphires",
             align: "right",
         },
         {
@@ -44,6 +48,7 @@ const Page = () => {
             content:
                 'Semi-precious gemstones provide endless variety and creativity for collectors and jewellery enthusiasts. While traditionally more abundant than the "Big Four," stones like amethyst, citrine, garnet, and topaz rival precious gems in beauty and character. At Donai Gems, we source high-quality semi-precious stones in Belgium, celebrating their color, patterns, and durability. Each piece in our rare semi-precious collection is perfect for custom jewellery or unique heirloom-quality creations.',
             image: "/images/semi-precious.jpg",
+            link: "gem-knowledge/semi-precious",
             align: "left",
         },
     ];
@@ -443,7 +448,9 @@ const Page = () => {
                                                     background: "#aa8765",
                                                 }}
                                                 onClick={() =>
-                                                    router.push("/gemstones")
+                                                    router.push(
+                                                        `/${section.link}`
+                                                    )
                                                 }
                                             >
                                                 View Details
